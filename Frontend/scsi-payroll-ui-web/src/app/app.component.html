@@ -9,17 +9,14 @@
 <mat-sidenav-container>
 
   <mat-sidenav #sidenav="matSidenav">
-    <button mat-button class="menu-button">
+    <button mat-button class="menu-button" routerLink="/home">
       <mat-icon>home</mat-icon>
       <span>Home</span>
     </button>
-    <button mat-button class="menu-button">
+
+    <button mat-button class="menu-button" routerLink="/employees">
       <mat-icon>person</mat-icon>
-      <span>profile</span>
-    </button>
-    <button mat-button class="menu-button">
-      <mat-icon>info</mat-icon>
-      <span>About</span>
+      <span>Employees</span>
     </button>
 
     <mat-divider></mat-divider>
@@ -32,7 +29,7 @@
 
   <mat-sidenav-content>
     <div class="content mat-elevation-z4">
-      Main content
+      <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

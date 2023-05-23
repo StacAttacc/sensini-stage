@@ -11,10 +11,16 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
+import { EmployeesComponent } from './employees/employees.component';
+import { NotFoundComponentComponent } from './not-found-component/not-found-component.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    EmployeesComponent,
+    NotFoundComponentComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
