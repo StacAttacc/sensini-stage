@@ -14,6 +14,7 @@ export class AppComponent {
 
   }
 
+
   ngAfterViewInit(){
     this.observer.observe(['(max-width:800px)']).subscribe((res) => {
       if(res.matches){

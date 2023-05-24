@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "mOoHIjMeSvmnnJoD2cwtv6rKi/HCzRmzbIRZe5N2t+oEuRlBnSzypIAVdfP5m3dR0C82ncBVSm9yMDg83/kQcA==",
+  "success": true,
+  "projectFilePath": "B:\\Workspace\\sensini-stage\\Backend\\SCSI.Payroll\\SCSI.Payroll.WebApi\\SCSI.Payroll.WebApi.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\14388\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\14388\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\14388\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+    "C:\\Users\\14388\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "C:\\Users\\14388\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "C:\\Users\\14388\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.2.3\\swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+  ],
+  "logs": []
+}
