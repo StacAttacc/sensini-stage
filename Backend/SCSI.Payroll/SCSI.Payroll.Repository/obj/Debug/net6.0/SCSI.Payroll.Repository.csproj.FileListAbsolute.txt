@@ -1,0 +1,12 @@
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.Repository\bin\Debug\net6.0\SCSI.Payroll.Repository.deps.json
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.Repository\bin\Debug\net6.0\SCSI.Payroll.Repository.dll
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.Repository\bin\Debug\net6.0\SCSI.Payroll.Repository.pdb
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.Repository\obj\Debug\net6.0\SCSI.Payroll.Repository.csproj.AssemblyReference.cache
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.Repository\obj\Debug\net6.0\SCSI.Payroll.Repository.GeneratedMSBuildEditorConfig.editorconfig
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.Repository\obj\Debug\net6.0\SCSI.Payroll.Repository.AssemblyInfoInputs.cache
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.Repository\obj\Debug\net6.0\SCSI.Payroll.Repository.AssemblyInfo.cs
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.Repository\obj\Debug\net6.0\SCSI.Payroll.Repository.csproj.CoreCompileInputs.cache
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.Repository\obj\Debug\net6.0\SCSI.Payroll.Repository.dll
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.Repository\obj\Debug\net6.0\refint\SCSI.Payroll.Repository.dll
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.Repository\obj\Debug\net6.0\SCSI.Payroll.Repository.pdb
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.Repository\obj\Debug\net6.0\ref\SCSI.Payroll.Repository.dll

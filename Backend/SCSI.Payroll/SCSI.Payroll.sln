@@ -3,13 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCSI.Payroll.WebApi", "SCSI.Payroll.WebApi\SCSI.Payroll.WebApi.csproj", "{5AB588E0-8081-4235-A462-1593534FE6C8}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCSI.Payroll.Business", "SCSI.Payroll.Business\SCSI.Payroll.Business.csproj", "{8F32C9C8-3F9A-4C4D-9436-483C73FF97F9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCSI.Payroll.Repository", "SCSI.Payroll.Repository\SCSI.Payroll.Repository.csproj", "{E209E681-26B5-4CEB-91C2-F63C301F63C7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCSI.Payroll.Models", "SCSI.Payroll.Models\SCSI.Payroll.Models.csproj", "{D0BA7901-D89D-4322-A963-C6A2371A4F60}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-Presenation", "01-Presenation", "{DC7CE9A9-1717-4E88-8723-5E1798A28B0D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02-Business", "02-Business", "{5B953756-C232-4FE9-ADB2-9367BB1574EB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03-Repository", "03-Repository", "{19EC8F0B-B7E8-47B3-93BC-0D155B24396D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04-Models", "04-Models", "{8CFAEB88-3977-47CF-A104-C175CC2E87A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCSI.Payroll.WebApi", "SCSI.Payroll.WebApi\SCSI.Payroll.WebApi.csproj", "{3148B759-8E8A-4563-A88A-F68E554869E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +25,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5AB588E0-8081-4235-A462-1593534FE6C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5AB588E0-8081-4235-A462-1593534FE6C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5AB588E0-8081-4235-A462-1593534FE6C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5AB588E0-8081-4235-A462-1593534FE6C8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8F32C9C8-3F9A-4C4D-9436-483C73FF97F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8F32C9C8-3F9A-4C4D-9436-483C73FF97F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F32C9C8-3F9A-4C4D-9436-483C73FF97F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,9 +37,19 @@ Global
 		{D0BA7901-D89D-4322-A963-C6A2371A4F60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0BA7901-D89D-4322-A963-C6A2371A4F60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0BA7901-D89D-4322-A963-C6A2371A4F60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3148B759-8E8A-4563-A88A-F68E554869E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3148B759-8E8A-4563-A88A-F68E554869E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3148B759-8E8A-4563-A88A-F68E554869E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3148B759-8E8A-4563-A88A-F68E554869E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8F32C9C8-3F9A-4C4D-9436-483C73FF97F9} = {5B953756-C232-4FE9-ADB2-9367BB1574EB}
+		{E209E681-26B5-4CEB-91C2-F63C301F63C7} = {19EC8F0B-B7E8-47B3-93BC-0D155B24396D}
+		{D0BA7901-D89D-4322-A963-C6A2371A4F60} = {8CFAEB88-3977-47CF-A104-C175CC2E87A2}
+		{3148B759-8E8A-4563-A88A-F68E554869E6} = {DC7CE9A9-1717-4E88-8723-5E1798A28B0D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9F01EA0B-B014-4DB3-99A4-3B5A59E6B059}

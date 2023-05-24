@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "7GpcMV1JoIvt13WrlLD52JcGEpzgTAjDenTCkb5E/Uw=",
+  "Source": "SCSI.Payroll.WebApi",
+  "BasePath": "_content/SCSI.Payroll.WebApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
