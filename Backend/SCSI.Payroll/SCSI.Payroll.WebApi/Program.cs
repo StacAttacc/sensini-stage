@@ -11,8 +11,15 @@ namespace SCSI.Payroll.WebApi
         {
             var builder = WebApplication.CreateBuilder(args);
             // Add services to the container.
+            var configurationBuilder = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json", optional:true, reloadOnChange: true)
+                .AddJsonFile("appsettings.Development.json", optional:true, reloadOnChange:true);
+
+            var configuration = configurationBuilder.Build();
+
+            builder.Services.AddSingleton<IConfiguration>(configuration);
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-            builder.Services.AddDbContext<PayrollDbContext>(options => options.UseSqlServer("conString"));
+            builder.Services.AddDbContext<PayrollDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("PayrollConn")));
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
