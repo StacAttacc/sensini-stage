@@ -6,12 +6,12 @@
 -- Generated from EDMX file: B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.DatabaseConception\Model1.edmx
 -- --------------------------------------------------
 
-SET QUOTED_IDENTIFIER OFF;
-GO
-USE [dbtest];
-GO
-IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
-GO
+--SET QUOTED_IDENTIFIER OFF;
+--GO
+--USE [dbtest];
+--GO
+--IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
+--GO
 
 -- --------------------------------------------------
 -- Dropping existing FOREIGN KEY constraints
