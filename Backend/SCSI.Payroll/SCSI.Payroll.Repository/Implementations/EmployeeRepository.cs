@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SCSI.Payroll.Repository.Implementations
 {
-    internal class EmployeeRepository : IEmployeeRepository
+    public class EmployeeRepository : IEmployeeRepository
     {
         public async Task<Employee> DeleteEmployeeByIdAsunc(int employeeId)
         {

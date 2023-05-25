@@ -216,6 +216,9 @@
               },
               "B:\\Workspace\\sensini-stage\\Backend\\SCSI.Payroll\\SCSI.Payroll.Models\\SCSI.Payroll.Models.csproj": {
                 "projectPath": "B:\\Workspace\\sensini-stage\\Backend\\SCSI.Payroll\\SCSI.Payroll.Models\\SCSI.Payroll.Models.csproj"
+              },
+              "B:\\Workspace\\sensini-stage\\Backend\\SCSI.Payroll\\SCSI.Payroll.Repository\\SCSI.Payroll.Repository.csproj": {
+                "projectPath": "B:\\Workspace\\sensini-stage\\Backend\\SCSI.Payroll\\SCSI.Payroll.Repository\\SCSI.Payroll.Repository.csproj"
               }
             }
           }
@@ -230,6 +233,14 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.5, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.5, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.2.3, )"
