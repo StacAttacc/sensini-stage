@@ -6,4 +6,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SCSI.Payroll.Models\SCSI.Payroll.Models.csproj" />
+    <ProjectReference Include="..\SCSI.Payroll.Repository\SCSI.Payroll.Repository.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Contracts\" />
+    <Folder Include="Implementations\" />
+  </ItemGroup>
+
 </Project>
