@@ -38,7 +38,16 @@ namespace SCSI.Payroll.Repository.Implementations
 
         public async Task<Employee> GetEmployeeByIdAsync(int employeeId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var query = from e in _payrollDbContext.Employees where e.Id == employeeId select e;
+                var result =  await query.FirstOrDefaultAsync();
+                return result;
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }
         }
 
         public async Task<Employee> GetEmployeeByNameAsync(string employeeName)

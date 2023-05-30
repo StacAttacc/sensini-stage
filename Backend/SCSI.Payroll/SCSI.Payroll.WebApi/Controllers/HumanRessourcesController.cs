@@ -28,9 +28,7 @@ namespace SCSI.Payroll.WebApi.Controllers
         [ProducesResponseType(typeof(Employee), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetEmployeeById(int id)
         {
-            await Task.Delay(1);
-            var employee = new Employee() {Id = 1, FirstName = "fn1", LastName = "ln1", BirthDate = DateTime.Today, NAS="324234234"};
-
+            var employee = await _employeeBusiness.GetEmployeeByIdAsync(id);
             return Ok(employee);
         }
 
