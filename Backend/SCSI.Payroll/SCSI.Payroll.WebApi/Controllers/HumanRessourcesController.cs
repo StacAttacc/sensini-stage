@@ -20,13 +20,7 @@ namespace SCSI.Payroll.WebApi.Controllers
         [ProducesResponseType(typeof(List<Employee>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetEmployees()
         {
-            await Task.Delay(1);
-
-            var employees = new List<Employee>()
-            {
-                new Employee() {Id = 1, FirstName = "fn1", LastName = "ln1", BirthDate = DateTime.Today, NAS="324234234"},
-                new Employee() {Id = 2, FirstName = "fn2", LastName = "ln2", BirthDate = DateTime.Today, NAS="324234234"}
-            };
+            var employees = await _employeeBusiness.GetAllEmployeeListAsync();
             return Ok(employees);
         }
 

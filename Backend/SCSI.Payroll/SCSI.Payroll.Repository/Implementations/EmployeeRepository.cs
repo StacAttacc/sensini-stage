@@ -1,4 +1,5 @@
-﻿using SCSI.Payroll.Models.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using SCSI.Payroll.Models.Entities;
 using SCSI.Payroll.Repository.Contracts;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,15 @@ namespace SCSI.Payroll.Repository.Implementations
 
         public async Task<List<Employee>> GetAllEmployeeListAsync()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var results = await _payrollDbContext.Employees.ToListAsync();
+                return results;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         public async Task<Employee> GetEmployeeByIdAsync(int employeeId)

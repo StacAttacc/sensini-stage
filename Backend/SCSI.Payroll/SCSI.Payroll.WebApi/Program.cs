@@ -24,6 +24,8 @@ namespace SCSI.Payroll.WebApi
             builder.Services.AddScoped<IEmployeeBusiness, EmployeeBusiness>();
             builder.Services.AddDbContext<PayrollDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("PayrollConn")));
 
+            var x = configuration.GetConnectionString("PayrollConn");
+
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
