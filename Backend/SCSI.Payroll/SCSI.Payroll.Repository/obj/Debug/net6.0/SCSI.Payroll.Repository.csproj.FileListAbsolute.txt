@@ -10,3 +10,6 @@ B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.Repository\obj\Debu
 B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.Repository\obj\Debug\net6.0\refint\SCSI.Payroll.Repository.dll
 B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.Repository\obj\Debug\net6.0\SCSI.Payroll.Repository.pdb
 B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.Repository\obj\Debug\net6.0\ref\SCSI.Payroll.Repository.dll
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.Repository\bin\Debug\net6.0\SCSI.Payroll.Models.dll
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.Repository\bin\Debug\net6.0\SCSI.Payroll.Models.pdb
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.Repository\obj\Debug\net6.0\SCSI.Payroll.Repository.csproj.CopyComplete

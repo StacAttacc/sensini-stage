@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using SCSI.Payroll.Business.Contracts;
+using SCSI.Payroll.Business.Implementations;
 using SCSI.Payroll.Repository;
 using SCSI.Payroll.Repository.Contracts;
 using SCSI.Payroll.Repository.Implementations;
@@ -19,6 +21,7 @@ namespace SCSI.Payroll.WebApi
 
             builder.Services.AddSingleton<IConfiguration>(configuration);
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            builder.Services.AddScoped<IEmployeeBusiness, EmployeeBusiness>();
             builder.Services.AddDbContext<PayrollDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("PayrollConn")));
 
             builder.Services.AddControllers();

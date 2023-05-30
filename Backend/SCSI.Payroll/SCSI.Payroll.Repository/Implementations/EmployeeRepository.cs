@@ -10,7 +10,14 @@ namespace SCSI.Payroll.Repository.Implementations
 {
     public class EmployeeRepository : IEmployeeRepository
     {
-        public async Task<Employee> DeleteEmployeeByIdAsunc(int employeeId)
+        private PayrollDbContext _payrollDbContext;
+
+        public EmployeeRepository(PayrollDbContext payrollDbContext)
+        {
+            _payrollDbContext = payrollDbContext;
+        }
+
+        public async Task<Employee> DeleteEmployeeByIdAsync(int employeeId)
         {
             throw new NotImplementedException();
         }

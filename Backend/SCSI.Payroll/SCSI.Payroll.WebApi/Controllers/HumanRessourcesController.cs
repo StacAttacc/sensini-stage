@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SCSI.Payroll.Business.Contracts;
 using SCSI.Payroll.Models.Entities;
 
 namespace SCSI.Payroll.WebApi.Controllers
@@ -8,19 +9,46 @@ namespace SCSI.Payroll.WebApi.Controllers
     [ApiController]
     public class HumanRessourcesController : ControllerBase
     {
-        public HumanRessourcesController() { 
-        
+
+        private IEmployeeBusiness _employeeBusiness;
+        public HumanRessourcesController(IEmployeeBusiness employeeBusiness)
+        { 
+            _employeeBusiness = employeeBusiness;
         }
 
         [HttpGet("employees")]
-        public async Task<IActionResult> GetEmployees() {
+        [ProducesResponseType(typeof(List<Employee>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetEmployees()
+        {
             await Task.Delay(1);
 
             var employees = new List<Employee>()
             {
-                new Employee()
+                new Employee() {Id = 1, FirstName = "fn1", LastName = "ln1", BirthDate = DateTime.Today, NAS="324234234"},
+                new Employee() {Id = 2, FirstName = "fn2", LastName = "ln2", BirthDate = DateTime.Today, NAS="324234234"}
             };
             return Ok(employees);
+        }
+
+        [HttpGet("employees/{id}")]
+        [ProducesResponseType(typeof(Employee), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetEmployeeById(int id)
+        {
+            await Task.Delay(1);
+            var employee = new Employee() {Id = 1, FirstName = "fn1", LastName = "ln1", BirthDate = DateTime.Today, NAS="324234234"};
+
+            return Ok(employee);
+        }
+
+        [HttpPost("employees")]
+        [ProducesResponseType(typeof(Employee), StatusCodes.Status200OK)]
+        public async Task<IActionResult> SaveEmployee([FromBody] Employee employee)
+        {
+            await Task.Delay(1);
+
+            var empl = new Employee() { Id = 1, FirstName = "fn1", LastName = "ln1", BirthDate = DateTime.Today, NAS = "123123123" };
+
+            return Ok(empl);
         }
     }
 }

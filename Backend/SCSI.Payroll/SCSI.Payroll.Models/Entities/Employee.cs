@@ -11,6 +11,7 @@ namespace SCSI.Payroll.Models.Entities
     [Table("Employee", Schema = "dbo")]
     public class Employee
     {
+
         [Key(), Column("Id")]
         public int Id { get; set; }
         

@@ -13,6 +13,6 @@ namespace SCSI.Payroll.Repository.Contracts
         Task<List<Employee>> GetAllEmployeeListAsync();
         Task<Employee> GetEmployeeByIdAsync(int employeeId);
         Task<Employee> GetEmployeeByNameAsync(string employeeName);
-        Task<Employee> DeleteEmployeeByIdAsunc(int employeeId);
+        Task<Employee> DeleteEmployeeByIdAsync(int employeeId);
     }
 }

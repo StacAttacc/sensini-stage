@@ -1,0 +1,12 @@
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.DatabaseConception\bin\Debug\SCSI.Payroll.DatabaseConception.dll.config
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.DatabaseConception\bin\Debug\SCSI.Payroll.DatabaseConception.dll
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.DatabaseConception\bin\Debug\SCSI.Payroll.DatabaseConception.pdb
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.DatabaseConception\bin\Debug\EntityFramework.dll
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.DatabaseConception\bin\Debug\EntityFramework.SqlServer.dll
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.DatabaseConception\bin\Debug\EntityFramework.xml
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.DatabaseConception\bin\Debug\EntityFramework.SqlServer.xml
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.DatabaseConception\obj\Debug\SCSI.Payroll.DatabaseConception.csproj.AssemblyReference.cache
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.DatabaseConception\obj\Debug\SCSI.Payroll.DatabaseConception.csproj.CoreCompileInputs.cache
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.DatabaseConception\obj\Debug\SCSI.Payroll.DatabaseConception.csproj.CopyComplete
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.DatabaseConception\obj\Debug\SCSI.Payroll.DatabaseConception.dll
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.DatabaseConception\obj\Debug\SCSI.Payroll.DatabaseConception.pdb
