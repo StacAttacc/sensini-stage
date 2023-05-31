@@ -56,7 +56,15 @@ namespace SCSI.Payroll.Business.Implementations
 
         public async Task<Employee> SaveEmployeeAsync(Employee employee)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _employeeRepository.SaveEmployeeAsync(employee);
+                return employee;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }

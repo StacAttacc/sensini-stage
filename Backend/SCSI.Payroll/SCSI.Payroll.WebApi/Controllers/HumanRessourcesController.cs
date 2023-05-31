@@ -36,11 +36,8 @@ namespace SCSI.Payroll.WebApi.Controllers
         [ProducesResponseType(typeof(Employee), StatusCodes.Status200OK)]
         public async Task<IActionResult> SaveEmployee([FromBody] Employee employee)
         {
-            await Task.Delay(1);
-
-            var empl = new Employee() { Id = 1, FirstName = "fn1", LastName = "ln1", BirthDate = DateTime.Today, NAS = "123123123" };
-
-            return Ok(empl);
+            _employeeBusiness.SaveEmployeeAsync(employee);
+            return Ok(employee);
         }
     }
 }
