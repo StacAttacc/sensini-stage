@@ -1,3 +1,39 @@
-<button mat-icon-button style="float: right">
+<button mat-icon-button matDialogClose style="float: right">
   <mat-icon>close</mat-icon>
 </button>
+
+
+<mat-dialog-content>
+  <p>
+    <mat-form-field>
+      <mat-label>Prenom</mat-label>
+      <input matInput placeholder="Prenom">
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field>
+      <mat-label>Nom</mat-label>
+      <input matInput placeholder="Nom">
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field>
+      <mat-label>Date de naissance</mat-label>
+      <input matInput [matDatepicker]="picker">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field>
+      <mat-label>NAS</mat-label>
+      <input matInput placeholder="NAS">
+    </mat-form-field>
+  </p>
+</mat-dialog-content>
+
+
+<mat-dialog-actions>
+  <button mat-raised-button>Sauvegarder</button>
+  <button mat-raised-button matDialogClose>Cancel</button>
+</mat-dialog-actions>
