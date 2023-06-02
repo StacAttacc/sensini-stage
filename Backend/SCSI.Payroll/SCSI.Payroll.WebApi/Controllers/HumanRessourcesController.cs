@@ -5,7 +5,7 @@ using SCSI.Payroll.Models.Entities;
 
 namespace SCSI.Payroll.WebApi.Controllers
 {
-    [Route("api/human-ressources/v1")]
+    [Route("api/human-ressources/v1/employees")]
     [ApiController]
     public class HumanRessourcesController : ControllerBase
     {
@@ -24,7 +24,7 @@ namespace SCSI.Payroll.WebApi.Controllers
             return Ok(employees);
         }
 
-        [HttpGet("employees/{id}")]
+        [HttpGet("employee-by-id{id}")]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetEmployeeById(int id)
         {

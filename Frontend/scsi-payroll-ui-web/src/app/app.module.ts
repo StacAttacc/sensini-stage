@@ -11,16 +11,30 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
+import { FormsModule } from '@angular/forms';
+
 import { EmployeesComponent } from './employees/employees.component';
 import { NotFoundComponentComponent } from './not-found-component/not-found-component.component';
 import { HomeComponent } from './home/home.component';
+import { AgGridModule } from 'ag-grid-angular';
+import { EmployeesService } from './services/payroll-api-proxy';
+
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { EmployeeAddEditComponent } from './employees/employee-add-edit/employee-add-edit.component';
+import { EmployeeDeleteComponent } from './employees/employee-delete/employee-delete.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EmployeesComponent,
     NotFoundComponentComponent,
-    HomeComponent
+    HomeComponent,
+    EmployeeAddEditComponent,
+    EmployeeDeleteComponent
   ],
   imports: [
     BrowserModule,
@@ -30,9 +44,15 @@ import { HomeComponent } from './home/home.component';
     MatSidenavModule,
     MatButtonModule,
     MatIconModule,
-    MatDividerModule
+    MatDividerModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    AgGridModule,//.withComponents([])
+    HttpClientModule
   ],
-  providers: [],
+  providers: [EmployeesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

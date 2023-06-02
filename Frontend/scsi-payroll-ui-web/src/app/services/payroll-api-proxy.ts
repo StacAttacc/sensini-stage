@@ -16,21 +16,21 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angula
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
 @Injectable()
-export class V1Service {
+export class EmployeesService {
     private http: HttpClient;
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://localhost:5001";
     }
 
     /**
      * @return Success
      */
     employeesGet(): Observable<Employee[]> {
-        let url_ = this.baseUrl + "/api/human-ressources/v1/employees";
+        let url_ = this.baseUrl + "/api/human-ressources/v1/employees/employees";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -86,11 +86,11 @@ export class V1Service {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     employeesPost(body: Employee | undefined): Observable<Employee> {
-        let url_ = this.baseUrl + "/api/human-ressources/v1/employees";
+        let url_ = this.baseUrl + "/api/human-ressources/v1/employees/employees";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -141,12 +141,24 @@ export class V1Service {
         }
         return _observableOf(null as any);
     }
+}
+
+@Injectable()
+export class V1Service {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
 
     /**
      * @return Success
      */
-    employeesGet(id: number): Observable<Employee> {
-        let url_ = this.baseUrl + "/api/human-ressources/v1/employees/{id}";
+    employees(id: number): Observable<Employee> {
+        let url_ = this.baseUrl + "/api/human-ressources/v1/employees/employee-by-id{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
         url_ = url_.replace("{id}", encodeURIComponent("" + id));
@@ -161,11 +173,11 @@ export class V1Service {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processEmployeesGet(response_);
+            return this.processEmployees(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processEmployeesGet(response_ as any);
+                    return this.processEmployees(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<Employee>;
                 }
@@ -174,7 +186,7 @@ export class V1Service {
         }));
     }
 
-    protected processEmployeesGet(response: HttpResponseBase): Observable<Employee> {
+    protected processEmployees(response: HttpResponseBase): Observable<Employee> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -256,7 +268,7 @@ function jsonParse(json: any, reviver?: any) {
     json = (function recurse(obj: any, prop?: any, parent?: any) {
         if (typeof obj !== 'object' || !obj)
             return obj;
-        
+
         if ("$ref" in obj) {
             let ref = obj.$ref;
             if (ref in byid)
@@ -270,7 +282,7 @@ function jsonParse(json: any, reviver?: any) {
                 obj = obj.$values;
             byid[id] = obj;
         }
-        
+
         if (Array.isArray(obj)) {
             obj = obj.map((v, i) => recurse(v, i, obj));
         } else {

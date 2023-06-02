@@ -29,9 +29,18 @@ namespace SCSI.Payroll.WebApi
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(b =>
+                {
+                    b.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod();
+                });
+            });
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+           
 
             var app = builder.Build();
 
@@ -43,6 +52,10 @@ namespace SCSI.Payroll.WebApi
             }
 
             app.UseHttpsRedirection();
+
+            app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 
