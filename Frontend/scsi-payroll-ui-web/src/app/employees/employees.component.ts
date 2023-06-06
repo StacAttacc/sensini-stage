@@ -16,7 +16,6 @@ export class EmployeesComponent {
 
 
   columnDefs = [
-    { field : 'id' },
     { field : 'firstName' },
     { field: 'lastName' },
     { field : 'birthDate' },

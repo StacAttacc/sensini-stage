@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { BreakpointObserver } from '@angular/cdk/layout';
 
@@ -10,7 +10,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 export class AppComponent {
   @ViewChild(MatSidenav) sidenav!:MatSidenav;
 
-  constructor(private observer: BreakpointObserver){
+  constructor(private observer: BreakpointObserver, private changeDetectorRef: ChangeDetectorRef){
 
   }
 
@@ -24,6 +24,7 @@ export class AppComponent {
         this.sidenav.mode = "side";
         this.sidenav.open();
       }
+      this.changeDetectorRef.detectChanges();
     });
   }
 }

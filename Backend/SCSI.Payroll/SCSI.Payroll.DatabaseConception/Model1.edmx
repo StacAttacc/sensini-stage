@@ -24,6 +24,7 @@
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
         <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Employee" EntityType="Model1.Employee" />
+          <EntitySet Name="SocialContribution" EntityType="Model1.SocialContribution" />
         </EntityContainer>
         <EntityType Name="Employee">
           <Key>
@@ -34,6 +35,18 @@
           <Property Name="LastName" Type="String" Nullable="false" MaxLength="250" />
           <Property Name="BirthDate" Type="DateTime" Nullable="false" />
           <Property Name="NAS" Type="String" Nullable="false" MaxLength="9" />
+        </EntityType>
+        <EntityType Name="SocialContribution">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Year" Type="Int32" Nullable="false" />
+          <Property Name="RRQ_RATE" Type="Decimal" Nullable="false" />
+          <Property Name="RRQ_MGA" Type="Decimal" Nullable="false" />
+          <Property Name="Employment_Insurance" Type="Decimal" Nullable="false" />
+          <Property Name="RQAP_RATE" Type="Decimal" Nullable="false" />
+          <Property Name="RQAP_MGA" Type="Decimal" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>

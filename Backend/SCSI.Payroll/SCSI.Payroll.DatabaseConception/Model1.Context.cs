@@ -26,5 +26,6 @@ namespace SCSI.Payroll.DatabaseConception
         }
     
         public virtual DbSet<Employee> Employee { get; set; }
+        public virtual DbSet<SocialContribution> SocialContribution { get; set; }
     }
 }
