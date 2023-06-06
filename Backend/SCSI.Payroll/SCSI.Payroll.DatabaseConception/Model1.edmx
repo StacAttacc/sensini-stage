@@ -7,6 +7,7 @@
     <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="Model1StoreContainer">
     <EntitySet Name="Employee" EntityType="Model1.Store.Employee" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SocialContribution" EntityType="Model1.Store.SocialContribution" store:Type="Tables" Schema="dbo" />
   </EntityContainer>
   <EntityType Name="Employee">
     <Key>
@@ -17,6 +18,18 @@
     <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="250" />
     <Property Name="BirthDate" Type="datetime" Nullable="false" />
     <Property Name="NAS" Type="nvarchar" Nullable="false" MaxLength="9" />
+  </EntityType>
+  <EntityType Name="SocialContribution">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="RRQ_RATE" Type="decimal" Nullable="false" />
+    <Property Name="RRQ_MGA" Type="decimal" Nullable="false" />
+    <Property Name="Employment_Insurance" Type="decimal" Nullable="false" />
+    <Property Name="RQAP_RATE" Type="decimal" Nullable="false" />
+    <Property Name="RQAP_MGA" Type="decimal" Nullable="false" />
   </EntityType>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -62,6 +75,19 @@
           <ScalarProperty Name="LastName" ColumnName="LastName" />
           <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
           <ScalarProperty Name="NAS" ColumnName="NAS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SocialContribution">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.SocialContribution)">
+        <MappingFragment StoreEntitySet="SocialContribution">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="RRQ_RATE" ColumnName="RRQ_RATE" />
+          <ScalarProperty Name="RRQ_MGA" ColumnName="RRQ_MGA" />
+          <ScalarProperty Name="Employment_Insurance" ColumnName="Employment_Insurance" />
+          <ScalarProperty Name="RQAP_RATE" ColumnName="RQAP_RATE" />
+          <ScalarProperty Name="RQAP_MGA" ColumnName="RQAP_MGA" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

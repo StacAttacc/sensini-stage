@@ -1,4 +1,5 @@
-﻿using SCSI.Payroll.Models.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using SCSI.Payroll.Models.Entities;
 using SCSI.Payroll.Repository.Contracts;
 using System;
 using System.Collections.Generic;
@@ -10,24 +11,78 @@ namespace SCSI.Payroll.Repository.Implementations
 {
     public class TaxRepository : ITaxRepository
     {
-        public Task<SocialContribution> DeleteSocialContributionById(int id)
+        private PayrollDbContext _payrollDbContext;
+
+        public TaxRepository (PayrollDbContext payrollDbContext)
         {
-            throw new NotImplementedException();
+            this._payrollDbContext = payrollDbContext;
         }
 
-        public Task<SocialContribution> GetSocialContributionById(int id)
+        public async Task<SocialContribution> DeleteSocialContributionByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var query = from e in _payrollDbContext.SocialContributions where e.Id == id select e;
+                var result = await query.FirstOrDefaultAsync();
+                if(query.Count() > 0)
+                {
+                    _payrollDbContext.SocialContributions.Remove(query.First());
+                    _payrollDbContext.SaveChangesAsync();
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+        
+        public async Task<SocialContribution> GetSocialContributionByIdAsync(int id)
+        {
+            try
+            {
+                var query = from e in _payrollDbContext.SocialContributions where e.Id == id select e;
+                var result = await query.FirstOrDefaultAsync();
+                return result;
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }
         }
 
-        public Task<SocialContribution> GetSocialContributionsAsync()
+        public async Task<List<SocialContribution>> GetSocialContributionsAsync()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var result = await _payrollDbContext.SocialContributions.ToListAsync();
+                return result;
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }
         }
 
-        public Task<SocialContribution> SaveSocialContributionsAsync(SocialContribution socialContribution)
+        public async Task<SocialContribution> SaveSocialContributionsAsync(SocialContribution socialContribution)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if(socialContribution.Id == 0)
+                {
+                    _payrollDbContext.SocialContributions.Add(socialContribution);
+                }
+                else
+                {
+                    _payrollDbContext.SocialContributions.Update(socialContribution);
+                }
+                await _payrollDbContext.SaveChangesAsync();
+                return socialContribution;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }
