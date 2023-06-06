@@ -21,7 +21,15 @@ namespace SCSI.Payroll.Business.Implementations
 
         public async Task<Employee> DeleteEmployeeByIdAsunc(int employeeId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var result = await _employeeRepository.DeleteEmployeeByIdAsync(employeeId);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         public async Task<List<Employee>> GetAllEmployeeListAsync()

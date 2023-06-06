@@ -17,7 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { EmployeesComponent } from './employees/employees.component';
 import { NotFoundComponentComponent } from './not-found-component/not-found-component.component';
@@ -28,6 +28,8 @@ import { EmployeesService } from './services/payroll-api-proxy';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { EmployeeAddEditComponent } from './employees/employee-add-edit/employee-add-edit.component';
 import { EmployeeDeleteComponent } from './employees/employee-delete/employee-delete.component';
+import { EditBtnComponent } from './commons/edit-btn/edit-btn.component';
+import { DeleteBtnComponent } from './commons/delete-btn/delete-btn.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { EmployeeDeleteComponent } from './employees/employee-delete/employee-de
     NotFoundComponentComponent,
     HomeComponent,
     EmployeeAddEditComponent,
-    EmployeeDeleteComponent
+    EmployeeDeleteComponent,
+    EditBtnComponent,
+    DeleteBtnComponent
   ],
   imports: [
     BrowserModule,
@@ -51,6 +55,7 @@ import { EmployeeDeleteComponent } from './employees/employee-delete/employee-de
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
+    ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
     AgGridModule,//.withComponents([])

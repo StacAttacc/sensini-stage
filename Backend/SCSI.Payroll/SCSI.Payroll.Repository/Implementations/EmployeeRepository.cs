@@ -20,7 +20,21 @@ namespace SCSI.Payroll.Repository.Implementations
 
         public async Task<Employee> DeleteEmployeeByIdAsync(int employeeId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var query = from e in _payrollDbContext.Employees where e.Id == employeeId select e;
+                var result = await query.FirstOrDefaultAsync();
+                if (query.Count() > 0)
+                {
+                    _payrollDbContext.Employees.Remove(query.First());
+                    _payrollDbContext.SaveChanges();
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         public async Task<List<Employee>> GetAllEmployeeListAsync()

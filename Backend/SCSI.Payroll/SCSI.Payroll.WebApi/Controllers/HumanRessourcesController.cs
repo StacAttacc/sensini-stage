@@ -24,11 +24,19 @@ namespace SCSI.Payroll.WebApi.Controllers
             return Ok(employees);
         }
 
-        [HttpGet("employee-by-id{id}")]
+        [HttpGet("employee-by-id")]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetEmployeeById(int id)
         {
             var employee = await _employeeBusiness.GetEmployeeByIdAsync(id);
+            return Ok(employee);
+        }
+
+        [HttpDelete("employee-delete-by-id")]
+        [ProducesResponseType(typeof(Employee), StatusCodes.Status200OK)]
+        public async Task<IActionResult> DeleteEmployeeById(int id)
+        {
+            var employee = await _employeeBusiness.DeleteEmployeeByIdAsunc(id);
             return Ok(employee);
         }
 

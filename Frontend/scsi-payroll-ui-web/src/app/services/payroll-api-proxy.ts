@@ -86,7 +86,7 @@ export class EmployeesService {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     employeesPost(body: Employee | undefined): Observable<Employee> {
@@ -141,27 +141,17 @@ export class EmployeesService {
         }
         return _observableOf(null as any);
     }
-}
-
-@Injectable()
-export class V1Service {
-    private http: HttpClient;
-    private baseUrl: string;
-    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
-
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
-        this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
-    }
 
     /**
+     * @param id (optional) 
      * @return Success
      */
-    employees(id: number): Observable<Employee> {
-        let url_ = this.baseUrl + "/api/human-ressources/v1/employees/employee-by-id{id}";
-        if (id === undefined || id === null)
-            throw new Error("The parameter 'id' must be defined.");
-        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+    employeeById(id: number | undefined): Observable<Employee> {
+        let url_ = this.baseUrl + "/api/human-ressources/v1/employees/employee-by-id?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -173,11 +163,11 @@ export class V1Service {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processEmployees(response_);
+            return this.processEmployeeById(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processEmployees(response_ as any);
+                    return this.processEmployeeById(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<Employee>;
                 }
@@ -186,7 +176,64 @@ export class V1Service {
         }));
     }
 
-    protected processEmployees(response: HttpResponseBase): Observable<Employee> {
+    protected processEmployeeById(response: HttpResponseBase): Observable<Employee> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = Employee.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    employeeDeleteById(id: number | undefined): Observable<Employee> {
+        let url_ = this.baseUrl + "/api/human-ressources/v1/employees/employee-delete-by-id?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processEmployeeDeleteById(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processEmployeeDeleteById(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<Employee>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<Employee>;
+        }));
+    }
+
+    protected processEmployeeDeleteById(response: HttpResponseBase): Observable<Employee> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -268,7 +315,7 @@ function jsonParse(json: any, reviver?: any) {
     json = (function recurse(obj: any, prop?: any, parent?: any) {
         if (typeof obj !== 'object' || !obj)
             return obj;
-
+        
         if ("$ref" in obj) {
             let ref = obj.$ref;
             if (ref in byid)
@@ -282,7 +329,7 @@ function jsonParse(json: any, reviver?: any) {
                 obj = obj.$values;
             byid[id] = obj;
         }
-
+        
         if (Array.isArray(obj)) {
             obj = obj.map((v, i) => recurse(v, i, obj));
         } else {
