@@ -27,7 +27,7 @@ namespace SCSI.Payroll.Repository.Implementations
                 if(query.Count() > 0)
                 {
                     _payrollDbContext.SocialContributions.Remove(query.First());
-                    _payrollDbContext.SaveChangesAsync();
+                    await _payrollDbContext.SaveChangesAsync();
                 }
                 return result;
             }

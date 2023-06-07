@@ -23,13 +23,16 @@ import { EmployeesComponent } from './employees/employees.component';
 import { NotFoundComponentComponent } from './not-found-component/not-found-component.component';
 import { HomeComponent } from './home/home.component';
 import { AgGridModule } from 'ag-grid-angular';
-import { EmployeesService } from './services/payroll-api-proxy';
+import { EmployeesService, SocialContributionService } from './services/payroll-api-proxy';
 
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { EmployeeAddEditComponent } from './employees/employee-add-edit/employee-add-edit.component';
 import { EmployeeDeleteComponent } from './employees/employee-delete/employee-delete.component';
 import { EditBtnComponent } from './commons/edit-btn/edit-btn.component';
 import { DeleteBtnComponent } from './commons/delete-btn/delete-btn.component';
+import { TaxesComponent } from './taxes/taxes.component';
+import { TaxAddEditComponent } from './taxes/tax-add-edit/tax-add-edit.component';
+import { TaxDeleteComponent } from './taxes/tax-delete/tax-delete.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,10 @@ import { DeleteBtnComponent } from './commons/delete-btn/delete-btn.component';
     EmployeeAddEditComponent,
     EmployeeDeleteComponent,
     EditBtnComponent,
-    DeleteBtnComponent
+    DeleteBtnComponent,
+    TaxesComponent,
+    TaxAddEditComponent,
+    TaxDeleteComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +67,7 @@ import { DeleteBtnComponent } from './commons/delete-btn/delete-btn.component';
     AgGridModule,//.withComponents([])
     HttpClientModule
   ],
-  providers: [EmployeesService],
+  providers: [EmployeesService, SocialContributionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

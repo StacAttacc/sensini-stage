@@ -1,0 +1,49 @@
+<button mat-icon-button matDialogClose style="float: right">
+  <mat-icon>close</mat-icon>
+</button>
+
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <mat-dialog-content>
+    <p>
+      <mat-form-field>
+        <mat-label>Annee</mat-label>
+        <input matInput placeholder="YYYY" formControlName="year">
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field>
+        <mat-label>RRQ Rate</mat-label>
+        <input matInput placeholder="0.00%" formControlName="rrqRate">
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field>
+        <mat-label>RRQ MGA</mat-label>
+        <input matInput placeholder="0000.00" formControlName="rrqMga">
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field>
+        <mat-label>Employment Insurancce</mat-label>
+        <input matInput placeholder="0000.00" formControlName="employmentInsurance">
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field>
+        <mat-label>Rqap Rate</mat-label>
+        <input matInput placeholder="0.00%" formControlName="rqapRate">
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field>
+        <mat-label>RQAP MGA</mat-label>
+        <input matInput placeholder="0000.00" formControlName="rqapMga">
+      </mat-form-field>
+    </p>
+  </mat-dialog-content>
+  
+  <mat-dialog-actions>
+    <button mat-raised-button type="submit">Sauvegarder</button>
+    <button mat-raised-button matDialogClose>Cancel</button>
+  </mat-dialog-actions>
+</form>

@@ -66,7 +66,7 @@ namespace SCSI.Payroll.Business.Implementations
         {
             try
             {
-                _employeeRepository.SaveEmployeeAsync(employee);
+                await _employeeRepository.SaveEmployeeAsync(employee);
                 return employee;
             }
             catch (Exception ex)
