@@ -31,7 +31,7 @@ namespace SCSI.Payroll.WebApi.Controllers
             return Ok(socialContribution);
         }
 
-        [HttpDelete("delete-social-contribution-by-id")]
+        [HttpDelete("social-contribution-delete-by-id")]
         [ProducesResponseType(typeof(SocialContribution), StatusCodes.Status200OK)]
         public async Task<IActionResult> DeleteSoialContributionByIdAsync(int id)
         {
@@ -39,12 +39,12 @@ namespace SCSI.Payroll.WebApi.Controllers
             return Ok(socialContribution);
         }
 
-        [HttpPost("save-social-contribution")]
+        [HttpPost("social-contribution")]
         [ProducesResponseType(typeof(SocialContribution),StatusCodes.Status200OK)]
-        public async Task<IActionResult> SaveSocialContributionAsync(SocialContribution socialContribution)
+        public async Task<IActionResult> SaveSocialContributionAsync([FromBody] SocialContribution socialContribution)
         {
-            var socialContributionSaved = await _taxBusiness.SaveSocialContributionsAsync(socialContribution);
-            return Ok(socialContributionSaved);
+            _taxBusiness.SaveSocialContributionsAsync(socialContribution);
+            return Ok(socialContribution);
         }
     }
 }

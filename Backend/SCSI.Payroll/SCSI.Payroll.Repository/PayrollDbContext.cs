@@ -10,12 +10,12 @@ namespace SCSI.Payroll.Repository
 {
     public class PayrollDbContext:DbContext
     {
-        public PayrollDbContext(DbContextOptions<PayrollDbContext> options) :base(options)
-        {
+        public PayrollDbContext(DbContextOptions<PayrollDbContext> options) :base(options){}
 
-        }
         public virtual DbSet<Employee> Employees { get; set; }
+
         public virtual DbSet<SocialContribution> SocialContributions { get; set; }
+
 
     }
     

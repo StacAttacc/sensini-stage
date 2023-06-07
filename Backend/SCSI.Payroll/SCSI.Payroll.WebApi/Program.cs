@@ -20,10 +20,13 @@ namespace SCSI.Payroll.WebApi
             var configuration = configurationBuilder.Build();
 
             builder.Services.AddSingleton<IConfiguration>(configuration);
+            
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             builder.Services.AddScoped<IEmployeeBusiness, EmployeeBusiness>();
+
             builder.Services.AddScoped<ITaxRepository, TaxRepository>();
             builder.Services.AddScoped<ITaxBusiness, TaxBusiness>();
+
             builder.Services.AddDbContext<PayrollDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("PayrollConn")));
 
             var x = configuration.GetConnectionString("PayrollConn");

@@ -55,11 +55,11 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Year" Type="Int32" Nullable="false" />
-          <Property Name="RRQ_RATE" Type="Decimal" Nullable="false" />
-          <Property Name="RRQ_MGA" Type="Decimal" Nullable="false" />
-          <Property Name="Employment_Insurance" Type="Decimal" Nullable="false" />
-          <Property Name="RQAP_RATE" Type="Decimal" Nullable="false" />
-          <Property Name="RQAP_MGA" Type="Decimal" Nullable="false" />
+          <Property Name="RRQ_RATE" Type="Decimal" Nullable="false" Scale="2" Precision="18" />
+          <Property Name="RRQ_MGA" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Employment_Insurance" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="RQAP_RATE" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="RQAP_MGA" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>

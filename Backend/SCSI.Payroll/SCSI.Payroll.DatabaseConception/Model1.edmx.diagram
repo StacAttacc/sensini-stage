@@ -6,7 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="a53c95ed48c249308a01bc786e323b19" Name="Diagram1" >
         <EntityTypeShape EntityType="Model1.Employee" Width="1.5" PointX="5.125" PointY="1.875" />
-        <EntityTypeShape EntityType="Model1.SocialContribution" Width="1.5" PointX="8.125" PointY="2.875" />
+        <EntityTypeShape EntityType="Model1.SocialContribution" Width="1.5" PointX="8.125" PointY="2.875" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
