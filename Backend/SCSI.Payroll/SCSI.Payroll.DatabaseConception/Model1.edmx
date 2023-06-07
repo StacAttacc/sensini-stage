@@ -25,11 +25,11 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Year" Type="int" Nullable="false" />
-    <Property Name="RRQ_RATE" Type="decimal" Nullable="false" />
-    <Property Name="RRQ_MGA" Type="decimal" Nullable="false" />
-    <Property Name="Employment_Insurance" Type="decimal" Nullable="false" />
-    <Property Name="RQAP_RATE" Type="decimal" Nullable="false" />
-    <Property Name="RQAP_MGA" Type="decimal" Nullable="false" />
+    <Property Name="RRQ_RATE" Type="decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="RRQ_MGA" Type="decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Employment_Insurance" Type="decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="RQAP_RATE" Type="decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="RQAP_MGA" Type="decimal" Nullable="false" Precision="18" Scale="2" />
   </EntityType>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->

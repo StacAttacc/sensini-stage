@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/06/2023 03:37:34
+-- Date Created: 06/07/2023 01:46:57
 -- Generated from EDMX file: B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.DatabaseConception\Model1.edmx
 -- --------------------------------------------------
 
@@ -25,6 +25,9 @@ GO
 IF OBJECT_ID(N'[dbo].[Employee]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Employee];
 GO
+IF OBJECT_ID(N'[dbo].[SocialContribution]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SocialContribution];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -44,11 +47,11 @@ GO
 CREATE TABLE [dbo].[SocialContribution] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Year] int  NOT NULL,
-    [RRQ_RATE] decimal(18,0)  NOT NULL,
-    [RRQ_MGA] decimal(18,0)  NOT NULL,
-    [Employment_Insurance] decimal(18,0)  NOT NULL,
-    [RQAP_RATE] decimal(18,0)  NOT NULL,
-    [RQAP_MGA] decimal(18,0)  NOT NULL
+    [RRQ_RATE] decimal(18,2)  NOT NULL,
+    [RRQ_MGA] decimal(18,2)  NOT NULL,
+    [Employment_Insurance] decimal(18,2)  NOT NULL,
+    [RQAP_RATE] decimal(18,2)  NOT NULL,
+    [RQAP_MGA] decimal(18,2)  NOT NULL
 );
 GO
 

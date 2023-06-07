@@ -18,19 +18,19 @@ namespace SCSI.Payroll.Models.Entities
         public int Year { get; set; }
 
         [Column("RRQ_RATE")]
-        public decimal RRQ_RATE { get; set; }
+        public decimal RrqRate { get; set; }
 
         [Column("RRQ_MGA")]
-        public decimal RRQ_MGA { get; set; }
+        public decimal RrqMga { get; set; }
 
         [Column("Employment_Insurance")]
-        public decimal Employment_Insurance { get; set; }
+        public decimal EmploymentInsurance { get; set; }
 
         [Column("RQAP_RATE")]
-        public decimal RQAP_RATE { get; set; }
+        public decimal RqapRate { get; set; }
 
         [Column("RQAP_MGA")]
-        public decimal RQAP_MGA { get; set; }
+        public decimal RqapMga{ get; set; }
 
     }
 }

@@ -43,7 +43,7 @@ namespace SCSI.Payroll.WebApi.Controllers
         [ProducesResponseType(typeof(SocialContribution),StatusCodes.Status200OK)]
         public async Task<IActionResult> SaveSocialContributionAsync([FromBody] SocialContribution socialContribution)
         {
-            _taxBusiness.SaveSocialContributionsAsync(socialContribution);
+            await _taxBusiness.SaveSocialContributionsAsync(socialContribution);
             return Ok(socialContribution);
         }
     }
