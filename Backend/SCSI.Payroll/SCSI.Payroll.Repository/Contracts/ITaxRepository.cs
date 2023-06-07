@@ -10,9 +10,9 @@ namespace SCSI.Payroll.Repository.Contracts
     public interface ITaxRepository
     {
         Task<SocialContribution> SaveSocialContributionsAsync(SocialContribution socialContribution);
-        Task<SocialContribution> GetSocialContributionsAsync();
-        Task<SocialContribution> GetSocialContributionById(int id);
-        Task<SocialContribution> DeleteSocialContributionById(int id);
+        Task<List<SocialContribution>> GetSocialContributionsAsync();
+        Task<SocialContribution> GetSocialContributionByIdAsync(int id);
+        Task<SocialContribution> DeleteSocialContributionByIdAsync(int id);
 
     }
 }
