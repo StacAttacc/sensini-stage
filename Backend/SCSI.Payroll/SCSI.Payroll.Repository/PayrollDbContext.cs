@@ -16,6 +16,12 @@ namespace SCSI.Payroll.Repository
 
         public virtual DbSet<SocialContribution> SocialContributions { get; set; }
 
+        public virtual DbSet<FiscalYear> FiscalYears { get; set; }
+
+        public virtual DbSet<Government> Governments { get; set; }
+
+        public virtual DbSet<TaxBracket> TaxBrackets { get; set; }
+
 
     }
     

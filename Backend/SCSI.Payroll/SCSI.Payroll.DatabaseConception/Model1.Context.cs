@@ -27,5 +27,8 @@ namespace SCSI.Payroll.DatabaseConception
     
         public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<SocialContribution> SocialContribution { get; set; }
+        public virtual DbSet<FiscalYear> FiscalYear { get; set; }
+        public virtual DbSet<Government> Government { get; set; }
+        public virtual DbSet<TaxBracket> TaxBracket { get; set; }
     }
 }
