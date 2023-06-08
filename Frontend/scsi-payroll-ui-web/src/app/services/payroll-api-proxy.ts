@@ -23,7 +23,7 @@ export class EmployeesService {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://localhost:5001";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -86,7 +86,7 @@ export class EmployeesService {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     employeesPost(body: Employee | undefined): Observable<Employee> {
@@ -143,7 +143,7 @@ export class EmployeesService {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     employeeById(id: number | undefined): Observable<Employee> {
@@ -200,7 +200,7 @@ export class EmployeesService {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     employeeDeleteById(id: number | undefined): Observable<Employee> {
@@ -265,7 +265,7 @@ export class SocialContributionService {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://localhost:5001";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
     /**
@@ -328,7 +328,184 @@ export class SocialContributionService {
     }
 
     /**
-     * @param id (optional)
+     * @return Success
+     */
+    taxBrackets(): Observable<TaxBracket[]> {
+        let url_ = this.baseUrl + "/api/tax/v1/social-contribution/tax-brackets";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processTaxBrackets(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processTaxBrackets(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<TaxBracket[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<TaxBracket[]>;
+        }));
+    }
+
+    protected processTaxBrackets(response: HttpResponseBase): Observable<TaxBracket[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(TaxBracket.fromJS(item, _mappings));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @return Success
+     */
+    fiscalYears(): Observable<FiscalYear[]> {
+        let url_ = this.baseUrl + "/api/tax/v1/social-contribution/fiscal-years";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processFiscalYears(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processFiscalYears(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<FiscalYear[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<FiscalYear[]>;
+        }));
+    }
+
+    protected processFiscalYears(response: HttpResponseBase): Observable<FiscalYear[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(FiscalYear.fromJS(item, _mappings));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @return Success
+     */
+    governments(): Observable<Government[]> {
+        let url_ = this.baseUrl + "/api/tax/v1/social-contribution/governments";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGovernments(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGovernments(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<Government[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<Government[]>;
+        }));
+    }
+
+    protected processGovernments(response: HttpResponseBase): Observable<Government[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(Government.fromJS(item, _mappings));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
      * @return Success
      */
     socialContributionById(id: number | undefined): Observable<SocialContribution> {
@@ -385,7 +562,178 @@ export class SocialContributionService {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
+     * @return Success
+     */
+    taxBracketById(id: number | undefined): Observable<TaxBracket> {
+        let url_ = this.baseUrl + "/api/tax/v1/social-contribution/tax-bracket-by-id?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processTaxBracketById(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processTaxBracketById(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<TaxBracket>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<TaxBracket>;
+        }));
+    }
+
+    protected processTaxBracketById(response: HttpResponseBase): Observable<TaxBracket> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = TaxBracket.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    fiscalYearById(id: number | undefined): Observable<FiscalYear> {
+        let url_ = this.baseUrl + "/api/tax/v1/social-contribution/fiscal-year-by-id?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processFiscalYearById(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processFiscalYearById(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<FiscalYear>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<FiscalYear>;
+        }));
+    }
+
+    protected processFiscalYearById(response: HttpResponseBase): Observable<FiscalYear> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = FiscalYear.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    governmentById(id: number | undefined): Observable<Government> {
+        let url_ = this.baseUrl + "/api/tax/v1/social-contribution/government-by-id?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGovernmentById(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGovernmentById(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<Government>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<Government>;
+        }));
+    }
+
+    protected processGovernmentById(response: HttpResponseBase): Observable<Government> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = Government.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
      * @return Success
      */
     socialContributionDeleteById(id: number | undefined): Observable<SocialContribution> {
@@ -442,7 +790,178 @@ export class SocialContributionService {
     }
 
     /**
-     * @param body (optional)
+     * @param id (optional) 
+     * @return Success
+     */
+    taxBracketDeleteById(id: number | undefined): Observable<TaxBracket> {
+        let url_ = this.baseUrl + "/api/tax/v1/social-contribution/tax-bracket-delete-by-id?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processTaxBracketDeleteById(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processTaxBracketDeleteById(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<TaxBracket>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<TaxBracket>;
+        }));
+    }
+
+    protected processTaxBracketDeleteById(response: HttpResponseBase): Observable<TaxBracket> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = TaxBracket.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    fiscalYearDeleteById(id: number | undefined): Observable<FiscalYear> {
+        let url_ = this.baseUrl + "/api/tax/v1/social-contribution/fiscal-year-delete-by-id?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processFiscalYearDeleteById(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processFiscalYearDeleteById(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<FiscalYear>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<FiscalYear>;
+        }));
+    }
+
+    protected processFiscalYearDeleteById(response: HttpResponseBase): Observable<FiscalYear> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = FiscalYear.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    governmentDeleteById(id: number | undefined): Observable<Government> {
+        let url_ = this.baseUrl + "/api/tax/v1/social-contribution/government-delete-by-id?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGovernmentDeleteById(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGovernmentDeleteById(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<Government>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<Government>;
+        }));
+    }
+
+    protected processGovernmentDeleteById(response: HttpResponseBase): Observable<Government> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = Government.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param body (optional) 
      * @return Success
      */
     socialContribution(body: SocialContribution | undefined): Observable<SocialContribution> {
@@ -488,6 +1007,177 @@ export class SocialContributionService {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
             result200 = SocialContribution.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    taxBracket(body: TaxBracket | undefined): Observable<TaxBracket> {
+        let url_ = this.baseUrl + "/api/tax/v1/social-contribution/tax-bracket";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processTaxBracket(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processTaxBracket(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<TaxBracket>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<TaxBracket>;
+        }));
+    }
+
+    protected processTaxBracket(response: HttpResponseBase): Observable<TaxBracket> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = TaxBracket.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    fiscalYear(body: FiscalYear | undefined): Observable<FiscalYear> {
+        let url_ = this.baseUrl + "/api/tax/v1/social-contribution/fiscal-year";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processFiscalYear(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processFiscalYear(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<FiscalYear>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<FiscalYear>;
+        }));
+    }
+
+    protected processFiscalYear(response: HttpResponseBase): Observable<FiscalYear> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = FiscalYear.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    government(body: Government | undefined): Observable<Government> {
+        let url_ = this.baseUrl + "/api/tax/v1/social-contribution/government";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGovernment(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGovernment(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<Government>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<Government>;
+        }));
+    }
+
+    protected processGovernment(response: HttpResponseBase): Observable<Government> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = Government.fromJS(resultData200, _mappings);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -549,6 +1239,90 @@ export interface IEmployee {
     nas?: string | undefined;
 }
 
+export class FiscalYear implements IFiscalYear {
+    id?: number;
+    year?: number;
+    description?: string | undefined;
+
+    constructor(data?: IFiscalYear) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.year = _data["year"];
+            this.description = _data["description"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): FiscalYear | null {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<FiscalYear>(data, _mappings, FiscalYear);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["year"] = this.year;
+        data["description"] = this.description;
+        return data;
+    }
+}
+
+export interface IFiscalYear {
+    id?: number;
+    year?: number;
+    description?: string | undefined;
+}
+
+export class Government implements IGovernment {
+    id?: number;
+    code?: string | undefined;
+    description?: string | undefined;
+
+    constructor(data?: IGovernment) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.code = _data["code"];
+            this.description = _data["description"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): Government | null {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<Government>(data, _mappings, Government);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["code"] = this.code;
+        data["description"] = this.description;
+        return data;
+    }
+}
+
+export interface IGovernment {
+    id?: number;
+    code?: string | undefined;
+    description?: string | undefined;
+}
+
 export class SocialContribution implements ISocialContribution {
     id?: number;
     year?: number;
@@ -607,6 +1381,60 @@ export interface ISocialContribution {
     rqapMga?: number;
 }
 
+export class TaxBracket implements ITaxBracket {
+    id?: number;
+    fiscalYearId?: number;
+    governmentId?: number;
+    lowerLimit?: number;
+    upperLimit?: number;
+    rate?: number;
+
+    constructor(data?: ITaxBracket) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.fiscalYearId = _data["fiscalYearId"];
+            this.governmentId = _data["governmentId"];
+            this.lowerLimit = _data["lowerLimit"];
+            this.upperLimit = _data["upperLimit"];
+            this.rate = _data["rate"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): TaxBracket | null {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<TaxBracket>(data, _mappings, TaxBracket);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["fiscalYearId"] = this.fiscalYearId;
+        data["governmentId"] = this.governmentId;
+        data["lowerLimit"] = this.lowerLimit;
+        data["upperLimit"] = this.upperLimit;
+        data["rate"] = this.rate;
+        return data;
+    }
+}
+
+export interface ITaxBracket {
+    id?: number;
+    fiscalYearId?: number;
+    governmentId?: number;
+    lowerLimit?: number;
+    upperLimit?: number;
+    rate?: number;
+}
+
 function jsonParse(json: any, reviver?: any) {
     json = JSON.parse(json, reviver);
 
@@ -615,7 +1443,7 @@ function jsonParse(json: any, reviver?: any) {
     json = (function recurse(obj: any, prop?: any, parent?: any) {
         if (typeof obj !== 'object' || !obj)
             return obj;
-
+        
         if ("$ref" in obj) {
             let ref = obj.$ref;
             if (ref in byid)
@@ -629,7 +1457,7 @@ function jsonParse(json: any, reviver?: any) {
                 obj = obj.$values;
             byid[id] = obj;
         }
-
+        
         if (Array.isArray(obj)) {
             obj = obj.map((v, i) => recurse(v, i, obj));
         } else {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SCSI.Payroll.Repository.Contracts
 {
-    public interface IGovernment
+    public interface IGovernmentRepository
     {
         Task<List<Government>> GetGovernmentsAsync();
 

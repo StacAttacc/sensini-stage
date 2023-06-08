@@ -26,7 +26,7 @@ namespace SCSI.Payroll.Repository.Implementations
                 if (query.Count() > 0)
                 {
                     _payrollDbContext.FiscalYears.Remove(result);
-                    _payrollDbContext.SaveChanges();
+                    await _payrollDbContext.SaveChangesAsync();
                 }
                 return result;
             }
@@ -67,7 +67,23 @@ namespace SCSI.Payroll.Repository.Implementations
 
         public async Task<FiscalYear> SaveFiscalYearAsync(FiscalYear fiscalYear)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if(fiscalYear.Id == 0)
+                {
+                    _payrollDbContext.FiscalYears.Add(fiscalYear);
+                }
+                else
+                {
+                    _payrollDbContext.FiscalYears.Update(fiscalYear);
+                }
+                await _payrollDbContext.SaveChangesAsync();
+                return fiscalYear;
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }
         }
     }
 }

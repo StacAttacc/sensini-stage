@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SCSI.Payroll.Models.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,14 @@ using System.Threading.Tasks;
 
 namespace SCSI.Payroll.Business.Contracts
 {
-    internal interface IFiscalYearBusiness
+    public interface IFiscalYearBusiness
     {
+        Task<List<FiscalYear>> GetAllFiscalYearsAsync();
+
+        Task<FiscalYear> GetFiscalYearByIdAsync(int id);
+
+        Task<FiscalYear> DeleteFiscalYearByIdAsync(int id);
+
+        Task<FiscalYear> SaveFiscalYearAsync(FiscalYear fiscalYear);
     }
 }
