@@ -6,12 +6,14 @@ import { NotFoundComponentComponent } from './not-found-component/not-found-comp
 import { HomeComponent } from './home/home.component';
 import { TaxesComponent } from './taxes/taxes.component';
 import { FiscalYearsComponent } from './fiscal-years/fiscal-years.component';
+import { GovernmentComponent } from './government/government.component';
 
 const routes: Routes = [
   {path:'', pathMatch: 'full', redirectTo: 'home'},
   {path: 'employees', component: EmployeesComponent},
   {path: 'taxes', component: TaxesComponent},
   {path: 'fiscal-years', component: FiscalYearsComponent},
+  {path: 'governments', component: GovernmentComponent},
   {path: '**', component: NotFoundComponentComponent}
 ];
 

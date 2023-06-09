@@ -36,7 +36,9 @@ import { TaxDeleteComponent } from './taxes/tax-delete/tax-delete.component';
 import { FiscalYearsComponent } from './fiscal-years/fiscal-years.component';
 import { FiscalYearsAddEditComponent } from './fiscal-years/fiscal-years-add-edit/fiscal-years-add-edit.component';
 import { FiscalYearsDeleteComponent } from './fiscal-years/fiscal-years-delete/fiscal-years-delete.component';
-import { GovernentComponent } from './governent/governent.component';
+import { GovernmentComponent } from './government/government.component';
+import { GovernmentAddEditComponent } from './government/government-add-edit/government-add-edit.component';
+import { GovernmentDeleteComponent } from './government/government-delete/government-delete.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import { GovernentComponent } from './governent/governent.component';
     FiscalYearsComponent,
     FiscalYearsAddEditComponent,
     FiscalYearsDeleteComponent,
-    GovernentComponent
+    GovernmentComponent,
+    GovernmentAddEditComponent,
+    GovernmentDeleteComponent
   ],
   imports: [
     BrowserModule,
