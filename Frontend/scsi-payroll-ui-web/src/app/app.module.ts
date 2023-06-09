@@ -33,6 +33,10 @@ import { DeleteBtnComponent } from './commons/delete-btn/delete-btn.component';
 import { TaxesComponent } from './taxes/taxes.component';
 import { TaxAddEditComponent } from './taxes/tax-add-edit/tax-add-edit.component';
 import { TaxDeleteComponent } from './taxes/tax-delete/tax-delete.component';
+import { FiscalYearsComponent } from './fiscal-years/fiscal-years.component';
+import { FiscalYearsAddEditComponent } from './fiscal-years/fiscal-years-add-edit/fiscal-years-add-edit.component';
+import { FiscalYearsDeleteComponent } from './fiscal-years/fiscal-years-delete/fiscal-years-delete.component';
+import { GovernentComponent } from './governent/governent.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +50,11 @@ import { TaxDeleteComponent } from './taxes/tax-delete/tax-delete.component';
     DeleteBtnComponent,
     TaxesComponent,
     TaxAddEditComponent,
-    TaxDeleteComponent
+    TaxDeleteComponent,
+    FiscalYearsComponent,
+    FiscalYearsAddEditComponent,
+    FiscalYearsDeleteComponent,
+    GovernentComponent
   ],
   imports: [
     BrowserModule,

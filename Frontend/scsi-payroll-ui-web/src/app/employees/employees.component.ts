@@ -14,7 +14,6 @@ import { EmployeeDeleteComponent } from './employee-delete/employee-delete.compo
 })
 export class EmployeesComponent {
 
-
   columnDefs = [
     { field : 'firstName' },
     { field: 'lastName' },

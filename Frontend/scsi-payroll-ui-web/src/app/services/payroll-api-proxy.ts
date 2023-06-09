@@ -23,7 +23,7 @@ export class EmployeesService {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://localhost:5001";
     }
 
     /**
@@ -86,7 +86,7 @@ export class EmployeesService {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     employeesPost(body: Employee | undefined): Observable<Employee> {
@@ -143,7 +143,7 @@ export class EmployeesService {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     employeeById(id: number | undefined): Observable<Employee> {
@@ -200,7 +200,7 @@ export class EmployeesService {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     employeeDeleteById(id: number | undefined): Observable<Employee> {
@@ -265,7 +265,7 @@ export class SocialContributionService {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://localhost:5001";
     }
 
     /**
@@ -505,7 +505,7 @@ export class SocialContributionService {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     socialContributionById(id: number | undefined): Observable<SocialContribution> {
@@ -562,7 +562,7 @@ export class SocialContributionService {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     taxBracketById(id: number | undefined): Observable<TaxBracket> {
@@ -619,7 +619,7 @@ export class SocialContributionService {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     fiscalYearById(id: number | undefined): Observable<FiscalYear> {
@@ -676,7 +676,7 @@ export class SocialContributionService {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     governmentById(id: number | undefined): Observable<Government> {
@@ -733,7 +733,7 @@ export class SocialContributionService {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     socialContributionDeleteById(id: number | undefined): Observable<SocialContribution> {
@@ -790,7 +790,7 @@ export class SocialContributionService {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     taxBracketDeleteById(id: number | undefined): Observable<TaxBracket> {
@@ -847,7 +847,7 @@ export class SocialContributionService {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     fiscalYearDeleteById(id: number | undefined): Observable<FiscalYear> {
@@ -904,7 +904,7 @@ export class SocialContributionService {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     governmentDeleteById(id: number | undefined): Observable<Government> {
@@ -961,7 +961,7 @@ export class SocialContributionService {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     socialContribution(body: SocialContribution | undefined): Observable<SocialContribution> {
@@ -1018,7 +1018,7 @@ export class SocialContributionService {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     taxBracket(body: TaxBracket | undefined): Observable<TaxBracket> {
@@ -1075,7 +1075,7 @@ export class SocialContributionService {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     fiscalYear(body: FiscalYear | undefined): Observable<FiscalYear> {
@@ -1132,7 +1132,7 @@ export class SocialContributionService {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     government(body: Government | undefined): Observable<Government> {
@@ -1443,7 +1443,7 @@ function jsonParse(json: any, reviver?: any) {
     json = (function recurse(obj: any, prop?: any, parent?: any) {
         if (typeof obj !== 'object' || !obj)
             return obj;
-        
+
         if ("$ref" in obj) {
             let ref = obj.$ref;
             if (ref in byid)
@@ -1457,7 +1457,7 @@ function jsonParse(json: any, reviver?: any) {
                 obj = obj.$values;
             byid[id] = obj;
         }
-        
+
         if (Array.isArray(obj)) {
             obj = obj.map((v, i) => recurse(v, i, obj));
         } else {

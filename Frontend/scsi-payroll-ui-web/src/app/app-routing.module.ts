@@ -5,11 +5,13 @@ import { EmployeesComponent } from './employees/employees.component';
 import { NotFoundComponentComponent } from './not-found-component/not-found-component.component';
 import { HomeComponent } from './home/home.component';
 import { TaxesComponent } from './taxes/taxes.component';
+import { FiscalYearsComponent } from './fiscal-years/fiscal-years.component';
 
 const routes: Routes = [
   {path:'', pathMatch: 'full', redirectTo: 'home'},
   {path: 'employees', component: EmployeesComponent},
   {path: 'taxes', component: TaxesComponent},
+  {path: 'fiscal-years', component: FiscalYearsComponent},
   {path: '**', component: NotFoundComponentComponent}
 ];
 
