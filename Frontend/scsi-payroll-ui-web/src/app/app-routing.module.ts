@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { TaxesComponent } from './taxes/taxes.component';
 import { FiscalYearsComponent } from './fiscal-years/fiscal-years.component';
 import { GovernmentComponent } from './government/government.component';
+import { TaxBracketsComponent } from './tax-brackets/tax-brackets.component';
 
 const routes: Routes = [
   {path:'', pathMatch: 'full', redirectTo: 'home'},
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path: 'taxes', component: TaxesComponent},
   {path: 'fiscal-years', component: FiscalYearsComponent},
   {path: 'governments', component: GovernmentComponent},
+  {path: 'tax-brackets', component: TaxBracketsComponent},
   {path: '**', component: NotFoundComponentComponent}
 ];
 

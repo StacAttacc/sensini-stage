@@ -6,7 +6,7 @@
   <mat-dialog-content>
     <p>
       <mat-form-field>
-        <mat-label>Years</mat-label>
+        <mat-label>Code</mat-label>
         <input matInput placeholder="---" formControlName="code">
       </mat-form-field>
     </p>
@@ -14,7 +14,7 @@
 
 
   <mat-dialog-actions>
-    <button mat-raised-button type="submit">Sauvegarder</button>
+    <button mat-raised-button type="submit" [disabled]="!formGroup.valid">Sauvegarder</button>
     <button mat-raised-button matDialogClose>Cancel</button>
   </mat-dialog-actions>
 </form>

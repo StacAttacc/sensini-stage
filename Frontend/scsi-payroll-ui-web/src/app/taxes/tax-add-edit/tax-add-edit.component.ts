@@ -12,10 +12,10 @@ export class TaxAddEditComponent {
   formGroup = this.formBuilder.group({
     id: [0],
     year: [0, Validators.required],
-    rrqRate: [0, [Validators.required, Validators.pattern('^\\d+(\\.\\d+)?%$')]],
+    rrqRate: [0, [Validators.required, Validators.pattern('^\\d+(\\.\\d+)$')]],
     rrqMga: [0, [Validators.required, Validators.pattern('^\\d+(\\.\\d{2})$')]],
     employmentInsurance: [0, [Validators.required, Validators.pattern('^\\d+(\\.\\d{2})$')]],
-    rqapRate: [0, [Validators.required, Validators.pattern('^\\d+(\\.\\d+)?%$')]],
+    rqapRate: [0, [Validators.required, Validators.pattern('^\\d+(\\.\\d+)$')]],
     rqapMga: [0, [Validators.required, Validators.pattern('^\\d+(\\.\\d{2})$')]]
   });
 

@@ -15,6 +15,7 @@ export class GovernmentComponent {
   constructor(private governmentService: SocialContributionService, private dialog: MatDialog){}
 
   columnDefs =[
+    { field: 'id' },
     { field: 'code' },
     { field: 'description' },
     { headerName: 'Edit',

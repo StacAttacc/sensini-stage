@@ -14,6 +14,7 @@ import { FiscalYearsDeleteComponent } from './fiscal-years-delete/fiscal-years-d
 export class FiscalYearsComponent {
 
   columnDefs = [
+    { field: 'id' },
     { field: 'year'},
     { field: 'description' },
     { headerName: 'Edit',

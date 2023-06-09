@@ -16,6 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -39,6 +40,9 @@ import { FiscalYearsDeleteComponent } from './fiscal-years/fiscal-years-delete/f
 import { GovernmentComponent } from './government/government.component';
 import { GovernmentAddEditComponent } from './government/government-add-edit/government-add-edit.component';
 import { GovernmentDeleteComponent } from './government/government-delete/government-delete.component';
+import { TaxBracketsComponent } from './tax-brackets/tax-brackets.component';
+import { TaxBracketsAddEditComponent } from './tax-brackets/tax-brackets-add-edit/tax-brackets-add-edit.component';
+import { TaxBracketsDeleteComponent } from './tax-brackets/tax-brackets-delete/tax-brackets-delete.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +62,10 @@ import { GovernmentDeleteComponent } from './government/government-delete/govern
     FiscalYearsDeleteComponent,
     GovernmentComponent,
     GovernmentAddEditComponent,
-    GovernmentDeleteComponent
+    GovernmentDeleteComponent,
+    TaxBracketsComponent,
+    TaxBracketsAddEditComponent,
+    TaxBracketsDeleteComponent
   ],
   imports: [
     BrowserModule,
@@ -72,6 +79,7 @@ import { GovernmentDeleteComponent } from './government/government-delete/govern
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
     MatDatepickerModule,

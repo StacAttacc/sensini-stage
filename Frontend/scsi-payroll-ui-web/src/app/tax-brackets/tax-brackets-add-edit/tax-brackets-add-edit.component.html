@@ -1,0 +1,56 @@
+<button mat-icon-button matDialogClose style="float: right">
+  <mat-icon>close</mat-icon>
+</button>
+
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <mat-dialog-content>
+    <p>
+      <mat-form-field>
+        <mat-label>Fiscal Year Id</mat-label>
+        <mat-select formControlName="fiscalYearId">
+          <mat-option *ngFor="let fiscalYearOption of fiscalYearOptions" [value]="fiscalYearOption.id">
+            {{fiscalYearOption.id}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field>
+        <mat-label>Government Id</mat-label>
+        <mat-select formControlName="governmentId">
+          <mat-option *ngFor="let governmentOption of governmentOptions" [value]="governmentOption.id">
+            {{governmentOption.id}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field>
+        <mat-label>Lower Limit</mat-label>
+        <input matInput placeholder="0000.00" formControlName="lowerLimit">
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field>
+        <mat-label>Upper Limit</mat-label>
+        <input matInput placeholder="0000.00" formControlName="upperLimit">
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field>
+        <mat-label>Rate</mat-label>
+        <input matInput placeholder="0.00" formControlName="rate">
+      </mat-form-field>
+    </p>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-raised-button type="submit" [disabled]="!formGroup.valid">Sauvegarder</button>
+    <button mat-raised-button matDialogClose>Cancel</button>
+  </mat-dialog-actions>
+</form>

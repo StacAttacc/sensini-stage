@@ -2,18 +2,18 @@
   <mat-icon>close</mat-icon>
 </button>
 
-<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+<form [formGroup]="formGroup" (ngSubmit)="onDelete()">
   <mat-dialog-content>
     <p>
       <mat-form-field>
-        <mat-label>Code</mat-label>
-        <input matInput placeholder="---" required formControlName="code">
+        <mat-label>Fiscal Year Id</mat-label>
+        <input matInput placeholder="0000" formControlName="fiscalYearId">
       </mat-form-field>
     </p>
     <p>
       <mat-form-field>
-        <mat-label>Description</mat-label>
-        <input matInput placeholder="description" required formControlName="description">
+        <mat-label>Government Id</mat-label>
+        <input matInput placeholder="0000" formControlName="governmentId">
       </mat-form-field>
     </p>
   </mat-dialog-content>

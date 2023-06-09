@@ -13,7 +13,7 @@
     <p>
       <mat-form-field>
         <mat-label>RRQ Rate</mat-label>
-        <input matInput placeholder="0.00%" formControlName="rrqRate">
+        <input matInput placeholder="0.00" formControlName="rrqRate">
       </mat-form-field>
     </p>
     <p>
@@ -31,7 +31,7 @@
     <p>
       <mat-form-field>
         <mat-label>Rqap Rate</mat-label>
-        <input matInput placeholder="0.00%" formControlName="rqapRate">
+        <input matInput placeholder="0.00" formControlName="rqapRate">
       </mat-form-field>
     </p>
     <p>
@@ -41,9 +41,9 @@
       </mat-form-field>
     </p>
   </mat-dialog-content>
-  
+
   <mat-dialog-actions>
-    <button mat-raised-button type="submit">Sauvegarder</button>
+    <button mat-raised-button type="submit" [disabled]="!formGroup.valid">Sauvegarder</button>
     <button mat-raised-button matDialogClose>Cancel</button>
   </mat-dialog-actions>
 </form>
