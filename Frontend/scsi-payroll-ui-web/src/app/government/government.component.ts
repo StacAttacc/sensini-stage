@@ -4,6 +4,7 @@ import { Government, SocialContributionService } from '../services/payroll-api-p
 import { DeleteBtnComponent } from '../commons/delete-btn/delete-btn.component';
 import { MatDialog } from '@angular/material/dialog';
 import { GovernmentAddEditComponent } from './government-add-edit/government-add-edit.component';
+import { GovernmentDeleteComponent } from './government-delete/government-delete.component';
 
 @Component({
   selector: 'app-government',
@@ -41,7 +42,11 @@ export class GovernmentComponent {
   }
 
   onDeleteBtnClicked(e: any){
-
+    console.log(e.data);
+    this.dialog.open(GovernmentDeleteComponent,{
+      data: e.data,
+      width: '500px',
+    });
   }
 
   openAddGovernment(e: any){

@@ -51,14 +51,13 @@ export class TaxesComponent {
   }
 
   openTaxAddEdit(e: any){
-    console.log(e.data);
+    //console.log(e.data);
     if(e == null){
       this.dialog.open(TaxAddEditComponent,{
         width:'500px',
       });
     }
     else{
-      
       this.dialog.open(TaxAddEditComponent,{
         data:e.data,
         width: '500px',

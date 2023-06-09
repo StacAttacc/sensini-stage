@@ -24,17 +24,19 @@ export class TaxAddEditComponent {
               private socialContributionService: SocialContributionService){}
 
   onSubmit(){
-    let tax = new SocialContribution;
-    tax.id = this.formGroup.value.id?? 0;
-    tax.year = this.formGroup.value.year?? 0;
-    tax.rrqRate = parseFloat(this.formGroup.value.rqapRate?.toString()?? '');
-    tax.rrqMga = parseFloat(this.formGroup.value.rqapMga?.toString()?? '');
-    tax.employmentInsurance = parseFloat(this.formGroup.value.employmentInsurance?.toString()?? '');
-    tax.rqapRate = parseFloat(this.formGroup.value.rqapRate?.toString()?? '');
-    tax.rqapMga = parseFloat(this.formGroup.value.rqapMga?.toString()?? '');
-    this.socialContributionService.socialContribution(tax).subscribe( tax => {
-      console.log(tax);
-    });
+    if(this.formGroup.valid){
+      let tax = new SocialContribution;
+      tax.id = this.formGroup.value.id?? 0;
+      tax.year = this.formGroup.value.year?? 0;
+      tax.rrqRate = parseFloat(this.formGroup.value.rqapRate?.toString()?? '');
+      tax.rrqMga = parseFloat(this.formGroup.value.rqapMga?.toString()?? '');
+      tax.employmentInsurance = parseFloat(this.formGroup.value.employmentInsurance?.toString()?? '');
+      tax.rqapRate = parseFloat(this.formGroup.value.rqapRate?.toString()?? '');
+      tax.rqapMga = parseFloat(this.formGroup.value.rqapMga?.toString()?? '');
+      this.socialContributionService.socialContribution(tax).subscribe( tax => {
+        console.log(tax);
+      });
+    }
   }
 
   ngOnInit(){

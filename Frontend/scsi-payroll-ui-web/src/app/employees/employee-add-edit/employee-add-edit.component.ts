@@ -25,15 +25,17 @@ export class EmployeeAddEditComponent {
 
 
   onSubmit(){
-    let employee =  new Employee();
-    employee.id = this.formGroup.value.id?? 0;
-    employee.firstName = this.formGroup.value.firstName?? '';
-    employee.lastName = this.formGroup.value.lastName?? '';
-    employee.birthDate = this.formGroup.value.birthDate?? new Date();
-    employee.nas = this.formGroup.value.nas?? '';
-    this.employeesService.employeesPost(employee).subscribe(
-      res => {console.log('saved updates')}
-    );
+    if(this.formGroup.valid){
+      let employee =  new Employee();
+      employee.id = this.formGroup.value.id?? 0;
+      employee.firstName = this.formGroup.value.firstName?? '';
+      employee.lastName = this.formGroup.value.lastName?? '';
+      employee.birthDate = this.formGroup.value.birthDate?? new Date();
+      employee.nas = this.formGroup.value.nas?? '';
+      this.employeesService.employeesPost(employee).subscribe(
+        res => {console.log('saved updates')}
+      );
+    }
   }
 
   ngOnInit():void{
@@ -41,7 +43,7 @@ export class EmployeeAddEditComponent {
       this.employeesService.employeeById(this.data.id).subscribe(
         emp => {
           this.formGroup.patchValue(emp);
-        } 
+        }
       )
     }
   }

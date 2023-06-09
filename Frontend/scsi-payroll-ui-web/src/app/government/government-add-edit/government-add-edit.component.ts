@@ -20,13 +20,15 @@ export class GovernmentAddEditComponent {
   });
 
   onSubmit(){
-    let government = new Government;
-    government.id = this.formGroup.value.id?? 0;
-    government.code = this.formGroup.value.code?? '';
-    government.description = this.formGroup.value.description?? '';
-    this.governmentService.government(government).subscribe( gvt => {
-      console.log('data saved');
-    });
+    if(this.formGroup.valid){
+      let government = new Government;
+      government.id = this.formGroup.value.id?? 0;
+      government.code = this.formGroup.value.code?? '';
+      government.description = this.formGroup.value.description?? '';
+      this.governmentService.government(government).subscribe( gvt => {
+        console.log('data saved');
+      });
+    }
   }
 
   ngOnInit(){

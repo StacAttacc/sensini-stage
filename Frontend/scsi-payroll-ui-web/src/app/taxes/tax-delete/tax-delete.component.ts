@@ -19,10 +19,12 @@ export class TaxDeleteComponent {
             ){}
 
   delete(){
-    if(this.data.year == this.formGroup.value.year){
-      this.socialContributionService.socialContributionDeleteById(this.data.id).subscribe( tax => {
-        console.log('tax deleted');
-      });
+    if(this.formGroup.valid){
+      if(this.data.year == this.formGroup.value.year){
+        this.socialContributionService.socialContributionDeleteById(this.data.id).subscribe( tax => {
+          console.log('tax deleted');
+        });
+      }
     }
   }
 }

@@ -17,12 +17,14 @@ export class FiscalYearsDeleteComponent {
     year: [0, Validators.required]
   });
 
-  onSubmit(){
-    if(this.formGroup.value.year == this.data.year){
-      this.fiscalYearsService.fiscalYearDeleteById(this.data.id).subscribe(fiscYear => {
-        console.log('data deleted ', this.data.year);
-      });
-    };
+  onDelete(){
+    if(this.formGroup.valid){
+      if(this.formGroup.value.year == this.data.year){
+        this.fiscalYearsService.fiscalYearDeleteById(this.data.id).subscribe(fiscYear => {
+          console.log('data deleted ', this.data.year);
+        });
+      };
+    }
   }
 
 }

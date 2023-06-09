@@ -23,13 +23,15 @@ export class EmployeeDeleteComponent {
   ){}
 
   delete(){
-    if(this.formGroup.value.firstName == this.data.firstName
-      && this.formGroup.value.firstName == this.data.firstName)
-    {
-      
-      this.employeesService.employeeDeleteById(this.data.id).subscribe(
-        res => {console.log('deleted')}
-      );
+    if(this.formGroup.value){
+      if(this.formGroup.value.firstName == this.data.firstName
+        && this.formGroup.value.firstName == this.data.firstName)
+      {
+
+        this.employeesService.employeeDeleteById(this.data.id).subscribe(
+          res => {console.log('deleted')}
+        );
+      }
     }
   }
 }

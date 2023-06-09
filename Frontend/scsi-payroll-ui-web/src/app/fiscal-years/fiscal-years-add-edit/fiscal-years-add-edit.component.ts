@@ -20,13 +20,15 @@ export class FiscalYearsAddEditComponent {
   });
 
   onSubmit(){
-    let fiscalYear = new FiscalYear();
-    fiscalYear.id = this.formGroup.value.id?? 0;
-    fiscalYear.year = this.formGroup.value.year?? 0;
-    fiscalYear.description = this.formGroup.value.description?? '';
-    this.fiscalYearService.fiscalYear(fiscalYear).subscribe( fiscYear => {
-      console.log('fiscal year saved');
-    });
+    if(this.formGroup.valid){
+      let fiscalYear = new FiscalYear();
+      fiscalYear.id = this.formGroup.value.id?? 0;
+      fiscalYear.year = this.formGroup.value.year?? 0;
+      fiscalYear.description = this.formGroup.value.description?? '';
+      this.fiscalYearService.fiscalYear(fiscalYear).subscribe( fiscYear => {
+        console.log('fiscal year saved');
+      });
+    }
   }
 
   ngOnInit(){
