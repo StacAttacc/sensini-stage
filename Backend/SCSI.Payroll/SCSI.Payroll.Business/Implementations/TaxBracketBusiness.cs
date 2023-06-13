@@ -1,4 +1,5 @@
 ﻿using SCSI.Payroll.Business.Contracts;
+using SCSI.Payroll.Models.Constants;
 using SCSI.Payroll.Models.Entities;
 using SCSI.Payroll.Repository.Contracts;
 using System;
@@ -64,27 +65,31 @@ namespace SCSI.Payroll.Business.Implementations
 
         public async Task<TaxBracket> SaveTaxBracketAsync(TaxBracket taxBracket)
         {
-            var fiscalYears = await _taxBracketRepository.GetTaxBracketsAsync();
-            var allTaxBrackets = await _taxBracketRepository.GetTaxBracketsAsync();
+            var taxBrackets = await _taxBracketRepository.GetTaxBracketsAsync();
+            TaxBracket? result = null;
             try
             {
-                if(ValidateOverlap(_fiscalYearBusiness.GetFiscalYearByIdAsync(taxBracket.FiscalYearId),
-                                    _governmentBusiness.GetGovernmentByIdAsync(taxBracket.GovernmentId),
-                                    taxBracket.LowerLimit,
-                                    taxBracket.UpperLimit,
-                                    fiscalYears))
+                if(ValidateOverlap( await _fiscalYearBusiness.GetFiscalYearByIdAsync(taxBracket.FiscalYearId),
+                                    await _governmentBusiness.GetGovernmentByIdAsync(taxBracket.GovernmentId),
+                                    taxBrackets,
+                                    taxBracket))
                 {
-                    if(await ValidateCoverageAsync(taxBracket,
-                                    _fiscalYearBusiness.GetFiscalYearByIdAsync(taxBracket.FiscalYearId),
-                                    _governmentBusiness.GetGovernmentByIdAsync(taxBracket.GovernmentId),
-                                    taxBracket.LowerLimit,
-                                    taxBracket.UpperLimit))
+                    if(await ValidateCoverageAsync( taxBracket,
+                                                    await _fiscalYearBusiness.GetFiscalYearByIdAsync(taxBracket.FiscalYearId),
+                                                    await _governmentBusiness.GetGovernmentByIdAsync(taxBracket.GovernmentId)))
                     {
-                        var result = await _taxBracketRepository.SaveTaxBracketAsync(taxBracket);
-                        return result;
+                        result = await _taxBracketRepository.SaveTaxBracketAsync(taxBracket);
+                    }
+                    else
+                    {
+                        throw new Exception(ErrorMessageConst.CoverageNotRespected);
                     }
                 }
-                return default;
+                else
+                {
+                    throw new Exception(ErrorMessageConst.OverlapRuleNotRespected);
+                }
+                return result;
             }
             catch(Exception ex)
             {
@@ -92,57 +97,62 @@ namespace SCSI.Payroll.Business.Implementations
             }
         }
 
-        private bool ValidateOverlap(Task<FiscalYear> fiscalYear, Task<Government> government, decimal lowerLimit, decimal upperLimit, List<TaxBracket> taxBrackets)
+        private bool ValidateOverlap(FiscalYear fiscalYear,
+                                     Government government,
+                                     List<TaxBracket> taxBrackets,
+                                     TaxBracket taxBracket)
         {
+            bool isValid = true;
             if (taxBrackets == null)
             {
-                return true;
+                isValid = true;
             }
             
-            foreach (TaxBracket taxBracket in taxBrackets)
+            foreach (TaxBracket item in taxBrackets)
             {
-                if (taxBracket.FiscalYearId == fiscalYear.Id && taxBracket.GovernmentId == government.Id)
+                if (item .FiscalYearId == fiscalYear.Id && item.GovernmentId == government.Id)
                 {
-                    if (taxBracket.LowerLimit == lowerLimit || taxBracket.UpperLimit == upperLimit)
+                    if (item.LowerLimit == taxBracket.LowerLimit || item.UpperLimit == taxBracket.UpperLimit)
                     {
-                        return false;
+                        isValid = false;
                     }
-                    /*if (taxBracket.LowerLimit == upperLimit || taxBracket.UpperLimit == lowerLimit)
+                    /*if (item.LowerLimit == upperLimit || taxBracket.UpperLimit == lowerLimit)
                     {
                         return false;
                     }*/
-                    if (taxBracket.LowerLimit < lowerLimit && lowerLimit < taxBracket.UpperLimit)
+                    if (item.LowerLimit < taxBracket.LowerLimit && taxBracket.LowerLimit < item.UpperLimit)
                     {
-                        return false;
+                        isValid = false;
                     }
-                    if (taxBracket.UpperLimit > upperLimit && upperLimit > taxBracket.LowerLimit)
+                    if (item.UpperLimit > taxBracket.UpperLimit && taxBracket.UpperLimit > item.LowerLimit)
                     {
-                        return false;
+                        isValid = false;
                     }
                 }
             }
-            return true;
+            return isValid;
         }
 
-        private async Task<bool> ValidateCoverageAsync(TaxBracket taxBracketInput ,Task<FiscalYear> fiscalYear, Task<Government> government, decimal lowerLimit, decimal upperLimit)
+        private async Task<bool> ValidateCoverageAsync(TaxBracket taxBracket, FiscalYear fiscalYear, Government government)
         {
+            bool isValid = true;
             if (_taxBracketRepository.GetTaxBracketsAsync == null)
             {
-                return true;
+                isValid = true;
             }
             var sortedTaxBracketsList = await SortTaxBracketWithFiscalYearAndGovernmentAsync(fiscalYear, government);
             var taxBracketToCompare = sortedTaxBracketsList.Last();
             if(taxBracketToCompare != null)
             {
-                if(upperLimit != taxBracketToCompare.LowerLimit)
+                if(taxBracket.UpperLimit != taxBracketToCompare.LowerLimit)
                 {
-                    return false;
+                    isValid = false;
                 }
             }
-            return true;
+            return isValid;
         }
 
-        private async Task<List<TaxBracket>> SortTaxBracketWithFiscalYearAndGovernmentAsync(Task<FiscalYear> fiscalYear, Task<Government> government)
+        private async Task<List<TaxBracket>> SortTaxBracketWithFiscalYearAndGovernmentAsync(FiscalYear fiscalYear, Government government)
         {
             var taxBrackets = await _taxBracketRepository.GetTaxBracketsAsync();
             List<TaxBracket> targetedTaxBrackets = null;
