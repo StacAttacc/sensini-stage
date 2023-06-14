@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCSI.Payroll.Business", "SCSI.Payroll.Business\SCSI.Payroll.Business.csproj", "{8F32C9C8-3F9A-4C4D-9436-483C73FF97F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCSI.Payroll.Business", "SCSI.Payroll.Business\SCSI.Payroll.Business.csproj", "{8F32C9C8-3F9A-4C4D-9436-483C73FF97F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCSI.Payroll.Repository", "SCSI.Payroll.Repository\SCSI.Payroll.Repository.csproj", "{E209E681-26B5-4CEB-91C2-F63C301F63C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCSI.Payroll.Repository", "SCSI.Payroll.Repository\SCSI.Payroll.Repository.csproj", "{E209E681-26B5-4CEB-91C2-F63C301F63C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCSI.Payroll.Models", "SCSI.Payroll.Models\SCSI.Payroll.Models.csproj", "{D0BA7901-D89D-4322-A963-C6A2371A4F60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCSI.Payroll.Models", "SCSI.Payroll.Models\SCSI.Payroll.Models.csproj", "{D0BA7901-D89D-4322-A963-C6A2371A4F60}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-Presenation", "01-Presenation", "{DC7CE9A9-1717-4E88-8723-5E1798A28B0D}"
 EndProject
@@ -17,11 +17,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03-Repository", "03-Reposit
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04-Models", "04-Models", "{8CFAEB88-3977-47CF-A104-C175CC2E87A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCSI.Payroll.WebApi", "SCSI.Payroll.WebApi\SCSI.Payroll.WebApi.csproj", "{3148B759-8E8A-4563-A88A-F68E554869E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCSI.Payroll.WebApi", "SCSI.Payroll.WebApi\SCSI.Payroll.WebApi.csproj", "{3148B759-8E8A-4563-A88A-F68E554869E6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05-Misc", "05-Misc", "{B1F66653-A8F0-46D9-9B20-4261762E1D52}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCSI.Payroll.DatabaseConception", "SCSI.Payroll.DatabaseConception\SCSI.Payroll.DatabaseConception.csproj", "{D7399393-5F74-43E7-A67A-81885B4366A8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06-UnitTests", "06-UnitTests", "{CAD06CC4-0BE2-4A7C-A4CC-CBF30BEADFCE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCSI.Payroll.Business.UnitTests", "SCSI.Payroll.Business.UnitTests\SCSI.Payroll.Business.UnitTests.csproj", "{55D06500-AA15-47E6-B059-40A9D580DEDF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +53,10 @@ Global
 		{D7399393-5F74-43E7-A67A-81885B4366A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7399393-5F74-43E7-A67A-81885B4366A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7399393-5F74-43E7-A67A-81885B4366A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55D06500-AA15-47E6-B059-40A9D580DEDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55D06500-AA15-47E6-B059-40A9D580DEDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55D06500-AA15-47E6-B059-40A9D580DEDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55D06500-AA15-47E6-B059-40A9D580DEDF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +67,7 @@ Global
 		{D0BA7901-D89D-4322-A963-C6A2371A4F60} = {8CFAEB88-3977-47CF-A104-C175CC2E87A2}
 		{3148B759-8E8A-4563-A88A-F68E554869E6} = {DC7CE9A9-1717-4E88-8723-5E1798A28B0D}
 		{D7399393-5F74-43E7-A67A-81885B4366A8} = {B1F66653-A8F0-46D9-9B20-4261762E1D52}
+		{55D06500-AA15-47E6-B059-40A9D580DEDF} = {CAD06CC4-0BE2-4A7C-A4CC-CBF30BEADFCE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9F01EA0B-B014-4DB3-99A4-3B5A59E6B059}

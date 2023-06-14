@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SCSI.Payroll.DatabaseConception
+namespace SCSI.Payroll.Business.UnitTests
 {
-    public class Class1
+    public class TaxBracketBusiness_Tests
     {
     }
 }
