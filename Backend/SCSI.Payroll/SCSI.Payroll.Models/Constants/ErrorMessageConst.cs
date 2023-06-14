@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace SCSI.Payroll.Models.Constants
 {
-    internal class ErrorMessageConst
+    public class ErrorMessageConst
     {
+        public const string CoverageNotRespected = "CoverageNotRespected";
+        public const string OverlapRuleNotRespected = "OverlapOccured";
+
     }
 }

@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/07/2023 23:44:46
+-- Date Created: 06/14/2023 00:15:04
 -- Generated from EDMX file: B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.DatabaseConception\Model1.edmx
 -- --------------------------------------------------
 
@@ -17,6 +17,12 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_FiscalYearTaxBracket]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[TaxBracket] DROP CONSTRAINT [FK_FiscalYearTaxBracket];
+GO
+IF OBJECT_ID(N'[dbo].[FK_GovernmentTaxBracket]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[TaxBracket] DROP CONSTRAINT [FK_GovernmentTaxBracket];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -27,6 +33,15 @@ IF OBJECT_ID(N'[dbo].[Employee]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[SocialContribution]', 'U') IS NOT NULL
     DROP TABLE [dbo].[SocialContribution];
+GO
+IF OBJECT_ID(N'[dbo].[FiscalYear]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[FiscalYear];
+GO
+IF OBJECT_ID(N'[dbo].[Government]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Government];
+GO
+IF OBJECT_ID(N'[dbo].[TaxBracket]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[TaxBracket];
 GO
 
 -- --------------------------------------------------
