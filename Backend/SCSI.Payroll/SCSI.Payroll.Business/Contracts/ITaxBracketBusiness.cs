@@ -16,5 +16,6 @@ namespace SCSI.Payroll.Business.Contracts
         bool ValidateOverlap(FiscalYear fiscalYear, Government government, List<TaxBracket> taxBrackets, TaxBracket taxBracket);
         Task<bool> ValidateCoverageAsync(TaxBracket taxBracket, FiscalYear fiscalYear, Government government);
         Task<List<TaxBracket>> SortTaxBracketWithFiscalYearAndGovernmentAsync(FiscalYear fiscalYear, Government government);
+        Task<bool> ValidateOverlapAndCoverage(TaxBracket taxBracket);
     }
 }

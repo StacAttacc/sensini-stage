@@ -2,6 +2,18 @@
 <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
   <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Employee" EntityType="Model1.Employee" />
+    <EntitySet Name="SocialContribution" EntityType="Model1.SocialContribution" />
+    <EntitySet Name="FiscalYear" EntityType="Model1.FiscalYear" />
+    <EntitySet Name="Government" EntityType="Model1.Government" />
+    <EntitySet Name="TaxBracket" EntityType="Model1.TaxBracket" />
+    <AssociationSet Name="FiscalYearTaxBracket" Association="Model1.FiscalYearTaxBracket">
+      <End Role="FiscalYear" EntitySet="FiscalYear" />
+      <End Role="TaxBracket" EntitySet="TaxBracket" />
+    </AssociationSet>
+    <AssociationSet Name="GovernmentTaxBracket" Association="Model1.GovernmentTaxBracket">
+      <End Role="Government" EntitySet="Government" />
+      <End Role="TaxBracket" EntitySet="TaxBracket" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Employee">
     <Key>
@@ -13,4 +25,69 @@
     <Property Name="BirthDate" Type="DateTime" Nullable="false" />
     <Property Name="NAS" Type="String" Nullable="false" MaxLength="9" />
   </EntityType>
+  <EntityType Name="SocialContribution">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Year" Type="Int32" Nullable="false" />
+    <Property Name="RRQ_RATE" Type="Decimal" Nullable="false" Scale="2" Precision="18" />
+    <Property Name="RRQ_MGA" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Employment_Insurance" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="RQAP_RATE" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="RQAP_MGA" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="FiscalYear">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Year" Type="Int32" Nullable="false" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Government">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" Nullable="false" MaxLength="3" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="TaxBracket">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LowerLimit" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="UpperLimit" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Rate" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="FiscalYear" Relationship="Model1.FiscalYearTaxBracket" FromRole="TaxBracket" ToRole="FiscalYear" />
+    <Property Name="FiscalYearId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Government" Relationship="Model1.GovernmentTaxBracket" FromRole="TaxBracket" ToRole="Government" />
+    <Property Name="GovernmentId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="FiscalYearTaxBracket">
+    <End Type="Model1.FiscalYear" Role="FiscalYear" Multiplicity="1" />
+    <End Type="Model1.TaxBracket" Role="TaxBracket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FiscalYear">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TaxBracket">
+        <PropertyRef Name="FiscalYearId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="GovernmentTaxBracket">
+    <End Type="Model1.Government" Role="Government" Multiplicity="1" />
+    <End Type="Model1.TaxBracket" Role="TaxBracket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Government">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TaxBracket">
+        <PropertyRef Name="GovernmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

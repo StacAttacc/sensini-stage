@@ -69,7 +69,7 @@ namespace SCSI.Payroll.Business.Implementations
             TaxBracket? result = null;
             try
             {
-                if(ValidateOverlap( await _fiscalYearBusiness.GetFiscalYearByIdAsync(taxBracket.FiscalYearId),
+                /*if(ValidateOverlap( await _fiscalYearBusiness.GetFiscalYearByIdAsync(taxBracket.FiscalYearId),
                                     await _governmentBusiness.GetGovernmentByIdAsync(taxBracket.GovernmentId),
                                     taxBrackets,
                                     taxBracket))
@@ -88,6 +88,10 @@ namespace SCSI.Payroll.Business.Implementations
                 else
                 {
                     throw new Exception(ErrorMessageConst.OverlapRuleNotRespected);
+                }*/
+                if(await ValidateOverlapAndCoverage(taxBracket))
+                {
+                    result = await _taxBracketRepository.SaveTaxBracketAsync(taxBracket);
                 }
                 return result;
             }
@@ -97,7 +101,36 @@ namespace SCSI.Payroll.Business.Implementations
             }
         }
 
-        private bool ValidateOverlap(FiscalYear fiscalYear,
+        public async Task<bool> ValidateOverlapAndCoverage(TaxBracket taxBracket)
+        {
+            bool isValid = true;
+            var taxBrackets = await _taxBracketRepository.GetTaxBracketsAsync();
+            if (ValidateOverlap(await _fiscalYearBusiness.GetFiscalYearByIdAsync(taxBracket.FiscalYearId),
+                                    await _governmentBusiness.GetGovernmentByIdAsync(taxBracket.GovernmentId),
+                                    taxBrackets,
+                                    taxBracket))
+            {
+                if (await ValidateCoverageAsync(taxBracket,
+                                                await _fiscalYearBusiness.GetFiscalYearByIdAsync(taxBracket.FiscalYearId),
+                                                await _governmentBusiness.GetGovernmentByIdAsync(taxBracket.GovernmentId)))
+                {
+                    isValid = true;
+                }
+                else
+                {
+                    isValid = false;
+                    //throw new Exception(ErrorMessageConst.CoverageNotRespected);
+                }
+            }
+            else
+            {
+                isValid = false;
+                //throw new Exception(ErrorMessageConst.OverlapRuleNotRespected);
+            }
+            return isValid;
+        }
+
+        public bool ValidateOverlap(FiscalYear fiscalYear,
                                      Government government,
                                      List<TaxBracket> taxBrackets,
                                      TaxBracket taxBracket)
@@ -133,7 +166,7 @@ namespace SCSI.Payroll.Business.Implementations
             return isValid;
         }
 
-        private async Task<bool> ValidateCoverageAsync(TaxBracket taxBracket, FiscalYear fiscalYear, Government government)
+        public async Task<bool> ValidateCoverageAsync(TaxBracket taxBracket, FiscalYear fiscalYear, Government government)
         {
             bool isValid = true;
             if (_taxBracketRepository.GetTaxBracketsAsync == null)
@@ -144,7 +177,7 @@ namespace SCSI.Payroll.Business.Implementations
             var taxBracketToCompare = sortedTaxBracketsList.Last();
             if(taxBracketToCompare != null)
             {
-                if(taxBracket.UpperLimit != taxBracketToCompare.LowerLimit)
+                if(taxBracket.LowerLimit != taxBracketToCompare.UpperLimit)
                 {
                     isValid = false;
                 }
@@ -152,10 +185,10 @@ namespace SCSI.Payroll.Business.Implementations
             return isValid;
         }
 
-        private async Task<List<TaxBracket>> SortTaxBracketWithFiscalYearAndGovernmentAsync(FiscalYear fiscalYear, Government government)
+        public async Task<List<TaxBracket>> SortTaxBracketWithFiscalYearAndGovernmentAsync(FiscalYear fiscalYear, Government government)
         {
             var taxBrackets = await _taxBracketRepository.GetTaxBracketsAsync();
-            List<TaxBracket> targetedTaxBrackets = null;
+            List<TaxBracket> targetedTaxBrackets = new List<TaxBracket>();
             List<TaxBracket> sortedTaxBrackets = null;
             foreach (TaxBracket taxBracket in taxBrackets)
             {
@@ -167,10 +200,7 @@ namespace SCSI.Payroll.Business.Implementations
                     }
                 }
             }
-            if(targetedTaxBrackets != null)
-            {
-                sortedTaxBrackets = targetedTaxBrackets.OrderBy(tax => tax.LowerLimit).ToList();
-            }
+            sortedTaxBrackets = targetedTaxBrackets.OrderBy(tax => tax.LowerLimit).ToList();
             return sortedTaxBrackets;
             
         }
