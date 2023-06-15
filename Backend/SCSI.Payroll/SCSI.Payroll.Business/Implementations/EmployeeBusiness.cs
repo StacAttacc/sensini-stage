@@ -1,4 +1,5 @@
 ﻿using SCSI.Payroll.Business.Contracts;
+using SCSI.Payroll.Models.Constants;
 using SCSI.Payroll.Models.Entities;
 using SCSI.Payroll.Repository.Contracts;
 using System;
@@ -66,13 +67,30 @@ namespace SCSI.Payroll.Business.Implementations
         {
             try
             {
-                await _employeeRepository.SaveEmployeeAsync(employee);
+                if (ValidationEmployee(employee))
+                {
+                    await _employeeRepository.SaveEmployeeAsync(employee);
+                }
+                else
+                {
+                    throw new Exception(ErrorMessageConst.EmployeeIsUneligible);
+                }
                 return employee;
             }
             catch (Exception ex)
             {
                 throw;
             }
+        }
+
+        public bool ValidationEmployee(Employee employee)
+        {
+            bool isValid = false;
+            if(employee.BirthDate.AddYears(18) <= DateTime.Now)
+            {
+                isValid = true;
+            }
+            return isValid;
         }
     }
 }

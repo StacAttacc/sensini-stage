@@ -10,6 +10,6 @@ namespace SCSI.Payroll.Models.Constants
     {
         public const string CoverageNotRespected = "CoverageNotRespected";
         public const string OverlapRuleNotRespected = "OverlapOccured";
-
+        public const string EmployeeIsUneligible = "EmployeeIsUneligible";
     }
 }
