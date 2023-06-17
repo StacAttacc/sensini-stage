@@ -106,9 +106,9 @@ namespace SCSI.Payroll.Business.Implementations
             bool isValid = true;
             var taxBrackets = await _taxBracketRepository.GetTaxBracketsAsync();
             if (ValidateOverlap(await _fiscalYearBusiness.GetFiscalYearByIdAsync(taxBracket.FiscalYearId),
-                                    await _governmentBusiness.GetGovernmentByIdAsync(taxBracket.GovernmentId),
-                                    taxBrackets,
-                                    taxBracket))
+                                await _governmentBusiness.GetGovernmentByIdAsync(taxBracket.GovernmentId),
+                                taxBrackets,
+                                taxBracket))
             {
                 if (await ValidateCoverageAsync(taxBracket,
                                                 await _fiscalYearBusiness.GetFiscalYearByIdAsync(taxBracket.FiscalYearId),
@@ -174,9 +174,9 @@ namespace SCSI.Payroll.Business.Implementations
                 isValid = true;
             }
             var sortedTaxBracketsList = await SortTaxBracketWithFiscalYearAndGovernmentAsync(fiscalYear, government);
-            var taxBracketToCompare = sortedTaxBracketsList.Last();
-            if(taxBracketToCompare != null)
+            if(sortedTaxBracketsList.Count() > 0) 
             {
+                var taxBracketToCompare = sortedTaxBracketsList.Last();
                 if(taxBracket.LowerLimit != taxBracketToCompare.UpperLimit)
                 {
                     isValid = false;

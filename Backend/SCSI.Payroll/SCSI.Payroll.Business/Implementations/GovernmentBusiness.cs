@@ -42,6 +42,19 @@ namespace SCSI.Payroll.Business.Implementations
             }
         }
 
+        public async Task<Government> GetGovernmentByCodeAsync(string code)
+        {
+            try
+            {
+                var result = await _governmentRepository.GetGovernmentByCodeAsync(code);
+                return result;
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }
+        }
+
         public async Task<List<Government>> GetGovernmentsAsync()
         {
             try

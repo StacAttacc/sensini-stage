@@ -56,6 +56,19 @@ namespace SCSI.Payroll.Business.Implementations
             }
         }
 
+        public async Task<FiscalYear> GetFiscalYearByYearAsync(int year)
+        {
+            try
+            {
+                var result = await _fiscalYearRepository.GetFiscalYearByYearAsync(year);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         public async Task<FiscalYear> SaveFiscalYearAsync(FiscalYear fiscalYear)
         {
             try

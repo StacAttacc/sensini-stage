@@ -43,6 +43,7 @@ import { GovernmentDeleteComponent } from './government/government-delete/govern
 import { TaxBracketsComponent } from './tax-brackets/tax-brackets.component';
 import { TaxBracketsAddEditComponent } from './tax-brackets/tax-brackets-add-edit/tax-brackets-add-edit.component';
 import { TaxBracketsDeleteComponent } from './tax-brackets/tax-brackets-delete/tax-brackets-delete.component';
+import { NotificationServiceService } from './services/notification-service.service';
 
 @NgModule({
   declarations: [
@@ -87,7 +88,7 @@ import { TaxBracketsDeleteComponent } from './tax-brackets/tax-brackets-delete/t
     AgGridModule,//.withComponents([])
     HttpClientModule
   ],
-  providers: [EmployeesService, SocialContributionService],
+  providers: [EmployeesService, SocialContributionService, NotificationServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

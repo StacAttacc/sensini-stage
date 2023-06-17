@@ -1,6 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NotificationTypes } from 'src/app/models/constants';
+import { NotificationServiceService } from 'src/app/services/notification-service.service';
 import { FiscalYear, IFiscalYear, SocialContributionService } from 'src/app/services/payroll-api-proxy';
 
 @Component({
@@ -11,7 +13,8 @@ import { FiscalYear, IFiscalYear, SocialContributionService } from 'src/app/serv
 export class FiscalYearsAddEditComponent {
   constructor(@Inject(MAT_DIALOG_DATA) private data: IFiscalYear,
               private formBuilder: FormBuilder,
-              private fiscalYearService: SocialContributionService){}
+              private fiscalYearService: SocialContributionService,
+              private notificationService: NotificationServiceService){}
 
   formGroup = this.formBuilder.group({
     id: [0],
@@ -27,6 +30,7 @@ export class FiscalYearsAddEditComponent {
       fiscalYear.description = this.formGroup.value.description?? '';
       this.fiscalYearService.fiscalYear(fiscalYear).subscribe( fiscYear => {
         console.log('fiscal year saved');
+        this.notificationService.notify(NotificationTypes.REFRERSH_FISCAL_YEARS);
       });
     }
   }

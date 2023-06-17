@@ -9,7 +9,7 @@
         <mat-label>Fiscal Year Id</mat-label>
         <mat-select formControlName="fiscalYearId">
           <mat-option *ngFor="let fiscalYearOption of fiscalYearOptions" [value]="fiscalYearOption.id">
-            {{fiscalYearOption.id}}
+            {{fiscalYearOption.year}}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -20,7 +20,7 @@
         <mat-label>Government Id</mat-label>
         <mat-select formControlName="governmentId">
           <mat-option *ngFor="let governmentOption of governmentOptions" [value]="governmentOption.id">
-            {{governmentOption.id}}
+            {{governmentOption.code}}
           </mat-option>
         </mat-select>
       </mat-form-field>

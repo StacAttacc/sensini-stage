@@ -89,11 +89,27 @@ namespace SCSI.Payroll.WebApi.Controllers
             return Ok(fiscalYear);
         }
 
+        [HttpGet("fiscal-year-by-year")]
+        [ProducesResponseType(typeof(FiscalYear), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetFiscalYearByYearAsync(int year)
+        {
+            var fiscalYear = await _fiscalYearBusiness.GetFiscalYearByYearAsync(year);
+            return Ok(fiscalYear);
+        }
+
         [HttpGet("government-by-id")]
         [ProducesResponseType(typeof(Government), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetGovernmentByIdAsync(int id)
         {
             var government = await _governmentBusiness.GetGovernmentByIdAsync(id);
+            return Ok(government);
+        }
+
+        [HttpGet("government-by-code")]
+        [ProducesResponseType(typeof(Government), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetGovernmentByCodeAsync(string code)
+        {
+            var government = await _governmentBusiness.GetGovernmentByCodeAsync(code);
             return Ok(government);
         }
         #endregion

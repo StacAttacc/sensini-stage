@@ -15,6 +15,10 @@ namespace SCSI.Payroll.Business.Implementations
 
         private IEmployeeRepository _employeeRepository;
 
+        public EmployeeBusiness()
+        {
+        }
+
         public EmployeeBusiness(IEmployeeRepository employeeRepository)
         {
             _employeeRepository = employeeRepository;

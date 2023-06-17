@@ -10,11 +10,9 @@ namespace SCSI.Payroll.Business.Contracts
     public interface IFiscalYearBusiness
     {
         Task<List<FiscalYear>> GetAllFiscalYearsAsync();
-
         Task<FiscalYear> GetFiscalYearByIdAsync(int id);
-
+        Task<FiscalYear> GetFiscalYearByYearAsync(int year);
         Task<FiscalYear> DeleteFiscalYearByIdAsync(int id);
-
         Task<FiscalYear> SaveFiscalYearAsync(FiscalYear fiscalYear);
     }
 }

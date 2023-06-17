@@ -27,7 +27,6 @@ mat-sidenav-container{
 }
 
 .menu-button{
-
   width: 100%;
   display: flex;
   align-items: center;
@@ -40,6 +39,22 @@ mat-sidenav-container{
   }
 
   color:lightgray;
+}
+
+button.active{
+  background-color: azure;
+  color: black;
+
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  font-size: 1rem;
+
+  mat-icon{
+    margin-right: 8px;
+  }
 }
 
 mat-divider{

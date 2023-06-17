@@ -5,6 +5,8 @@ import { FiscalYearsAddEditComponent } from './fiscal-years-add-edit/fiscal-year
 import { EditBtnComponent } from '../commons/edit-btn/edit-btn.component';
 import { DeleteBtnComponent } from '../commons/delete-btn/delete-btn.component';
 import { FiscalYearsDeleteComponent } from './fiscal-years-delete/fiscal-years-delete.component';
+import { NotificationServiceService } from '../services/notification-service.service';
+import { NotificationTypes } from '../models/constants';
 
 @Component({
   selector: 'app-fiscal-years',
@@ -36,7 +38,15 @@ export class FiscalYearsComponent {
   ];
 
   rowData: FiscalYear[] = [];
-  constructor(private fiscalYearService: SocialContributionService, private dialog: MatDialog){}
+  constructor(private fiscalYearService: SocialContributionService,
+              private dialog: MatDialog,
+              private notificationService: NotificationServiceService){
+    this.notificationService.notification$.subscribe(e => {
+      if(e == NotificationTypes.REFRERSH_FISCAL_YEARS){
+        this.loadFiscalYears();
+      }
+    })
+  }
 
   openAddFiscalYear(e: any){
     this.openAddEditFiscalYear(e);
@@ -74,6 +84,10 @@ export class FiscalYearsComponent {
   }
 
   ngOnInit(){
+    this.loadFiscalYears();
+  }
+
+  loadFiscalYears(){
     this.fiscalYearService.fiscalYears().subscribe( fiscYear => {
       this.rowData = fiscYear;
     })

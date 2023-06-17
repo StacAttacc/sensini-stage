@@ -10,11 +10,9 @@ namespace SCSI.Payroll.Repository.Contracts
     public interface IGovernmentRepository
     {
         Task<List<Government>> GetGovernmentsAsync();
-
         Task<Government> GetGovernmentByIdAsync(int id);
-
+        Task<Government> GetGovernmentByCodeAsync(string code);
         Task<Government> DeleteGovernmentByIdAsync(int id);
-
         Task<Government> SaveGovernmentAsync(Government government);
     }
 }

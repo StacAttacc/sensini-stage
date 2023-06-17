@@ -50,6 +50,20 @@ namespace SCSI.Payroll.Repository.Implementations
             }
         }
 
+        public async Task<Government> GetGovernmentByCodeAsync(string code)
+        {
+            try
+            {
+                var query = from e in _payrollDbContext.Governments where e.Code == code select e;
+                var result = await query.FirstOrDefaultAsync();
+                return result;
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }
+        }
+
         public async Task<List<Government>> GetGovernmentsAsync()
         {
             try

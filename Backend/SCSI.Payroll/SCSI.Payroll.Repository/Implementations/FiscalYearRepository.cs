@@ -65,6 +65,20 @@ namespace SCSI.Payroll.Repository.Implementations
             }
         }
 
+        public async Task<FiscalYear> GetFiscalYearByYearAsync(int year)
+        {
+            try
+            {
+                var query = from e in _payrollDbContext.FiscalYears where e.Year == year select e;
+                var result = await query.FirstOrDefaultAsync();
+                return result;
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }
+        }
+
         public async Task<FiscalYear> SaveFiscalYearAsync(FiscalYear fiscalYear)
         {
             try
