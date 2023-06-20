@@ -5,6 +5,8 @@ import { DeleteBtnComponent } from '../commons/delete-btn/delete-btn.component';
 import { MatDialog } from '@angular/material/dialog';
 import { GovernmentAddEditComponent } from './government-add-edit/government-add-edit.component';
 import { GovernmentDeleteComponent } from './government-delete/government-delete.component';
+import { NotificationServiceService } from '../services/notification-service.service';
+import { NotificationTypes } from '../models/constants';
 
 @Component({
   selector: 'app-government',
@@ -12,7 +14,15 @@ import { GovernmentDeleteComponent } from './government-delete/government-delete
   styleUrls: ['./government.component.scss']
 })
 export class GovernmentComponent {
-  constructor(private governmentService: SocialContributionService, private dialog: MatDialog){}
+  constructor(private governmentService: SocialContributionService,
+              private dialog: MatDialog,
+              private notificationService: NotificationServiceService){
+                this.notificationService.notification$.subscribe(e => {
+                  if(e == NotificationTypes.REFRESH_GOVERNMENT){
+                    this.loadGgovernment();
+                  }
+                });
+              }
 
   columnDefs =[
     { field: 'id' },
@@ -70,6 +80,10 @@ export class GovernmentComponent {
   }
 
   ngOnInit(){
+    this.loadGgovernment();
+  }
+
+  loadGgovernment(){
     this.governmentService.governments().subscribe( gvt => {
       this.rowData = gvt;
     });

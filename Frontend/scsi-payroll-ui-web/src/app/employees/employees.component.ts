@@ -6,6 +6,8 @@ import { EditBtnComponent } from '../commons/edit-btn/edit-btn.component';
 import { config } from 'rxjs';
 import { DeleteBtnComponent } from '../commons/delete-btn/delete-btn.component';
 import { EmployeeDeleteComponent } from './employee-delete/employee-delete.component';
+import { NotificationServiceService } from '../services/notification-service.service';
+import { NotificationTypes } from '../models/constants';
 
 @Component({
   selector: 'app-employees',
@@ -38,9 +40,15 @@ export class EmployeesComponent {
   ];
 
   rowData: Employee[] = [];
-  constructor(private employeesService: EmployeesService,private dialog: MatDialog) {
-
-  }
+  constructor(private employeesService: EmployeesService,
+              private dialog: MatDialog,
+              private notificationService: NotificationServiceService){
+                this.notificationService.notification$.subscribe(res => {
+                  if(res == NotificationTypes.REFRESH_EMPLOYEES){
+                    this.loadEmmployees();
+                  }
+                });
+              }
 
   onEditBtnClicked(e: any){
     this.openAddEmployeePage(e);
@@ -75,6 +83,10 @@ export class EmployeesComponent {
   }
 
   ngOnInit(): void{
+    this.loadEmmployees();
+  }
+
+  loadEmmployees(){
     this.employeesService.employeesGet().subscribe(emps => {
       this.rowData = emps;
     });

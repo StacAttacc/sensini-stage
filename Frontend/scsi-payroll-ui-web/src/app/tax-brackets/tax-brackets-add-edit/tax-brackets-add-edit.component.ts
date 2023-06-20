@@ -1,6 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NotificationTypes } from 'src/app/models/constants';
+import { NotificationServiceService } from 'src/app/services/notification-service.service';
 import { FiscalYear, Government, ITaxBracket, SocialContributionService, TaxBracket } from 'src/app/services/payroll-api-proxy';
 
 @Component({
@@ -11,7 +13,8 @@ import { FiscalYear, Government, ITaxBracket, SocialContributionService, TaxBrac
 export class TaxBracketsAddEditComponent {
   constructor(@Inject(MAT_DIALOG_DATA) private data: ITaxBracket,
               private formBuilder: FormBuilder,
-              private taxBracketService: SocialContributionService){}
+              private taxBracketService: SocialContributionService,
+              private notificationService: NotificationServiceService){}
 
   fiscalYearOptions: FiscalYear[] = []
   governmentOptions: Government[] = []
@@ -37,6 +40,7 @@ export class TaxBracketsAddEditComponent {
       taxBracket.rate = this.formGroup.value.rate?? 0;
       this.taxBracketService.taxBracket(taxBracket).subscribe(taxBr => {
         console.log('data saved');
+        this.notificationService.notify(NotificationTypes.REFRESH_TAX_BRACKETS);
       });
     }
   }

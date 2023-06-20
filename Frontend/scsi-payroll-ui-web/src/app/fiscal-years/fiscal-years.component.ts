@@ -41,12 +41,12 @@ export class FiscalYearsComponent {
   constructor(private fiscalYearService: SocialContributionService,
               private dialog: MatDialog,
               private notificationService: NotificationServiceService){
-    this.notificationService.notification$.subscribe(e => {
-      if(e == NotificationTypes.REFRERSH_FISCAL_YEARS){
-        this.loadFiscalYears();
-      }
-    })
-  }
+                this.notificationService.notification$.subscribe(e => {
+                  if(e == NotificationTypes.REFRERSH_FISCAL_YEARS){
+                    this.loadFiscalYears();
+                  }
+                })
+              }
 
   openAddFiscalYear(e: any){
     this.openAddEditFiscalYear(e);

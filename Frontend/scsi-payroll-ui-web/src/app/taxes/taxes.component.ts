@@ -5,6 +5,8 @@ import { TaxAddEditComponent } from './tax-add-edit/tax-add-edit.component';
 import { EditBtnComponent } from '../commons/edit-btn/edit-btn.component';
 import { TaxDeleteComponent } from './tax-delete/tax-delete.component';
 import { DeleteBtnComponent } from '../commons/delete-btn/delete-btn.component';
+import { NotificationServiceService } from '../services/notification-service.service';
+import { NotificationTypes } from '../models/constants';
 
 @Component({
   selector: 'app-taxes',
@@ -40,7 +42,15 @@ export class TaxesComponent {
 
   rowData: SocialContribution[] = [];
 
-  constructor(private socialContributionService: SocialContributionService, private dialog: MatDialog){}
+  constructor(private socialContributionService: SocialContributionService,
+              private dialog: MatDialog,
+              private notificationService: NotificationServiceService){
+                this.notificationService.notification$.subscribe(res => {
+                  if(res == NotificationTypes.REFRESH_TAXES){
+                    this.loadTaxes();
+                  }
+                });
+              }
 
   openAddTaxPage(e: any){
     this.openTaxAddEdit(e);
@@ -51,7 +61,6 @@ export class TaxesComponent {
   }
 
   openTaxAddEdit(e: any){
-    //console.log(e.data);
     if(e == null){
       this.dialog.open(TaxAddEditComponent,{
         width:'500px',
@@ -74,9 +83,12 @@ export class TaxesComponent {
   }
 
   ngOnInit(): void{
+    this.loadTaxes();
+  }
+
+  loadTaxes(){
     this.socialContributionService.socialContributions().subscribe(taxes => {
       this.rowData = taxes;
     });
   }
-
 }

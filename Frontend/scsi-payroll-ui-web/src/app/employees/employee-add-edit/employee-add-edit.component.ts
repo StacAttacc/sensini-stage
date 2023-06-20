@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NotificationTypes } from 'src/app/models/constants';
+import { NotificationServiceService } from 'src/app/services/notification-service.service';
 import { Employee, EmployeesService, IEmployee } from 'src/app/services/payroll-api-proxy';
 
 @Component({
@@ -21,7 +23,8 @@ export class EmployeeAddEditComponent {
   constructor (
     @Inject(MAT_DIALOG_DATA) public data: IEmployee,
     private formBuilder: FormBuilder,
-    private employeesService: EmployeesService){}
+    private employeesService: EmployeesService,
+    private notificationService: NotificationServiceService){}
 
 
   onSubmit(){
@@ -32,9 +35,10 @@ export class EmployeeAddEditComponent {
       employee.lastName = this.formGroup.value.lastName?? '';
       employee.birthDate = this.formGroup.value.birthDate?? new Date();
       employee.nas = this.formGroup.value.nas?? '';
-      this.employeesService.employeesPost(employee).subscribe(
-        res => {console.log('saved updates')}
-      );
+      this.employeesService.employeesPost(employee).subscribe( res => {
+        console.log('saved updates');
+        this.notificationService.notify(NotificationTypes.REFRESH_EMPLOYEES);
+      });
     }
   }
 

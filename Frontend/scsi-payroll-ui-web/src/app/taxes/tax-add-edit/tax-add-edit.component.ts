@@ -1,6 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NotificationTypes } from 'src/app/models/constants';
+import { NotificationServiceService } from 'src/app/services/notification-service.service';
 import { ISocialContribution, SocialContribution, SocialContributionService } from 'src/app/services/payroll-api-proxy';
 
 @Component({
@@ -21,7 +23,8 @@ export class TaxAddEditComponent {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: ISocialContribution,
               private formBuilder: FormBuilder,
-              private socialContributionService: SocialContributionService){}
+              private socialContributionService: SocialContributionService,
+              private notificationService: NotificationServiceService){}
 
   onSubmit(){
     if(this.formGroup.valid){
@@ -35,6 +38,7 @@ export class TaxAddEditComponent {
       tax.rqapMga = parseFloat(this.formGroup.value.rqapMga?.toString()?? '');
       this.socialContributionService.socialContribution(tax).subscribe( tax => {
         console.log(tax);
+        this.notificationService.notify(NotificationTypes.REFRESH_TAXES);
       });
     }
   }
@@ -46,4 +50,5 @@ export class TaxAddEditComponent {
       });
     }
   }
+
 }

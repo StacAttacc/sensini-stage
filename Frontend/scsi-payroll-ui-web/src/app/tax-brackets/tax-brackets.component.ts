@@ -5,6 +5,7 @@ import { TaxBracketsAddEditComponent } from './tax-brackets-add-edit/tax-bracket
 import { EditBtnComponent } from '../commons/edit-btn/edit-btn.component';
 import { DeleteBtnComponent } from '../commons/delete-btn/delete-btn.component';
 import { TaxBracketsDeleteComponent } from './tax-brackets-delete/tax-brackets-delete.component';
+import { NotificationServiceService } from '../services/notification-service.service';
 
 @Component({
   selector: 'app-tax-brackets',
@@ -12,7 +13,13 @@ import { TaxBracketsDeleteComponent } from './tax-brackets-delete/tax-brackets-d
   styleUrls: ['./tax-brackets.component.scss']
 })
 export class TaxBracketsComponent {
-  constructor(private taxBracketService: SocialContributionService, private dialog:MatDialog){}
+  constructor(private taxBracketService: SocialContributionService,
+              private dialog:MatDialog,
+              private notificationServie: NotificationServiceService){
+                this.notificationServie.notification$.subscribe(res => {
+                  this.loadTaxBrackets();
+                });
+              }
 
   columnDefs = [
     { field: 'fiscalYearId' },
@@ -71,6 +78,10 @@ export class TaxBracketsComponent {
   }
 
   ngOnInit(){
+    this.loadTaxBrackets();
+  }
+
+  loadTaxBrackets(){
     this.taxBracketService.taxBrackets().subscribe(taxBr => {
       this.rowData = taxBr;
     });

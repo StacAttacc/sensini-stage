@@ -1,6 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NotificationTypes } from 'src/app/models/constants';
+import { NotificationServiceService } from 'src/app/services/notification-service.service';
 import { ISocialContribution, SocialContributionService } from 'src/app/services/payroll-api-proxy';
 
 @Component({
@@ -15,14 +17,15 @@ export class TaxDeleteComponent {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: ISocialContribution,
               private formBuilder: FormBuilder,
-              private socialContributionService: SocialContributionService
-            ){}
+              private socialContributionService: SocialContributionService,
+              private notificationService: NotificationServiceService){}
 
   delete(){
     if(this.formGroup.valid){
       if(this.data.year == this.formGroup.value.year){
         this.socialContributionService.socialContributionDeleteById(this.data.id).subscribe( tax => {
           console.log('tax deleted');
+          this.notificationService.notify(NotificationTypes.REFRESH_TAXES);
         });
       }
     }

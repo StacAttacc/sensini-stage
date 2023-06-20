@@ -1,6 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NotificationTypes } from 'src/app/models/constants';
+import { NotificationServiceService } from 'src/app/services/notification-service.service';
 import { Government, IGovernment, SocialContributionService } from 'src/app/services/payroll-api-proxy';
 
 @Component({
@@ -11,7 +13,8 @@ import { Government, IGovernment, SocialContributionService } from 'src/app/serv
 export class GovernmentAddEditComponent {
   constructor(@Inject(MAT_DIALOG_DATA) private data: IGovernment,
               private formBuilder: FormBuilder,
-              private governmentService: SocialContributionService){}
+              private governmentService: SocialContributionService,
+              private notificationService: NotificationServiceService){}
 
   formGroup = this.formBuilder.group({
     id: [0],
@@ -27,6 +30,7 @@ export class GovernmentAddEditComponent {
       government.description = this.formGroup.value.description?? '';
       this.governmentService.government(government).subscribe( gvt => {
         console.log('data saved');
+        this.notificationService.notify(NotificationTypes.REFRESH_GOVERNMENT);
       });
     }
   }
