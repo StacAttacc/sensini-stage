@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { SocialContributionService, TaxBracket } from '../services/payroll-api-proxy';
+import { FiscalYear, Government, SocialContributionService, TaxBracket } from '../services/payroll-api-proxy';
 import { MatDialog } from '@angular/material/dialog';
 import { TaxBracketsAddEditComponent } from './tax-brackets-add-edit/tax-brackets-add-edit.component';
 import { EditBtnComponent } from '../commons/edit-btn/edit-btn.component';
 import { DeleteBtnComponent } from '../commons/delete-btn/delete-btn.component';
 import { TaxBracketsDeleteComponent } from './tax-brackets-delete/tax-brackets-delete.component';
 import { NotificationServiceService } from '../services/notification-service.service';
+import { GridOptions } from 'ag-grid-community';
 
 @Component({
   selector: 'app-tax-brackets',
@@ -21,9 +22,26 @@ export class TaxBracketsComponent {
                 });
               }
 
+
+  getTaxYear(id: any){
+    let fiscYear: number|undefined;
+    this.taxBracketService.fiscalYearById(id).subscribe(res => {
+      fiscYear = res.year
+    });
+    return fiscYear;
+  }
+
+  getGvtCode(id: any){
+    let gvtCode: string|undefined;
+    this.taxBracketService.governmentById(id).subscribe(res => {
+      gvtCode = res.code
+    });
+    return gvtCode;
+  }
+
   columnDefs = [
-    { field: 'fiscalYearId' },
-    { field: 'governmentId' },
+    { field: 'year' },
+    { field: 'code' },
     { field: 'lowerLimit' },
     { field: 'upperLimit' },
     { field: 'rate' },
@@ -45,7 +63,7 @@ export class TaxBracketsComponent {
     }
   ];
 
-  rowData: TaxBracket[] = [];
+  rowData: any[] = [];
 
   openAddTaxBracket(e: any){
     this.openAddEditTaxBracket(e);
@@ -82,8 +100,50 @@ export class TaxBracketsComponent {
   }
 
   loadTaxBrackets(){
+    let taxBrackets: TaxBracket[] = [];
+
+    let fiscYears: FiscalYear[] = [];
+    let fiscYearsMap: any[] = [];
+
+    let governments: Government[] = [];
+    let governmentsMap: any[] = [];
     this.taxBracketService.taxBrackets().subscribe(taxBr => {
-      this.rowData = taxBr;
+      taxBrackets = taxBr;
     });
+
+    this.taxBracketService.fiscalYears().subscribe(yrs => {
+      console.log(yrs);
+      for (const element of yrs){
+        if(element.id != undefined){
+          fiscYearsMap[element.id] = element.year;
+        }
+        else{
+          console.log("element undefined")
+        }
+      }
+    });
+    this.taxBracketService.governments().subscribe(gvts => {
+      for (const element of gvts){
+        if(element.id != undefined){
+          governmentsMap[element.id] = element.code;
+        }
+        else{
+          console.log("gvt undefined")
+        }
+      }
+    });
+
+    this.taxBracketService.taxBrackets().subscribe(res => {
+      this.rowData = res.map(tax => {
+        if(tax.fiscalYearId != undefined && tax.governmentId != undefined){({
+          year: fiscYearsMap[tax.fiscalYearId],
+          code: governmentsMap[tax.governmentId],
+          lowerLimit: tax.lowerLimit,
+          upperLimit: tax.upperLimit,
+          rate: tax.rate
+      })}})
+    });
+
+
   }
 }

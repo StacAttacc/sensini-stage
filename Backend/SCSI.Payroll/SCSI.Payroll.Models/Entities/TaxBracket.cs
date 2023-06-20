@@ -14,10 +14,10 @@ namespace SCSI.Payroll.Models.Entities
         [Key(), Column("Id")]
         public int Id { get; set; }
 
-        [ForeignKey("FiscalYear"), Column("FiscalYearId")]
+        [Column("FiscalYearId")]
         public int FiscalYearId { get; set; }
 
-        [ForeignKey("Government"), Column("GovernmentId")]
+        [Column("GovernmentId")]
         public int GovernmentId { get; set; }
 
         [Column("LowerLimit")]
@@ -28,5 +28,11 @@ namespace SCSI.Payroll.Models.Entities
 
         [Column("Rate")]
         public decimal Rate { get; set; }
+
+        [ForeignKey("FiscalYear"), Column("FiscalYearId")]
+        public virtual FiscalYear FiscalYear { get; set; }
+
+        [ForeignKey("Government"), Column("GovernmentId")]
+        public virtual Government Government { get; set; }
     }
 }

@@ -53,7 +53,10 @@ namespace SCSI.Payroll.Repository.Implementations
         {
             try
             {
-                var result = await _payrollDbContext.TaxBrackets.ToListAsync();
+                var result = await _payrollDbContext.TaxBrackets
+                    .Include(e => e.FiscalYear)
+                    .Include(e => e.Government)
+                    .ToListAsync();
                 return result;
             }
             catch(Exception ex)

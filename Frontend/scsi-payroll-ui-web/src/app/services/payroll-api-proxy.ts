@@ -1502,6 +1502,8 @@ export class TaxBracket implements ITaxBracket {
     lowerLimit?: number;
     upperLimit?: number;
     rate?: number;
+    fiscalYear?: FiscalYear;
+    government?: Government;
 
     constructor(data?: ITaxBracket) {
         if (data) {
@@ -1520,6 +1522,8 @@ export class TaxBracket implements ITaxBracket {
             this.lowerLimit = _data["lowerLimit"];
             this.upperLimit = _data["upperLimit"];
             this.rate = _data["rate"];
+            this.fiscalYear = _data["fiscalYear"] ? FiscalYear.fromJS(_data["fiscalYear"], _mappings) : <any>undefined;
+            this.government = _data["government"] ? Government.fromJS(_data["government"], _mappings) : <any>undefined;
         }
     }
 
@@ -1536,6 +1540,8 @@ export class TaxBracket implements ITaxBracket {
         data["lowerLimit"] = this.lowerLimit;
         data["upperLimit"] = this.upperLimit;
         data["rate"] = this.rate;
+        data["fiscalYear"] = this.fiscalYear ? this.fiscalYear.toJSON() : <any>undefined;
+        data["government"] = this.government ? this.government.toJSON() : <any>undefined;
         return data;
     }
 }
@@ -1547,6 +1553,8 @@ export interface ITaxBracket {
     lowerLimit?: number;
     upperLimit?: number;
     rate?: number;
+    fiscalYear?: FiscalYear;
+    government?: Government;
 }
 
 function jsonParse(json: any, reviver?: any) {
