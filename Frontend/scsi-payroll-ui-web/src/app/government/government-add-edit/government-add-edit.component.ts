@@ -22,6 +22,8 @@ export class GovernmentAddEditComponent {
     description: ['', Validators.required]
   });
 
+  title = "dynamicTitle";
+
   onSubmit(){
     if(this.formGroup.valid){
       let government = new Government;
@@ -37,9 +39,13 @@ export class GovernmentAddEditComponent {
 
   ngOnInit(){
     if(this.data != null){
+      this.title = "Edit Data";
       this.governmentService.governmentById(this.data.id).subscribe(gvt => {
         this.formGroup.patchValue(gvt);
       });
+    }
+    else{
+      this.title = "Add Data";
     }
   }
 }

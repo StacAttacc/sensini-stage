@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NotificationTypes } from 'src/app/models/constants';
 import { NotificationServiceService } from 'src/app/services/notification-service.service';
-import { ITaxBracket, SocialContributionService } from 'src/app/services/payroll-api-proxy';
+import { FiscalYear, Government, ITaxBracket, SocialContributionService } from 'src/app/services/payroll-api-proxy';
 
 @Component({
   selector: 'app-tax-brackets-delete',
@@ -18,19 +18,36 @@ export class TaxBracketsDeleteComponent {
               private notificationService: NotificationServiceService){}
 
   formGroup = this.formBuilder.group({
-    fiscalYearId: [0, Validators.required],
-    governmentId: [0, Validators.required]
+    id: [0],
+    fiscalYearId: [0],
+    governmentId: [0],
+    lowerLimit: [0],
+    upperLimit: [0],
+    rate: [0]
   });
 
+  fiscalYearOptions: FiscalYear[] = [];
+  governmentOptions: Government[] = [];
+
+  title = 'dynamic title';
+
   onDelete(){
-    if(this.formGroup.valid){
-      if(this.formGroup.value.fiscalYearId == this.data.fiscalYearId &&
-        this.formGroup.value.governmentId == this.data.governmentId){
-          this.taxBracketService.taxBracketDeleteById(this.data.id).subscribe(taxBr => {
-            console.log('data deleted');
-            this.notificationService.notify(NotificationTypes.REFRESH_TAX_BRACKETS);
-          });
-        }
-    }
+    this.taxBracketService.taxBracketDeleteById(this.data.id).subscribe(taxBr => {
+      console.log('data deleted');
+      this.notificationService.notify(NotificationTypes.REFRESH_TAX_BRACKETS);
+    });
+  }
+
+  ngOnInit(){
+    this.taxBracketService.fiscalYears().subscribe(fiscYears => {
+      this.fiscalYearOptions = fiscYears;
+    });
+    this.taxBracketService.governments().subscribe(gvts => {
+      this.governmentOptions = gvts;
+    });
+    this.title = "Delete Data";
+    this.taxBracketService.taxBracketById(this.data.id).subscribe(res => {
+      this.formGroup.patchValue(res);
+    });
   }
 }

@@ -29,10 +29,10 @@ namespace SCSI.Payroll.Models.Entities
         [Column("Rate")]
         public decimal Rate { get; set; }
 
-        [ForeignKey("FiscalYear"), Column("FiscalYearId")]
+        [ForeignKey("FiscalYearId")]
         public virtual FiscalYear FiscalYear { get; set; }
 
-        [ForeignKey("Government"), Column("GovernmentId")]
+        [ForeignKey("GovernmentId")]
         public virtual Government Government { get; set; }
     }
 }

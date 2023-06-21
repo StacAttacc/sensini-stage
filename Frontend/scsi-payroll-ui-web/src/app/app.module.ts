@@ -24,7 +24,7 @@ import { EmployeesComponent } from './employees/employees.component';
 import { NotFoundComponentComponent } from './not-found-component/not-found-component.component';
 import { HomeComponent } from './home/home.component';
 import { AgGridModule } from 'ag-grid-angular';
-import { EmployeesService, SocialContributionService } from './services/payroll-api-proxy';
+import { API_BASE_URL, EmployeesService, SocialContributionService } from './services/payroll-api-proxy';
 
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { EmployeeAddEditComponent } from './employees/employee-add-edit/employee-add-edit.component';
@@ -88,7 +88,15 @@ import { NotificationServiceService } from './services/notification-service.serv
     AgGridModule,//.withComponents([])
     HttpClientModule
   ],
-  providers: [EmployeesService, SocialContributionService, NotificationServiceService],
+  providers: [
+    EmployeesService,
+    SocialContributionService,
+    NotificationServiceService,
+    {
+      provide: API_BASE_URL,
+      useValue: 'https://localhost:5001'
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

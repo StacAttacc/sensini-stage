@@ -12,7 +12,13 @@ import { ISocialContribution, SocialContributionService } from 'src/app/services
 })
 export class TaxDeleteComponent {
   formGroup = this.formBuilder.group({
-    year: [0, Validators.required]
+    id: [0],
+    year: [0],
+    rrqRate: [0],
+    rrqMga: [0],
+    employmentInsurance: [0],
+    rqapRate: [0],
+    rqapMga: [0]
   });
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: ISocialContribution,
@@ -20,14 +26,19 @@ export class TaxDeleteComponent {
               private socialContributionService: SocialContributionService,
               private notificationService: NotificationServiceService){}
 
+  title = "dynamicTitle";
+  
   delete(){
-    if(this.formGroup.valid){
-      if(this.data.year == this.formGroup.value.year){
-        this.socialContributionService.socialContributionDeleteById(this.data.id).subscribe( tax => {
-          console.log('tax deleted');
-          this.notificationService.notify(NotificationTypes.REFRESH_TAXES);
-        });
-      }
-    }
+    this.socialContributionService.socialContributionDeleteById(this.data.id).subscribe( tax => {
+      console.log('tax deleted');
+      this.notificationService.notify(NotificationTypes.REFRESH_TAXES);
+    });
+  }
+
+  ngOnInit():void{
+    this.title = "Delete Data"
+    this.socialContributionService.socialContributionById(this.data.id).subscribe(res => {
+      this.formGroup.patchValue(res);
+    });
   }
 }

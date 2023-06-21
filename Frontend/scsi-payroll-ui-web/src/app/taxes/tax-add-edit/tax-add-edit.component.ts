@@ -26,6 +26,8 @@ export class TaxAddEditComponent {
               private socialContributionService: SocialContributionService,
               private notificationService: NotificationServiceService){}
 
+  title = "dynamicTitle";
+
   onSubmit(){
     if(this.formGroup.valid){
       let tax = new SocialContribution;
@@ -45,9 +47,13 @@ export class TaxAddEditComponent {
 
   ngOnInit(){
     if(this.data != null){
+      this.title = "Edit Data";
       this.socialContributionService.socialContributionById(this.data.id).subscribe( tax => {
         this.formGroup.patchValue(tax);
       });
+    }
+    else{
+      this.title = "Add Data";
     }
   }
 

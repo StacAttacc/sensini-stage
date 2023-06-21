@@ -41,6 +41,10 @@ mat-sidenav-container{
   color:lightgray;
 }
 
+mat-form-field{
+  width: 400px !important;
+}
+
 button.active{
   background-color: azure;
   color: black;

@@ -40,11 +40,11 @@ export class TaxBracketsComponent {
   }
 
   columnDefs = [
-    { field: 'year' },
-    { field: 'code' },
-    { field: 'lowerLimit' },
-    { field: 'upperLimit' },
-    { field: 'rate' },
+    { headerName: 'Fiscal Year', field: 'fiscalYear.year' },
+    { headerName: 'Government', field: 'government.code' },
+    { headerName: 'Lower Limit', field: 'lowerLimit' },
+    { headerName: 'Upper Limit', field: 'upperLimit' },
+    { headerName: 'Rate', field: 'rate' },
     { headerName: 'Edit',
       field: 'edit',
       cellRenderer:EditBtnComponent,
@@ -63,7 +63,7 @@ export class TaxBracketsComponent {
     }
   ];
 
-  rowData: any[] = [];
+  rowData: TaxBracket[] = [];
 
   openAddTaxBracket(e: any){
     this.openAddEditTaxBracket(e);
@@ -84,12 +84,12 @@ export class TaxBracketsComponent {
   openAddEditTaxBracket(e: any){
     if(e == null){
       this.dialog.open(TaxBracketsAddEditComponent,{
-        width:'500px',
+        width:'500px'
       });
     }
     else{
       this.dialog.open(TaxBracketsAddEditComponent,{
-        data:e.data,
+        data: e.data,
         width: '500px',
       });
     }
@@ -100,50 +100,8 @@ export class TaxBracketsComponent {
   }
 
   loadTaxBrackets(){
-    let taxBrackets: TaxBracket[] = [];
-
-    let fiscYears: FiscalYear[] = [];
-    let fiscYearsMap: any[] = [];
-
-    let governments: Government[] = [];
-    let governmentsMap: any[] = [];
-    this.taxBracketService.taxBrackets().subscribe(taxBr => {
-      taxBrackets = taxBr;
-    });
-
-    this.taxBracketService.fiscalYears().subscribe(yrs => {
-      console.log(yrs);
-      for (const element of yrs){
-        if(element.id != undefined){
-          fiscYearsMap[element.id] = element.year;
-        }
-        else{
-          console.log("element undefined")
-        }
-      }
-    });
-    this.taxBracketService.governments().subscribe(gvts => {
-      for (const element of gvts){
-        if(element.id != undefined){
-          governmentsMap[element.id] = element.code;
-        }
-        else{
-          console.log("gvt undefined")
-        }
-      }
-    });
-
     this.taxBracketService.taxBrackets().subscribe(res => {
-      this.rowData = res.map(tax => {
-        if(tax.fiscalYearId != undefined && tax.governmentId != undefined){({
-          year: fiscYearsMap[tax.fiscalYearId],
-          code: governmentsMap[tax.governmentId],
-          lowerLimit: tax.lowerLimit,
-          upperLimit: tax.upperLimit,
-          rate: tax.rate
-      })}})
+      this.rowData = res;
     });
-
-
   }
 }

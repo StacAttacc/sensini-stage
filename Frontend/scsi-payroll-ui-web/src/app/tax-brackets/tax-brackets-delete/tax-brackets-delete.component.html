@@ -1,26 +1,63 @@
+<h3 mat-dialog-title>{{title}}</h3>
+
 <button mat-icon-button matDialogClose style="float: right">
   <mat-icon>close</mat-icon>
 </button>
 
 <form [formGroup]="formGroup" (ngSubmit)="onDelete()">
   <mat-dialog-content>
+    
+    <p>Do you really want to delete this?</p>
+
     <p>
-      <mat-form-field>
-        <mat-label>Fiscal Year Id</mat-label>
-        <input matInput placeholder="0000" formControlName="fiscalYearId">
+      <mat-form-field class="mat-readonly-wrapper">
+        <mat-label>Fiscal Year</mat-label>
+        <mat-select class="mat-readonly-block" formControlName="fiscalYearId" [disabled]="true" panelClass="readonly-select">
+          <mat-option *ngFor="let fiscalYearOption of fiscalYearOptions" [value]="fiscalYearOption.id">
+            {{fiscalYearOption.year}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </p>
+    
     <p>
-      <mat-form-field>
-        <mat-label>Government Id</mat-label>
-        <input matInput placeholder="0000" formControlName="governmentId">
+      <mat-form-field class="mat-readonly-wrapper">
+        <mat-label>Government</mat-label>
+        <mat-select class="mat-readonly-block" formControlName="governmentId" [disabled]="true" panelClass="readonly-select">
+          <mat-option *ngFor="let governmentOption of governmentOptions" [value]="governmentOption.id">
+            {{governmentOption.code}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </p>
+
+    <p>
+      <mat-form-field class="mat-readonly-wrapper">
+        <mat-label>Lower Limit</mat-label>
+        <input class="mat-readonly-block" matInput placeholder="0000.00" formControlName="lowerLimit" readonly>
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field class="mat-readonly-wrapper">
+        <mat-label>Upper Limit</mat-label>
+        <input class="mat-readonly-block" matInput placeholder="0000.00" formControlName="upperLimit" readonly>
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field class="mat-readonly-wrapper">
+        <mat-label>Rate</mat-label>
+        <input class="mat-readonly-block" matInput placeholder="0.00" formControlName="rate" readonly>
+      </mat-form-field>
+    </p>
+
   </mat-dialog-content>
 
 
   <mat-dialog-actions>
-    <button mat-raised-button matDialogClose type="submit" [disabled]="!formGroup.valid">Sauvegarder</button>
+    
+    <button mat-raised-button matDialogClose type="submit">Delete</button>
     <button mat-raised-button matDialogClose>Cancel</button>
   </mat-dialog-actions>
 </form>

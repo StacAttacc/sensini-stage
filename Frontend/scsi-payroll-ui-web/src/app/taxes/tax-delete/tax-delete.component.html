@@ -1,20 +1,55 @@
+<h3 mat-dialog-title>{{title}}</h3>
+
 <button mat-icon-button matDialogClose style="float: right">
   <mat-icon>close</mat-icon>
 </button>
 
 <form [formGroup]="formGroup" (ngSubmit)="delete()">
   <mat-dialog-content>
+
+    <p>Do you really want to delete this?</p>
+
     <p>
-      <mat-form-field>
-        <mat-label>Year</mat-label>
-        <input matInput placeholder="YYYY" formControlName="year">
+      <mat-form-field class="mat-readonly-wrapper">
+        <mat-label>Annee</mat-label>
+        <input class="mat-readonly-block" matInput placeholder="YYYY" formControlName="year" readonly>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field class="mat-readonly-wrapper">
+        <mat-label>RRQ Rate</mat-label>
+        <input class="mat-readonly-block" matInput placeholder="0.00" formControlName="rrqRate" readonly>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field class="mat-readonly-wrapper">
+        <mat-label>RRQ MGA</mat-label>
+        <input class="mat-readonly-block" matInput placeholder="0000.00" formControlName="rrqMga" readonly>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field class="mat-readonly-wrapper">
+        <mat-label>Employment Insurancce</mat-label>
+        <input class="mat-readonly-block" matInput placeholder="0000.00" formControlName="employmentInsurance" readonly>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field class="mat-readonly-wrapper">
+        <mat-label>Rqap Rate</mat-label>
+        <input class="mat-readonly-block" matInput placeholder="0.00" formControlName="rqapRate" readonly>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field class="mat-readonly-wrapper">
+        <mat-label>RQAP MGA</mat-label>
+        <input class="mat-readonly-block" matInput placeholder="0000.00" formControlName="rqapMga" readonly>
       </mat-form-field>
     </p>
   </mat-dialog-content>
 
 
   <mat-dialog-actions>
-    <button mat-raised-button matDialogClose type="submit" [disabled]="!formGroup.valid">Sauvegarder</button>
+    <button mat-raised-button matDialogClose type="submit">Delete</button>
     <button mat-raised-button matDialogClose>Cancel</button>
   </mat-dialog-actions>
 </form>

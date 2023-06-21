@@ -17,17 +17,26 @@ export class FiscalYearsDeleteComponent {
               private mediatorService: NotificationServiceService){}
 
   formGroup = this.formBuilder.group({
-    year: [0, Validators.required]
+    id: [0],
+    year: [0],
+    description: ['']
   });
 
+  title = "dynamicTitle";
+
   onDelete(){
-    if(this.formGroup.valid){
-      if(this.formGroup.value.year == this.data.year){
-        this.fiscalYearsService.fiscalYearDeleteById(this.data.id).subscribe(fiscYear => {
-          console.log('data deleted ', this.data.year);
-          this.mediatorService.notify(NotificationTypes.REFRERSH_FISCAL_YEARS)
-        });
-      };
+    this.fiscalYearsService.fiscalYearDeleteById(this.data.id).subscribe(fiscYear => {
+      console.log('data deleted ', this.data.year);
+      this.mediatorService.notify(NotificationTypes.REFRERSH_FISCAL_YEARS)
+    });
+  }
+
+  ngOnInit():void{
+    if(this.data != null){
+      this.title = "Delete Data"
+      this.fiscalYearsService.fiscalYearById(this.data.id).subscribe(res => {
+        this.formGroup.patchValue(res);
+      });
     }
   }
 

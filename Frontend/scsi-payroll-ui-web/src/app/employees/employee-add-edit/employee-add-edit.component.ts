@@ -42,13 +42,17 @@ export class EmployeeAddEditComponent {
     }
   }
 
+  title = "dynamicTitle";
+
   ngOnInit():void{
     if(this.data != null){
-      this.employeesService.employeeById(this.data.id).subscribe(
-        emp => {
+      this.title = "Edit Data"
+      this.employeesService.employeeById(this.data.id).subscribe(emp => {
           this.formGroup.patchValue(emp);
-        }
-      )
+      })
+    }
+    else{
+      this.title = "Add Data";
     }
   }
 

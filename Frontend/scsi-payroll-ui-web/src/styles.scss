@@ -3,6 +3,16 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+mat-form-field{
+  width: 100% !important;
+}
+.mat-readonly-wrapper{
+  cursor: not-allowed;
+}
+
+.mat-readonly-block{
+  pointer-events: none;
+}
 
 @import "~ag-grid-community/styles/ag-grid.css";
 @import "~ag-grid-community/styles/ag-theme-alpine.css";

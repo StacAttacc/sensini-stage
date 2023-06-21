@@ -15,18 +15,26 @@ export class GovernmentDeleteComponent {
               private governmentService: SocialContributionService,
               private formBuilder: FormBuilder,
               private notificationService: NotificationServiceService){}
+
   formGroup = this.formBuilder.group({
-    code: ['', Validators.required]
+    id: [0],
+    code: ['', [Validators.required, Validators.pattern('^[A-Z]{1,3}$')]],
+    description: ['', Validators.required]
   });
 
+  title = "dynamicTitle";
+
   onDelete(){
-    if(this.formGroup.valid){
-      if(this.formGroup.value.code == this.data.code){
-        this.governmentService.governmentDeleteById(this.data.id).subscribe(gvt =>{
-          console.log('data deleted');
-          this.notificationService.notify(NotificationTypes.REFRESH_GOVERNMENT);
-        });
-      }
-    }
+    this.governmentService.governmentDeleteById(this.data.id).subscribe(gvt =>{
+      console.log('data deleted');
+      this.notificationService.notify(NotificationTypes.REFRESH_GOVERNMENT);
+    });
+  }
+
+  ngOnInit():void{
+    this.title = "Delete Data";
+    this.governmentService.governmentById(this.data.id).subscribe(res => {
+      this.formGroup.patchValue(res);
+    });
   }
 }

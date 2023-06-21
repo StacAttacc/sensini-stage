@@ -14,8 +14,11 @@ import { Employee, EmployeesService, IEmployee } from 'src/app/services/payroll-
 export class EmployeeDeleteComponent {
 
   formGroup = this.formBuilder.group({
-    firstName: ['', Validators.required],
-    lastName: ['', Validators.required]
+    id: [0],
+    firstName: [''],
+    lastName: [''],
+    birthDate: [new Date],
+    nas:['']
   });
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: IEmployee,
@@ -23,16 +26,19 @@ export class EmployeeDeleteComponent {
               private employeesService: EmployeesService,
               private notificationService: NotificationServiceService){}
 
+  title = "dynamicTitle";
+
   delete(){
-    if(this.formGroup.value){
-      if(this.formGroup.value.firstName == this.data.firstName
-        && this.formGroup.value.lastName == this.data.lastName)
-      {
-        this.employeesService.employeeDeleteById(this.data.id).subscribe( res => {
-          console.log('deleted')
-          this.notificationService.notify(NotificationTypes.REFRESH_EMPLOYEES);
-        });
-      }
-    }
+    this.employeesService.employeeDeleteById(this.data.id).subscribe( res => {
+      console.log('deleted')
+      this.notificationService.notify(NotificationTypes.REFRESH_EMPLOYEES);
+    });
+  }
+
+  ngOnInit():void{
+    this.title = "Delete Data";
+    this.employeesService.employeeById(this.data.id).subscribe(res => {
+      this.formGroup.patchValue(res);
+    });
   }
 }

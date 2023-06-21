@@ -11,13 +11,15 @@ import { FiscalYear, Government, ITaxBracket, SocialContributionService, TaxBrac
   styleUrls: ['./tax-brackets-add-edit.component.scss']
 })
 export class TaxBracketsAddEditComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) private data: ITaxBracket,
+  constructor(@Inject(MAT_DIALOG_DATA) public data: ITaxBracket,
               private formBuilder: FormBuilder,
               private taxBracketService: SocialContributionService,
               private notificationService: NotificationServiceService){}
 
-  fiscalYearOptions: FiscalYear[] = []
-  governmentOptions: Government[] = []
+  fiscalYearOptions: FiscalYear[] = [];
+  governmentOptions: Government[] = [];
+
+  title = "dynamicTitle";
 
   formGroup = this.formBuilder.group({
     id: [0],
@@ -53,9 +55,14 @@ export class TaxBracketsAddEditComponent {
       this.governmentOptions = gvts;
     });
     if(this.data != null){
+      console.log(this.data)
+      this.title = "Edit Data";
       this.taxBracketService.taxBracketById(this.data.id).subscribe(taxBr => {
         this.formGroup.patchValue(taxBr);
       });
+    }
+    else{
+      this.title = "Add Data";
     }
   }
 }

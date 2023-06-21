@@ -22,6 +22,8 @@ export class FiscalYearsAddEditComponent {
     description: ['', Validators.required]
   });
 
+  title = "dynamicTitle";
+
   onSubmit(){
     if(this.formGroup.valid){
       let fiscalYear = new FiscalYear();
@@ -37,9 +39,13 @@ export class FiscalYearsAddEditComponent {
 
   ngOnInit(){
     if(this.data != null){
+      this.title = "Edit Data";
       this.fiscalYearService.fiscalYearById(this.data.id).subscribe(fiscYear =>{
         this.formGroup.patchValue(fiscYear);
       });
+    }
+    else{
+      this.title = "Add Data";
     }
   }
 }

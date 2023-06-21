@@ -1,19 +1,38 @@
+<h3 mat-dialog-title>{{title}}</h3>
+
 <button mat-icon-button matDialogClose style="float: right">
   <mat-icon>close</mat-icon>
 </button>
 
 <form [formGroup]="formGroup" (ngSubmit)="delete()">
   <mat-dialog-content>
+
+    <p>Do you really want to delete this?</p>
+
     <p>
-      <mat-form-field>
+      <mat-form-field class="mat-readonly-wrapper">
         <mat-label>Prenom</mat-label>
-        <input matInput placeholder="Prenom" formControlName="firstName">
+        <input class="mat-readonly-block" readonly matInput placeholder="Prenom" formControlName="firstName">
       </mat-form-field>
     </p>
     <p>
-      <mat-form-field>
+      <mat-form-field class="mat-readonly-wrapper">
         <mat-label>Nom</mat-label>
-        <input matInput placeholder="Nom" formControlName="lastName">
+        <input class="mat-readonly-block" readonly matInput placeholder="Nom" formControlName="lastName">
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field class="mat-readonly-wrapper">
+        <mat-label>Date de naissance</mat-label>
+        <input class="mat-readonly-block" readonly matInput [matDatepicker]="picker" formControlName="birthDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field class="mat-readonly-wrapper">
+        <mat-label>NAS</mat-label>
+        <input class="mat-readonly-block" readonly matInput placeholder="NAS" formControlName="nas">
       </mat-form-field>
     </p>
   </mat-dialog-content>

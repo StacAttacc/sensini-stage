@@ -1,20 +1,31 @@
+<h3 mat-dialog-title>{{title}}</h3>
+
 <button mat-icon-button matDialogClose style="float: right">
   <mat-icon>close</mat-icon>
 </button>
 
 <form [formGroup]="formGroup" (ngSubmit)="onDelete()">
   <mat-dialog-content>
+    
+    <p>Do you really want to delete this?</p>
+
     <p>
-      <mat-form-field>
+      <mat-form-field class="mat-readonly-wrapper" >
         <mat-label>Code</mat-label>
-        <input matInput placeholder="---" formControlName="code">
+        <input class="mat-readonly-block" matInput placeholder="---" required formControlName="code" readonly>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field class="mat-readonly-wrapper">
+        <mat-label>Description</mat-label>
+        <input class="mat-readonly-block" matInput placeholder="description" required formControlName="description" readonly>
       </mat-form-field>
     </p>
   </mat-dialog-content>
 
 
   <mat-dialog-actions>
-    <button mat-raised-button matDialogClose type="submit" [disabled]="!formGroup.valid">Sauvegarder</button>
+    <button mat-raised-button matDialogClose type="submit">Delete</button>
     <button mat-raised-button matDialogClose>Cancel</button>
   </mat-dialog-actions>
 </form>
