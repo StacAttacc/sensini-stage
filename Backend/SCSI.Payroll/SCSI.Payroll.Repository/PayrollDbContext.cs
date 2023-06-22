@@ -22,6 +22,16 @@ namespace SCSI.Payroll.Repository
 
         public virtual DbSet<TaxBracket> TaxBrackets { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<FiscalYear>()
+                .HasIndex(e => e.Year)
+                .IsUnique();
+            modelBuilder.Entity<Government>()
+                .HasIndex(e => e.Code)
+                .IsUnique();
+        }
+
 
     }
     

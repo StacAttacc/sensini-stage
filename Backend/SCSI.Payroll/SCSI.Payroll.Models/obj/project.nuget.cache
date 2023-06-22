@@ -1,8 +1,21 @@
 {
   "version": 2,
-  "dgSpecHash": "5/ge+Cc1EXPCmZkuVe5GQutNFkaLARYmv4TyPAZxK7T2FcmfSEhOjoijbVaUutUf+saBeoa/YyafMfgu1K8tZA==",
+  "dgSpecHash": "ho2QrS1r4Aaixnroe52vv5xYJyqPN0/A6Rrc7VE70q0rNqFIF4TJsq8/h2kmy0OUPQEExXpvFi3Gj5e3totA2w==",
   "success": true,
   "projectFilePath": "B:\\Workspace\\sensini-stage\\Backend\\SCSI.Payroll\\SCSI.Payroll.Models\\SCSI.Payroll.Models.csproj",
-  "expectedPackageFiles": [],
-  "logs": []
+  "expectedPackageFiles": [
+    "C:\\Users\\14388\\.nuget\\packages\\entityframework\\6.2.0\\entityframework.6.2.0.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'EntityFramework 6.2.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "EntityFramework",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
 }

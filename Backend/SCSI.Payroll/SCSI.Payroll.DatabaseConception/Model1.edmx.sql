@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/14/2023 00:15:04
+-- Date Created: 06/22/2023 02:19:15
 -- Generated from EDMX file: B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.DatabaseConception\Model1.edmx
 -- --------------------------------------------------
 
@@ -163,6 +163,18 @@ GO
 CREATE INDEX [IX_FK_GovernmentTaxBracket]
 ON [dbo].[TaxBracket]
     ([GovernmentId]);
+GO
+
+-- -------------------------------------------------
+-- Adding Unique Constraints
+-- -------------------------------------------------
+
+ALTER TABLE [dbo].[Government]
+ADD CONSTRAINT [Unique_Code] UNIQUE ([Code]);
+GO
+
+ALTER TABLE [dbo].[FiscalYear]
+ADD CONSTRAINT [Unique_Year] UNIQUE ([Year]);
 GO
 
 -- --------------------------------------------------
