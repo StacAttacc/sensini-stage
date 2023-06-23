@@ -8,20 +8,28 @@ import { DeleteBtnComponent } from '../commons/delete-btn/delete-btn.component';
 import { EmployeeDeleteComponent } from './employee-delete/employee-delete.component';
 import { NotificationServiceService } from '../services/notification-service.service';
 import { NotificationTypes } from '../models/constants';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-employees',
   templateUrl: './employees.component.html',
-  styleUrls: ['./employees.component.scss']
+  styleUrls: ['./employees.component.scss'],
+  providers: [DatePipe]
 })
 export class EmployeesComponent {
 
   columnDefs = [
     { field : 'firstName' },
     { field: 'lastName' },
-    { field : 'birthDate' },
+    {
+      field : 'birthDate',
+      cellRenderer: (theDate:any) => {
+        return this.datePipe.transform(theDate.value, 'yyyy-MM-dd');
+      }
+    },
     { field : 'nas' },
-    { headerName: 'Edit',
+    {
+      headerName: 'Edit',
       field: 'edit',
       cellRenderer:EditBtnComponent,
       cellRendererParams:{
@@ -29,7 +37,8 @@ export class EmployeesComponent {
         label: 'Click',
       }
     },
-    { headerName: 'Delete',
+    {
+      headerName: 'Delete',
       field: 'delete',
       cellRenderer:DeleteBtnComponent,
       cellRendererParams:{
@@ -42,7 +51,8 @@ export class EmployeesComponent {
   rowData: Employee[] = [];
   constructor(private employeesService: EmployeesService,
               private dialog: MatDialog,
-              private notificationService: NotificationServiceService){
+              private notificationService: NotificationServiceService,
+              private datePipe: DatePipe){
                 this.notificationService.notification$.subscribe(res => {
                   if(res == NotificationTypes.REFRESH_EMPLOYEES){
                     this.loadEmmployees();

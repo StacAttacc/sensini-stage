@@ -15,7 +15,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_NATIVE_DATE_FORMATS, MatNativeDateModule } from '@angular/material/core';
+import { DateAdapter } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -44,6 +45,7 @@ import { TaxBracketsComponent } from './tax-brackets/tax-brackets.component';
 import { TaxBracketsAddEditComponent } from './tax-brackets/tax-brackets-add-edit/tax-brackets-add-edit.component';
 import { TaxBracketsDeleteComponent } from './tax-brackets/tax-brackets-delete/tax-brackets-delete.component';
 import { NotificationServiceService } from './services/notification-service.service';
+import { CustomDateAdapter } from './employees/employee-add-edit/custom-date-adapter';
 
 @NgModule({
   declarations: [
@@ -92,6 +94,15 @@ import { NotificationServiceService } from './services/notification-service.serv
     EmployeesService,
     SocialContributionService,
     NotificationServiceService,
+    {
+      provide: DateAdapter, useClass:CustomDateAdapter
+    },
+    {
+      provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS
+    },
+    {
+      provide: MAT_DATE_LOCALE, useValue: 'en-GB'
+    },
     {
       provide: API_BASE_URL,
       useValue: 'https://localhost:5001'
