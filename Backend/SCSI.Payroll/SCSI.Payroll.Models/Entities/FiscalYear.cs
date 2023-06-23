@@ -14,7 +14,7 @@ namespace SCSI.Payroll.Models.Entities
         [Key(), Column("Id")]
         public int Id { get; set; }
 
-        [Index(IsUnique = true), Column("Year")]
+        [Column("Year")]
         public int Year { get; set; }
         
         [Column("Description")]
