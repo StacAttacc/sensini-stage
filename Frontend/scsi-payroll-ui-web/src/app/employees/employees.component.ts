@@ -22,12 +22,27 @@ export class EmployeesComponent {
     { field : 'firstName' },
     { field: 'lastName' },
     {
+      headerName: 'Birth Date',
       field : 'birthDate',
       cellRenderer: (theDate:any) => {
         return this.datePipe.transform(theDate.value, 'yyyy-MM-dd');
       }
     },
-    { field : 'nas' },
+    {
+      headerName: 'NAS',
+      field : 'nas',
+      cellRenderer: (theNumber: any) => {
+        let originalString = theNumber.value;
+        let formattedString = '';
+        for (let i = 0; i < originalString.length; i++){
+          if (i > 0 && i % 3 === 0){
+            formattedString += '-';
+          }
+          formattedString += originalString[i];
+        }
+        return formattedString;
+      }
+    },
     {
       headerName: 'Edit',
       field: 'edit',
