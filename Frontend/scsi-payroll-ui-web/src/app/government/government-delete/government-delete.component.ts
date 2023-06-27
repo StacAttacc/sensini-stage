@@ -28,6 +28,7 @@ export class GovernmentDeleteComponent {
     this.governmentService.governmentDeleteById(this.data.id).subscribe(gvt =>{
       console.log('data deleted');
       this.notificationService.notify(NotificationTypes.REFRESH_GOVERNMENT);
+      this.notificationService.openSnackBar("Government Deleted");
     });
   }
 

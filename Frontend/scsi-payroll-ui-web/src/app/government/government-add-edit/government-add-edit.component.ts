@@ -33,6 +33,7 @@ export class GovernmentAddEditComponent {
       this.governmentService.government(government).subscribe( gvt => {
         console.log('data saved');
         this.notificationService.notify(NotificationTypes.REFRESH_GOVERNMENT);
+        this.notificationService.openSnackBar("Government Saved");
       });
     }
   }

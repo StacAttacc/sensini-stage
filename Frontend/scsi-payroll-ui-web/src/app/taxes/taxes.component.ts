@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { SocialContribution, SocialContributionService } from '../services/payroll-api-proxy';
 import { MatDialog } from '@angular/material/dialog';
 import { TaxAddEditComponent } from './tax-add-edit/tax-add-edit.component';
@@ -7,13 +7,16 @@ import { TaxDeleteComponent } from './tax-delete/tax-delete.component';
 import { DeleteBtnComponent } from '../commons/delete-btn/delete-btn.component';
 import { NotificationServiceService } from '../services/notification-service.service';
 import { NotificationTypes } from '../models/constants';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-taxes',
   templateUrl: './taxes.component.html',
   styleUrls: ['./taxes.component.scss']
 })
-export class TaxesComponent {
+export class TaxesComponent implements OnDestroy{
+
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   columnDefs=[
     { field: 'year' },
@@ -45,7 +48,9 @@ export class TaxesComponent {
   constructor(private socialContributionService: SocialContributionService,
               private dialog: MatDialog,
               private notificationService: NotificationServiceService){
-                this.notificationService.notification$.subscribe(res => {
+                this.notificationService.notification$
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(res => {
                   if(res == NotificationTypes.REFRESH_TAXES){
                     this.loadTaxes();
                   }
@@ -84,6 +89,11 @@ export class TaxesComponent {
 
   ngOnInit(): void{
     this.loadTaxes();
+  }
+
+  ngOnDestroy():void{
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
   loadTaxes(){

@@ -33,6 +33,7 @@ export class FiscalYearsAddEditComponent {
       this.fiscalYearService.fiscalYear(fiscalYear).subscribe( fiscYear => {
         console.log('fiscal year saved');
         this.notificationService.notify(NotificationTypes.REFRERSH_FISCAL_YEARS);
+        this.notificationService.openSnackBar("Fiscal Year Saved");
       });
     }
   }

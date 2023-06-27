@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FiscalYear, SocialContributionService } from '../services/payroll-api-proxy';
 import { MatDialog } from '@angular/material/dialog';
 import { FiscalYearsAddEditComponent } from './fiscal-years-add-edit/fiscal-years-add-edit.component';
@@ -7,13 +7,16 @@ import { DeleteBtnComponent } from '../commons/delete-btn/delete-btn.component';
 import { FiscalYearsDeleteComponent } from './fiscal-years-delete/fiscal-years-delete.component';
 import { NotificationServiceService } from '../services/notification-service.service';
 import { NotificationTypes } from '../models/constants';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-fiscal-years',
   templateUrl: './fiscal-years.component.html',
   styleUrls: ['./fiscal-years.component.scss']
 })
-export class FiscalYearsComponent {
+export class FiscalYearsComponent implements OnDestroy{
+
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   columnDefs = [
     { field: 'id' },
@@ -41,7 +44,9 @@ export class FiscalYearsComponent {
   constructor(private fiscalYearService: SocialContributionService,
               private dialog: MatDialog,
               private notificationService: NotificationServiceService){
-                this.notificationService.notification$.subscribe(e => {
+                this.notificationService.notification$
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(e => {
                   if(e == NotificationTypes.REFRERSH_FISCAL_YEARS){
                     this.loadFiscalYears();
                   }
@@ -85,6 +90,11 @@ export class FiscalYearsComponent {
 
   ngOnInit(){
     this.loadFiscalYears();
+  }
+
+  ngOnDestroy():void{
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
   loadFiscalYears(){

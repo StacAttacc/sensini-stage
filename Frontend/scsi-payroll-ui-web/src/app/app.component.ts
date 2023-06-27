@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { NotificationServiceService } from './services/notification-service.service';
 
 @Component({
   selector: 'app-root',
@@ -10,9 +12,11 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 export class AppComponent {
   @ViewChild(MatSidenav) sidenav!:MatSidenav;
 
-  constructor(private observer: BreakpointObserver, private changeDetectorRef: ChangeDetectorRef){
-
-  }
+  constructor(private observer: BreakpointObserver,
+              private changeDetectorRef: ChangeDetectorRef,
+              private snackBar: MatSnackBar,
+              private notificationService: NotificationServiceService){
+              }
 
 
   ngAfterViewInit(){
@@ -25,6 +29,12 @@ export class AppComponent {
         this.sidenav.open();
       }
       this.changeDetectorRef.detectChanges();
+    });
+  }
+
+  openSnackBar(message :string){
+    this.snackBar.open(message, "X", {
+      duration: 2500
     });
   }
 }

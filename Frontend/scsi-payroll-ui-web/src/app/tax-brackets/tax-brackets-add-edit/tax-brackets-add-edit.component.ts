@@ -43,6 +43,7 @@ export class TaxBracketsAddEditComponent {
       this.taxBracketService.taxBracket(taxBracket).subscribe(taxBr => {
         console.log('data saved');
         this.notificationService.notify(NotificationTypes.REFRESH_TAX_BRACKETS);
+        this.notificationService.openSnackBar("Tax Bracket Saved");
       });
     }
   }

@@ -38,6 +38,7 @@ export class EmployeeAddEditComponent {
       this.employeesService.employeesPost(employee).subscribe( res => {
         console.log('saved updates');
         this.notificationService.notify(NotificationTypes.REFRESH_EMPLOYEES);
+        this.notificationService.openSnackBar("Employee Saved");
       });
     }
   }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FiscalYear, Government, SocialContributionService, TaxBracket } from '../services/payroll-api-proxy';
 import { MatDialog } from '@angular/material/dialog';
 import { TaxBracketsAddEditComponent } from './tax-brackets-add-edit/tax-brackets-add-edit.component';
@@ -7,17 +7,23 @@ import { DeleteBtnComponent } from '../commons/delete-btn/delete-btn.component';
 import { TaxBracketsDeleteComponent } from './tax-brackets-delete/tax-brackets-delete.component';
 import { NotificationServiceService } from '../services/notification-service.service';
 import { GridOptions } from 'ag-grid-community';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-tax-brackets',
   templateUrl: './tax-brackets.component.html',
   styleUrls: ['./tax-brackets.component.scss']
 })
-export class TaxBracketsComponent {
+export class TaxBracketsComponent implements OnDestroy{
+
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
   constructor(private taxBracketService: SocialContributionService,
               private dialog:MatDialog,
               private notificationServie: NotificationServiceService){
-                this.notificationServie.notification$.subscribe(res => {
+                this.notificationServie.notification$
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(res => {
                   this.loadTaxBrackets();
                 });
               }
@@ -97,6 +103,11 @@ export class TaxBracketsComponent {
 
   ngOnInit(){
     this.loadTaxBrackets();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
   loadTaxBrackets(){

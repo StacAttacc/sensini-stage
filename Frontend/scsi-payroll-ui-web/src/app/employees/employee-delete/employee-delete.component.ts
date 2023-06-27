@@ -32,6 +32,7 @@ export class EmployeeDeleteComponent {
     this.employeesService.employeeDeleteById(this.data.id).subscribe( res => {
       console.log('deleted')
       this.notificationService.notify(NotificationTypes.REFRESH_EMPLOYEES);
+      this.notificationService.openSnackBar("Employee Deleted");
     });
   }
 

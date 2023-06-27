@@ -6,9 +6,9 @@
 
 <form [formGroup]="formGroup" (ngSubmit)="onDelete()">
   <mat-dialog-content>
-    
+
     <p>Do you really want to delete this?</p>
-    
+
     <p>
       <mat-form-field class="mat-readonly-wrapper">
         <mat-label>Years</mat-label>
@@ -25,7 +25,7 @@
 
 
   <mat-dialog-actions>
-    <button mat-raised-button type="submit" matDialogClose>Sauvegarder</button>
+    <button mat-raised-button type="submit" matDialogClose>Delete</button>
     <button mat-raised-button matDialogClose>Cancel</button>
   </mat-dialog-actions>
 </form>

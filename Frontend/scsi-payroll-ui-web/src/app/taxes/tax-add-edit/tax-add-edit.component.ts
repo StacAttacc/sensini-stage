@@ -41,6 +41,7 @@ export class TaxAddEditComponent {
       this.socialContributionService.socialContribution(tax).subscribe( tax => {
         console.log(tax);
         this.notificationService.notify(NotificationTypes.REFRESH_TAXES);
+        this.notificationService.openSnackBar("Tax Saved");
       });
     }
   }

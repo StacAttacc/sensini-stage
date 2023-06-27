@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Employee, EmployeesService } from '../services/payroll-api-proxy';
 import { EmployeeAddEditComponent } from './employee-add-edit/employee-add-edit.component';
 import { MatDialog } from '@angular/material/dialog';
 import { EditBtnComponent } from '../commons/edit-btn/edit-btn.component';
-import { config } from 'rxjs';
+import { Subject, config, takeUntil } from 'rxjs';
 import { DeleteBtnComponent } from '../commons/delete-btn/delete-btn.component';
 import { EmployeeDeleteComponent } from './employee-delete/employee-delete.component';
 import { NotificationServiceService } from '../services/notification-service.service';
@@ -16,7 +16,8 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./employees.component.scss'],
   providers: [DatePipe]
 })
-export class EmployeesComponent {
+export class EmployeesComponent implements OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   columnDefs = [
     { field : 'firstName' },
@@ -68,7 +69,9 @@ export class EmployeesComponent {
               private dialog: MatDialog,
               private notificationService: NotificationServiceService,
               private datePipe: DatePipe){
-                this.notificationService.notification$.subscribe(res => {
+                this.notificationService.notification$
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(res => {
                   if(res == NotificationTypes.REFRESH_EMPLOYEES){
                     this.loadEmmployees();
                   }
@@ -109,6 +112,11 @@ export class EmployeesComponent {
 
   ngOnInit(): void{
     this.loadEmmployees();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
   loadEmmployees(){

@@ -27,11 +27,12 @@ export class TaxDeleteComponent {
               private notificationService: NotificationServiceService){}
 
   title = "dynamicTitle";
-  
+
   delete(){
     this.socialContributionService.socialContributionDeleteById(this.data.id).subscribe( tax => {
       console.log('tax deleted');
       this.notificationService.notify(NotificationTypes.REFRESH_TAXES);
+      this.notificationService.openSnackBar("Tax Deleted");
     });
   }
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { EditBtnComponent } from '../commons/edit-btn/edit-btn.component';
 import { Government, SocialContributionService } from '../services/payroll-api-proxy';
 import { DeleteBtnComponent } from '../commons/delete-btn/delete-btn.component';
@@ -7,17 +7,23 @@ import { GovernmentAddEditComponent } from './government-add-edit/government-add
 import { GovernmentDeleteComponent } from './government-delete/government-delete.component';
 import { NotificationServiceService } from '../services/notification-service.service';
 import { NotificationTypes } from '../models/constants';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-government',
   templateUrl: './government.component.html',
   styleUrls: ['./government.component.scss']
 })
-export class GovernmentComponent {
+export class GovernmentComponent implements OnDestroy{
+
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
   constructor(private governmentService: SocialContributionService,
               private dialog: MatDialog,
               private notificationService: NotificationServiceService){
-                this.notificationService.notification$.subscribe(e => {
+                this.notificationService.notification$
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(e => {
                   if(e == NotificationTypes.REFRESH_GOVERNMENT){
                     this.loadGgovernment();
                   }
@@ -81,6 +87,11 @@ export class GovernmentComponent {
 
   ngOnInit(){
     this.loadGgovernment();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
   loadGgovernment(){

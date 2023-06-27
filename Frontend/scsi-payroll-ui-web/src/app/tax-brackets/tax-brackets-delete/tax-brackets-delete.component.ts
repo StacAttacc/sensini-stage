@@ -35,6 +35,7 @@ export class TaxBracketsDeleteComponent {
     this.taxBracketService.taxBracketDeleteById(this.data.id).subscribe(taxBr => {
       console.log('data deleted');
       this.notificationService.notify(NotificationTypes.REFRESH_TAX_BRACKETS);
+      this.notificationService.openSnackBar("Tax Bracket Deleted");
     });
   }
 

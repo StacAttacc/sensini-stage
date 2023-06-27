@@ -27,7 +27,8 @@ export class FiscalYearsDeleteComponent {
   onDelete(){
     this.fiscalYearsService.fiscalYearDeleteById(this.data.id).subscribe(fiscYear => {
       console.log('data deleted ', this.data.year);
-      this.mediatorService.notify(NotificationTypes.REFRERSH_FISCAL_YEARS)
+      this.mediatorService.notify(NotificationTypes.REFRERSH_FISCAL_YEARS);
+      this.mediatorService.openSnackBar("Fiscal Year Deleted");
     });
   }
 
