@@ -4,6 +4,7 @@ using SCSI.Payroll.Business.Implementations;
 using SCSI.Payroll.Repository;
 using SCSI.Payroll.Repository.Contracts;
 using SCSI.Payroll.Repository.Implementations;
+using SCSI.Payroll.WebApi.MiddleWares;
 
 namespace SCSI.Payroll.WebApi
 {
@@ -35,6 +36,8 @@ namespace SCSI.Payroll.WebApi
 
             builder.Services.AddScoped<ITaxRepository, TaxRepository>();
             builder.Services.AddScoped<ITaxBusiness, TaxBusiness>();
+
+            builder.Services.AddScoped<ExceptionMiddleware>();
 
             builder.Services.AddDbContext<PayrollDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("PayrollConn")));
 
@@ -73,6 +76,7 @@ namespace SCSI.Payroll.WebApi
 
             app.UseAuthorization();
 
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.MapControllers();
 
