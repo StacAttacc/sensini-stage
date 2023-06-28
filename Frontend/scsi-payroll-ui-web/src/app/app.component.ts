@@ -32,9 +32,5 @@ export class AppComponent {
     });
   }
 
-  openSnackBar(message :string){
-    this.snackBar.open(message, "X", {
-      duration: 2500
-    });
-  }
+  
 }

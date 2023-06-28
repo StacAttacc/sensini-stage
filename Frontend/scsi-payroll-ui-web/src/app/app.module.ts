@@ -28,7 +28,7 @@ import { HomeComponent } from './home/home.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { API_BASE_URL, EmployeesService, SocialContributionService } from './services/payroll-api-proxy';
 
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { EmployeeAddEditComponent } from './employees/employee-add-edit/employee-add-edit.component';
 import { EmployeeDeleteComponent } from './employees/employee-delete/employee-delete.component';
 import { EditBtnComponent } from './commons/edit-btn/edit-btn.component';
@@ -47,6 +47,8 @@ import { TaxBracketsAddEditComponent } from './tax-brackets/tax-brackets-add-edi
 import { TaxBracketsDeleteComponent } from './tax-brackets/tax-brackets-delete/tax-brackets-delete.component';
 import { NotificationServiceService } from './services/notification-service.service';
 import { CustomDateAdapter } from './employees/employee-add-edit/custom-date-adapter';
+import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
+import { HttpRequestInterceptorService } from './services/http-request-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,8 @@ import { CustomDateAdapter } from './employees/employee-add-edit/custom-date-ada
     GovernmentDeleteComponent,
     TaxBracketsComponent,
     TaxBracketsAddEditComponent,
-    TaxBracketsDeleteComponent
+    TaxBracketsDeleteComponent,
+    ErrorDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -108,6 +111,11 @@ import { CustomDateAdapter } from './employees/employee-add-edit/custom-date-ada
     {
       provide: API_BASE_URL,
       useValue: 'https://localhost:5001'
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpRequestInterceptorService,
+      multi: true
     }
   ],
   bootstrap: [AppComponent]
