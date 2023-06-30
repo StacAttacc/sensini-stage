@@ -14,5 +14,6 @@ namespace SCSI.Payroll.Business.Contracts
         Task<FiscalYear> GetFiscalYearByYearAsync(int year);
         Task<FiscalYear> DeleteFiscalYearByIdAsync(int id);
         Task<FiscalYear> SaveFiscalYearAsync(FiscalYear fiscalYear);
+        Task<bool> IsYearValid(int year);
     }
 }

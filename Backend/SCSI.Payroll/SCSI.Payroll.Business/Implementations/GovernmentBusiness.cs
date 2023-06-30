@@ -1,4 +1,5 @@
 ﻿using SCSI.Payroll.Business.Contracts;
+using SCSI.Payroll.Models.Constants;
 using SCSI.Payroll.Models.Entities;
 using SCSI.Payroll.Repository.Contracts;
 using System;
@@ -72,13 +73,32 @@ namespace SCSI.Payroll.Business.Implementations
         {
             try
             {
-                var result = await _governmentRepository.SaveGovernmentAsync(government);
+                var result = government;
+                if(await IsCodeValid(government.Code))
+                {
+                    result = await _governmentRepository.SaveGovernmentAsync(government);
+                }
+                else
+                {
+                    throw new Exception(ErrorMessageConst.CodeTaken);
+                }
+                
                 return result;
             }
             catch(Exception ex)
             {
                 throw;
             }
+        }
+
+        public async Task<bool> IsCodeValid(string code)
+        {
+            bool codeIsValid = true;
+            if(await _governmentRepository.GetGovernmentByCodeAsync(code) != null)
+            {
+                codeIsValid = false;
+            }
+            return codeIsValid;
         }
     }
 }

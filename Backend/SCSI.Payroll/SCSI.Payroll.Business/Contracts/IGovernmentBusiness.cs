@@ -14,5 +14,6 @@ namespace SCSI.Payroll.Business.Contracts
         Task<Government> GetGovernmentByCodeAsync(string code);
         Task<Government> DeleteGovernmentByIdAsync(int id);
         Task<Government> SaveGovernmentAsync(Government government);
+        Task<bool> IsCodeValid(string code);
     }
 }

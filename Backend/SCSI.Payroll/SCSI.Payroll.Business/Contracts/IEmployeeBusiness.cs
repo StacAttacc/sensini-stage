@@ -15,5 +15,7 @@ namespace SCSI.Payroll.Business.Contracts
         Task<Employee> GetEmployeeByNameAsync(string employeeName);
         Task<Employee> DeleteEmployeeByIdAsunc(int employeeId);
         bool ValidationEmployee(Employee employee);
+
+        /*TODO: METHOD TO VALIDATE SOCIAL ASSURANCE NUMBER!!*/
     }
 }

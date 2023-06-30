@@ -1,4 +1,5 @@
 ﻿using SCSI.Payroll.Business.Contracts;
+using SCSI.Payroll.Models.Constants;
 using SCSI.Payroll.Models.Entities;
 using SCSI.Payroll.Repository.Contracts;
 using SCSI.Payroll.Repository.Implementations;
@@ -73,13 +74,31 @@ namespace SCSI.Payroll.Business.Implementations
         {
             try
             {
-                var result = await _fiscalYearRepository.SaveFiscalYearAsync(fiscalYear);
+                var result = fiscalYear;
+                if(await IsYearValid(fiscalYear.Year))
+                {
+                    result = await _fiscalYearRepository.SaveFiscalYearAsync(fiscalYear);
+                }
+                else
+                {
+                    throw new Exception(ErrorMessageConst.YearTaken);
+                }
                 return result;
             }
             catch(Exception ex)
             {
                 throw;
             }
+        }
+
+        public async Task<bool> IsYearValid(int year)
+        {
+            bool yearIsAvailable = true;
+            if(await _fiscalYearRepository.GetFiscalYearByYearAsync(year) != null)
+            {
+                yearIsAvailable = false;
+            }
+            return yearIsAvailable;
         }
     }
 }

@@ -16,7 +16,16 @@ export class HttpRequestInterceptorService implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {
         return this.extractErrorMessage(error.error).pipe(
           tap(e => {
-            this.notificationService.showError(e.message);
+            console.log(e);
+            if(e.message != null){
+              this.notificationService.showError(e.message);
+            }
+            else if(e.title != null){
+              this.notificationService.showError(e.title);
+            }
+            else{
+              this.notificationService.showError("An Error Has Occured.")
+            }
           })
         )
       })

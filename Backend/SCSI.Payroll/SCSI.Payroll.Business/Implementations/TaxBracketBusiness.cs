@@ -69,29 +69,13 @@ namespace SCSI.Payroll.Business.Implementations
             TaxBracket? result = null;
             try
             {
-                /*if(ValidateOverlap( await _fiscalYearBusiness.GetFiscalYearByIdAsync(taxBracket.FiscalYearId),
-                                    await _governmentBusiness.GetGovernmentByIdAsync(taxBracket.GovernmentId),
-                                    taxBrackets,
-                                    taxBracket))
-                {
-                    if(await ValidateCoverageAsync( taxBracket,
-                                                    await _fiscalYearBusiness.GetFiscalYearByIdAsync(taxBracket.FiscalYearId),
-                                                    await _governmentBusiness.GetGovernmentByIdAsync(taxBracket.GovernmentId)))
-                    {
-                        result = await _taxBracketRepository.SaveTaxBracketAsync(taxBracket);
-                    }
-                    else
-                    {
-                        throw new Exception(ErrorMessageConst.CoverageNotRespected);
-                    }
-                }
-                else
-                {
-                    throw new Exception(ErrorMessageConst.OverlapRuleNotRespected);
-                }*/
                 if(await ValidateOverlapAndCoverage(taxBracket))
                 {
                     result = await _taxBracketRepository.SaveTaxBracketAsync(taxBracket);
+                }
+                else
+                {
+                    throw new Exception(ErrorMessageConst.OverlapOrCoverageNotRespected);
                 }
                 return result;
             }
@@ -119,13 +103,13 @@ namespace SCSI.Payroll.Business.Implementations
                 else
                 {
                     isValid = false;
-                    //throw new Exception(ErrorMessageConst.CoverageNotRespected);
+                    throw new Exception(ErrorMessageConst.CoverageNotRespected);
                 }
             }
             else
             {
                 isValid = false;
-                //throw new Exception(ErrorMessageConst.OverlapRuleNotRespected);
+                throw new Exception(ErrorMessageConst.OverlapRuleNotRespected);
             }
             return isValid;
         }
