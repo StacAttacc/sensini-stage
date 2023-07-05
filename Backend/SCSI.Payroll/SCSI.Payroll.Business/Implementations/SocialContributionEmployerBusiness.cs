@@ -1,5 +1,6 @@
 ﻿using SCSI.Payroll.Business.Contracts;
 using SCSI.Payroll.Models.Entities;
+using SCSI.Payroll.Repository.Contracts;
 using SCSI.Payroll.Repository.Implementations;
 using System;
 using System.Collections.Generic;
@@ -11,8 +12,8 @@ namespace SCSI.Payroll.Business.Implementations
 {
     public class SocialContributionEmployerBusiness : ISocialContributionEmployerBusiness
     {
-        private SocialContributionEmployerRepository _SCERepository;
-        public SocialContributionEmployerBusiness(SocialContributionEmployerRepository socialContribution)
+        private ISocialContributionEmployerRepository _SCERepository;
+        public SocialContributionEmployerBusiness(ISocialContributionEmployerRepository socialContribution)
         {
             this._SCERepository = socialContribution;
         }
@@ -20,7 +21,7 @@ namespace SCSI.Payroll.Business.Implementations
         {
             try
             {
-                var result = await this._SCERepository.DeleteSocialContributionByIdAsync(id);
+                var result = await _SCERepository.DeleteSocialContributionByIdAsync(id);
                 return result;
             }
             catch(Exception ex)
@@ -33,7 +34,7 @@ namespace SCSI.Payroll.Business.Implementations
         {
             try
             {
-                var result = await this._SCERepository.GetSocialContributionByIdAsync(id);
+                var result = await _SCERepository.GetSocialContributionByIdAsync(id);
                 return result;
             }
             catch(Exception ex)
@@ -46,7 +47,7 @@ namespace SCSI.Payroll.Business.Implementations
         {
             try
             {
-                var result = await this._SCERepository.GetSocialContributionsAsync();
+                var result = await _SCERepository.GetSocialContributionsAsync();
                 return result;
             }
             catch(Exception ex)
@@ -59,7 +60,7 @@ namespace SCSI.Payroll.Business.Implementations
         {
             try
             {
-                var result = await this._SCERepository.SaveSocialContributionsAsync(socialContribution);
+                var result = await _SCERepository.SaveSocialContributionsAsync(socialContribution);
                 return result;
             }
             catch(Exception ex)

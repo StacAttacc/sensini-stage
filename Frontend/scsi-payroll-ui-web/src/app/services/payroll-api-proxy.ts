@@ -271,8 +271,8 @@ export class SocialContributionService {
     /**
      * @return Success
      */
-    socialContributions(): Observable<SocialContribution[]> {
-        let url_ = this.baseUrl + "/api/tax/v1/social-contribution/social-contributions";
+    socialContributionsEmployee(): Observable<SocialContributionEmployee[]> {
+        let url_ = this.baseUrl + "/api/tax/v1/social-contribution/social-contributions-employee";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -284,20 +284,20 @@ export class SocialContributionService {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processSocialContributions(response_);
+            return this.processSocialContributionsEmployee(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processSocialContributions(response_ as any);
+                    return this.processSocialContributionsEmployee(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<SocialContribution[]>;
+                    return _observableThrow(e) as any as Observable<SocialContributionEmployee[]>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<SocialContribution[]>;
+                return _observableThrow(response_) as any as Observable<SocialContributionEmployee[]>;
         }));
     }
 
-    protected processSocialContributions(response: HttpResponseBase): Observable<SocialContribution[]> {
+    protected processSocialContributionsEmployee(response: HttpResponseBase): Observable<SocialContributionEmployee[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -312,7 +312,66 @@ export class SocialContributionService {
             if (Array.isArray(resultData200)) {
                 result200 = [] as any;
                 for (let item of resultData200)
-                    result200!.push(SocialContribution.fromJS(item, _mappings));
+                    result200!.push(SocialContributionEmployee.fromJS(item, _mappings));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @return Success
+     */
+    socialContributionsEmployer(): Observable<SocialContributionEmployer[]> {
+        let url_ = this.baseUrl + "/api/tax/v1/social-contribution/social-contributions-employer";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processSocialContributionsEmployer(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processSocialContributionsEmployer(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<SocialContributionEmployer[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<SocialContributionEmployer[]>;
+        }));
+    }
+
+    protected processSocialContributionsEmployer(response: HttpResponseBase): Observable<SocialContributionEmployer[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(SocialContributionEmployer.fromJS(item, _mappings));
             }
             else {
                 result200 = <any>null;
@@ -508,8 +567,8 @@ export class SocialContributionService {
      * @param id (optional) 
      * @return Success
      */
-    socialContributionById(id: number | undefined): Observable<SocialContribution> {
-        let url_ = this.baseUrl + "/api/tax/v1/social-contribution/social-contribution-by-id?";
+    socialContributionEmployeeById(id: number | undefined): Observable<SocialContributionEmployee> {
+        let url_ = this.baseUrl + "/api/tax/v1/social-contribution/social-contribution-employee-by-id?";
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
@@ -525,20 +584,20 @@ export class SocialContributionService {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processSocialContributionById(response_);
+            return this.processSocialContributionEmployeeById(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processSocialContributionById(response_ as any);
+                    return this.processSocialContributionEmployeeById(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<SocialContribution>;
+                    return _observableThrow(e) as any as Observable<SocialContributionEmployee>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<SocialContribution>;
+                return _observableThrow(response_) as any as Observable<SocialContributionEmployee>;
         }));
     }
 
-    protected processSocialContributionById(response: HttpResponseBase): Observable<SocialContribution> {
+    protected processSocialContributionEmployeeById(response: HttpResponseBase): Observable<SocialContributionEmployee> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -550,7 +609,64 @@ export class SocialContributionService {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
-            result200 = SocialContribution.fromJS(resultData200, _mappings);
+            result200 = SocialContributionEmployee.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    socialContributionEmployerById(id: number | undefined): Observable<SocialContributionEmployer> {
+        let url_ = this.baseUrl + "/api/tax/v1/social-contribution/social-contribution-employer-by-id?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processSocialContributionEmployerById(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processSocialContributionEmployerById(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<SocialContributionEmployer>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<SocialContributionEmployer>;
+        }));
+    }
+
+    protected processSocialContributionEmployerById(response: HttpResponseBase): Observable<SocialContributionEmployer> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = SocialContributionEmployer.fromJS(resultData200, _mappings);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -850,8 +966,8 @@ export class SocialContributionService {
      * @param id (optional) 
      * @return Success
      */
-    socialContributionDeleteById(id: number | undefined): Observable<SocialContribution> {
-        let url_ = this.baseUrl + "/api/tax/v1/social-contribution/social-contribution-delete-by-id?";
+    socialContributionEmployeeDeleteById(id: number | undefined): Observable<SocialContributionEmployee> {
+        let url_ = this.baseUrl + "/api/tax/v1/social-contribution/social-contribution-employee-delete-by-id?";
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
@@ -867,20 +983,20 @@ export class SocialContributionService {
         };
 
         return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processSocialContributionDeleteById(response_);
+            return this.processSocialContributionEmployeeDeleteById(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processSocialContributionDeleteById(response_ as any);
+                    return this.processSocialContributionEmployeeDeleteById(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<SocialContribution>;
+                    return _observableThrow(e) as any as Observable<SocialContributionEmployee>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<SocialContribution>;
+                return _observableThrow(response_) as any as Observable<SocialContributionEmployee>;
         }));
     }
 
-    protected processSocialContributionDeleteById(response: HttpResponseBase): Observable<SocialContribution> {
+    protected processSocialContributionEmployeeDeleteById(response: HttpResponseBase): Observable<SocialContributionEmployee> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -892,7 +1008,64 @@ export class SocialContributionService {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
-            result200 = SocialContribution.fromJS(resultData200, _mappings);
+            result200 = SocialContributionEmployee.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    socialContributionEmployerDeleteById(id: number | undefined): Observable<SocialContributionEmployer> {
+        let url_ = this.baseUrl + "/api/tax/v1/social-contribution/social-contribution-employer-delete-by-id?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processSocialContributionEmployerDeleteById(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processSocialContributionEmployerDeleteById(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<SocialContributionEmployer>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<SocialContributionEmployer>;
+        }));
+    }
+
+    protected processSocialContributionEmployerDeleteById(response: HttpResponseBase): Observable<SocialContributionEmployer> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = SocialContributionEmployer.fromJS(resultData200, _mappings);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -1078,8 +1251,8 @@ export class SocialContributionService {
      * @param body (optional) 
      * @return Success
      */
-    socialContribution(body: SocialContribution | undefined): Observable<SocialContribution> {
-        let url_ = this.baseUrl + "/api/tax/v1/social-contribution/social-contribution";
+    socialContributionEmployee(body: SocialContributionEmployee | undefined): Observable<SocialContributionEmployee> {
+        let url_ = this.baseUrl + "/api/tax/v1/social-contribution/social-contribution-employee";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -1095,20 +1268,20 @@ export class SocialContributionService {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processSocialContribution(response_);
+            return this.processSocialContributionEmployee(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processSocialContribution(response_ as any);
+                    return this.processSocialContributionEmployee(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<SocialContribution>;
+                    return _observableThrow(e) as any as Observable<SocialContributionEmployee>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<SocialContribution>;
+                return _observableThrow(response_) as any as Observable<SocialContributionEmployee>;
         }));
     }
 
-    protected processSocialContribution(response: HttpResponseBase): Observable<SocialContribution> {
+    protected processSocialContributionEmployee(response: HttpResponseBase): Observable<SocialContributionEmployee> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -1120,7 +1293,64 @@ export class SocialContributionService {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
-            result200 = SocialContribution.fromJS(resultData200, _mappings);
+            result200 = SocialContributionEmployee.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    socialContributionEmployer(body: SocialContributionEmployer | undefined): Observable<SocialContributionEmployer> {
+        let url_ = this.baseUrl + "/api/tax/v1/social-contribution/social-contribution-employer";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processSocialContributionEmployer(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processSocialContributionEmployer(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<SocialContributionEmployer>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<SocialContributionEmployer>;
+        }));
+    }
+
+    protected processSocialContributionEmployer(response: HttpResponseBase): Observable<SocialContributionEmployer> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = SocialContributionEmployer.fromJS(resultData200, _mappings);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -1437,16 +1667,17 @@ export interface IGovernment {
     description?: string | undefined;
 }
 
-export class SocialContribution implements ISocialContribution {
+export class SocialContributionEmployee implements ISocialContributionEmployee {
     id?: number;
-    year?: number;
+    fiscalYearId?: number;
     rrqRate?: number;
     rrqMga?: number;
     employmentInsurance?: number;
     rqapRate?: number;
     rqapMga?: number;
+    fiscalYear?: FiscalYear;
 
-    constructor(data?: ISocialContribution) {
+    constructor(data?: ISocialContributionEmployee) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -1458,41 +1689,118 @@ export class SocialContribution implements ISocialContribution {
     init(_data?: any, _mappings?: any) {
         if (_data) {
             this.id = _data["id"];
-            this.year = _data["year"];
+            this.fiscalYearId = _data["fiscalYearId"];
             this.rrqRate = _data["rrqRate"];
             this.rrqMga = _data["rrqMga"];
             this.employmentInsurance = _data["employmentInsurance"];
             this.rqapRate = _data["rqapRate"];
             this.rqapMga = _data["rqapMga"];
+            this.fiscalYear = _data["fiscalYear"] ? FiscalYear.fromJS(_data["fiscalYear"], _mappings) : <any>undefined;
         }
     }
 
-    static fromJS(data: any, _mappings?: any): SocialContribution | null {
+    static fromJS(data: any, _mappings?: any): SocialContributionEmployee | null {
         data = typeof data === 'object' ? data : {};
-        return createInstance<SocialContribution>(data, _mappings, SocialContribution);
+        return createInstance<SocialContributionEmployee>(data, _mappings, SocialContributionEmployee);
     }
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
-        data["year"] = this.year;
+        data["fiscalYearId"] = this.fiscalYearId;
         data["rrqRate"] = this.rrqRate;
         data["rrqMga"] = this.rrqMga;
         data["employmentInsurance"] = this.employmentInsurance;
         data["rqapRate"] = this.rqapRate;
         data["rqapMga"] = this.rqapMga;
+        data["fiscalYear"] = this.fiscalYear ? this.fiscalYear.toJSON() : <any>undefined;
         return data;
     }
 }
 
-export interface ISocialContribution {
+export interface ISocialContributionEmployee {
     id?: number;
-    year?: number;
+    fiscalYearId?: number;
     rrqRate?: number;
     rrqMga?: number;
     employmentInsurance?: number;
     rqapRate?: number;
     rqapMga?: number;
+    fiscalYear?: FiscalYear;
+}
+
+export class SocialContributionEmployer implements ISocialContributionEmployer {
+    id?: number;
+    fiscalYearId?: number;
+    rrqRate?: number;
+    rrqMga?: number;
+    employmentInsurance?: number;
+    rqapRate?: number;
+    rqapMga?: number;
+    cnesst?: number;
+    fss?: number;
+    fdrcmo?: number;
+    fiscalYear?: FiscalYear;
+
+    constructor(data?: ISocialContributionEmployer) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.fiscalYearId = _data["fiscalYearId"];
+            this.rrqRate = _data["rrqRate"];
+            this.rrqMga = _data["rrqMga"];
+            this.employmentInsurance = _data["employmentInsurance"];
+            this.rqapRate = _data["rqapRate"];
+            this.rqapMga = _data["rqapMga"];
+            this.cnesst = _data["cnesst"];
+            this.fss = _data["fss"];
+            this.fdrcmo = _data["fdrcmo"];
+            this.fiscalYear = _data["fiscalYear"] ? FiscalYear.fromJS(_data["fiscalYear"], _mappings) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): SocialContributionEmployer | null {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<SocialContributionEmployer>(data, _mappings, SocialContributionEmployer);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["fiscalYearId"] = this.fiscalYearId;
+        data["rrqRate"] = this.rrqRate;
+        data["rrqMga"] = this.rrqMga;
+        data["employmentInsurance"] = this.employmentInsurance;
+        data["rqapRate"] = this.rqapRate;
+        data["rqapMga"] = this.rqapMga;
+        data["cnesst"] = this.cnesst;
+        data["fss"] = this.fss;
+        data["fdrcmo"] = this.fdrcmo;
+        data["fiscalYear"] = this.fiscalYear ? this.fiscalYear.toJSON() : <any>undefined;
+        return data;
+    }
+}
+
+export interface ISocialContributionEmployer {
+    id?: number;
+    fiscalYearId?: number;
+    rrqRate?: number;
+    rrqMga?: number;
+    employmentInsurance?: number;
+    rqapRate?: number;
+    rqapMga?: number;
+    cnesst?: number;
+    fss?: number;
+    fdrcmo?: number;
+    fiscalYear?: FiscalYear;
 }
 
 export class TaxBracket implements ITaxBracket {

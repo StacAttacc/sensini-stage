@@ -6,15 +6,15 @@
     <edmx:Diagrams>
       <Diagram DiagramId="a53c95ed48c249308a01bc786e323b19" Name="Diagram1" ZoomLevel="71" >
         <EntityTypeShape EntityType="Model1.Employee" Width="1.5" PointX="0.5" PointY="1.25" />
-        <EntityTypeShape EntityType="Model1.SocialContributionEmployee" Width="1.5" PointX="2.5" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Model1.FiscalYear" Width="1.5" PointX="5" PointY="1.875" />
         <EntityTypeShape EntityType="Model1.Government" Width="1.5" PointX="7.5" PointY="1.875" />
         <EntityTypeShape EntityType="Model1.TaxBracket" Width="1.5" PointX="6.25" PointY="4.25" />
         <AssociationConnector Association="Model1.FiscalYearTaxBracket" />
         <AssociationConnector Association="Model1.GovernmentTaxBracket" />
-        <AssociationConnector Association="Model1.SocialContributionFiscalYear" />
         <EntityTypeShape EntityType="Model1.SocialContributionEmployer" Width="1.5" PointX="2.5" PointY="3.625" />
         <AssociationConnector Association="Model1.SocialContributionEmployerFiscalYear" />
+        <EntityTypeShape EntityType="Model1.SocialContributionEmployee" Width="1.5" PointX="2.5" PointY="0.875" />
+        <AssociationConnector Association="Model1.SocialContributionEmployeeFiscalYear" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

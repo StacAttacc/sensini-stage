@@ -2,7 +2,6 @@
 <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
   <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Employee" EntityType="Model1.Employee" />
-    <EntitySet Name="SocialContribution" EntityType="Model1.SocialContribution" />
     <EntitySet Name="FiscalYear" EntityType="Model1.FiscalYear" />
     <EntitySet Name="Government" EntityType="Model1.Government" />
     <EntitySet Name="TaxBracket" EntityType="Model1.TaxBracket" />
@@ -14,6 +13,16 @@
       <End Role="Government" EntitySet="Government" />
       <End Role="TaxBracket" EntitySet="TaxBracket" />
     </AssociationSet>
+    <EntitySet Name="SocialContributionEmployer" EntityType="Model1.SocialContributionEmployer" />
+    <AssociationSet Name="SocialContributionEmployerFiscalYear" Association="Model1.SocialContributionEmployerFiscalYear">
+      <End Role="SocialContributionEmployer" EntitySet="SocialContributionEmployer" />
+      <End Role="FiscalYear" EntitySet="FiscalYear" />
+    </AssociationSet>
+    <EntitySet Name="SocialContributionEmployee" EntityType="Model1.SocialContributionEmployee" />
+    <AssociationSet Name="SocialContributionEmployeeFiscalYear" Association="Model1.SocialContributionEmployeeFiscalYear">
+      <End Role="SocialContributionEmployee" EntitySet="SocialContributionEmployee" />
+      <End Role="FiscalYear" EntitySet="FiscalYear" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Employee">
     <Key>
@@ -24,18 +33,6 @@
     <Property Name="LastName" Type="String" Nullable="false" MaxLength="250" />
     <Property Name="BirthDate" Type="DateTime" Nullable="false" />
     <Property Name="NAS" Type="String" Nullable="false" MaxLength="9" />
-  </EntityType>
-  <EntityType Name="SocialContribution">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Year" Type="Int32" Nullable="false" />
-    <Property Name="RRQ_RATE" Type="Decimal" Nullable="false" Scale="2" Precision="18" />
-    <Property Name="RRQ_MGA" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-    <Property Name="Employment_Insurance" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-    <Property Name="RQAP_RATE" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-    <Property Name="RQAP_MGA" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
   </EntityType>
   <EntityType Name="FiscalYear">
     <Key>
@@ -87,6 +84,59 @@
       </Principal>
       <Dependent Role="TaxBracket">
         <PropertyRef Name="GovernmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="SocialContributionEmployer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RRQ_RATE" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="RRQ_MGA" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Employment_Insurance" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="RQAP_RATE" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="RQAP_MGA" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="CNESST" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="FSS" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="FDRCMO" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="FiscalYear" Relationship="Model1.SocialContributionEmployerFiscalYear" FromRole="SocialContributionEmployer" ToRole="FiscalYear" />
+    <Property Name="FiscalYearId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="SocialContributionEmployerFiscalYear">
+    <End Type="Model1.SocialContributionEmployer" Role="SocialContributionEmployer" Multiplicity="*" />
+    <End Type="Model1.FiscalYear" Role="FiscalYear" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="FiscalYear">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SocialContributionEmployer">
+        <PropertyRef Name="FiscalYearId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="SocialContributionEmployee">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RRQ_RATE" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="RRQ_MGA" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Employment_Insurance" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="RQAP_RATE" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="RQAP_MGA" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="FiscalYear" Relationship="Model1.SocialContributionEmployeeFiscalYear" FromRole="SocialContributionEmployee" ToRole="FiscalYear" />
+    <Property Name="FiscalYearId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="SocialContributionEmployeeFiscalYear">
+    <End Type="Model1.SocialContributionEmployee" Role="SocialContributionEmployee" Multiplicity="*" />
+    <End Type="Model1.FiscalYear" Role="FiscalYear" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="FiscalYear">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SocialContributionEmployee">
+        <PropertyRef Name="FiscalYearId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

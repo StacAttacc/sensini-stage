@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 07/05/2023 04:19:45
+-- Date Created: 07/05/2023 17:02:53
 -- Generated from EDMX file: B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.DatabaseConception\Model1.edmx
 -- --------------------------------------------------
 
@@ -23,9 +23,6 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_GovernmentTaxBracket]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[TaxBracket] DROP CONSTRAINT [FK_GovernmentTaxBracket];
 GO
-IF OBJECT_ID(N'[dbo].[FK_SocialContributionFiscalYear]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[SocialContribution] DROP CONSTRAINT [FK_SocialContributionFiscalYear];
-GO
 IF OBJECT_ID(N'[dbo].[FK_SocialContributionEmployerFiscalYear]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[SocialContributionEmployer] DROP CONSTRAINT [FK_SocialContributionEmployerFiscalYear];
 GO
@@ -36,9 +33,6 @@ GO
 
 IF OBJECT_ID(N'[dbo].[Employee]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Employee];
-GO
-IF OBJECT_ID(N'[dbo].[SocialContribution]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[SocialContribution];
 GO
 IF OBJECT_ID(N'[dbo].[FiscalYear]', 'U') IS NOT NULL
     DROP TABLE [dbo].[FiscalYear];
@@ -64,19 +58,6 @@ CREATE TABLE [dbo].[Employee] (
     [LastName] nvarchar(250)  NOT NULL,
     [BirthDate] datetime  NOT NULL,
     [NAS] nvarchar(9)  NOT NULL
-);
-GO
-
--- Creating table 'SocialContribution'
-CREATE TABLE [dbo].[SocialContribution] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [RRQ_RATE] decimal(18,2)  NOT NULL,
-    [RRQ_MGA] decimal(18,2)  NOT NULL,
-    [Employment_Insurance] decimal(18,2)  NOT NULL,
-    [RQAP_RATE] decimal(18,2)  NOT NULL,
-    [RQAP_MGA] decimal(18,2)  NOT NULL,
-    [FiscalYearId] int  NOT NULL,
-    [FiscalYear_Id] int  NOT NULL
 );
 GO
 
@@ -114,12 +95,23 @@ CREATE TABLE [dbo].[SocialContributionEmployer] (
     [RRQ_MGA] decimal(18,2)  NOT NULL,
     [Employment_Insurance] decimal(18,2)  NOT NULL,
     [RQAP_RATE] decimal(18,2)  NOT NULL,
-    [MQAP_MGA] decimal(18,2)  NOT NULL,
+    [RQAP_MGA] decimal(18,2)  NOT NULL,
     [CNESST] decimal(18,2)  NOT NULL,
     [FSS] decimal(18,2)  NOT NULL,
     [FDRCMO] decimal(18,2)  NOT NULL,
-    [FiscalYearId] int  NOT NULL,
-    [FiscalYear_Id] int  NOT NULL
+    [FiscalYearId] int  NOT NULL
+);
+GO
+
+-- Creating table 'SocialContributionEmployee'
+CREATE TABLE [dbo].[SocialContributionEmployee] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [RRQ_RATE] decimal(18,2)  NOT NULL,
+    [RRQ_MGA] decimal(18,2)  NOT NULL,
+    [Employment_Insurance] decimal(18,2)  NOT NULL,
+    [RQAP_RATE] decimal(18,2)  NOT NULL,
+    [RQAP_MGA] decimal(18,2)  NOT NULL,
+    [FiscalYearId] int  NOT NULL
 );
 GO
 
@@ -130,12 +122,6 @@ GO
 -- Creating primary key on [Id] in table 'Employee'
 ALTER TABLE [dbo].[Employee]
 ADD CONSTRAINT [PK_Employee]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
-
--- Creating primary key on [Id] in table 'SocialContribution'
-ALTER TABLE [dbo].[SocialContribution]
-ADD CONSTRAINT [PK_SocialContribution]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -160,6 +146,12 @@ GO
 -- Creating primary key on [Id] in table 'SocialContributionEmployer'
 ALTER TABLE [dbo].[SocialContributionEmployer]
 ADD CONSTRAINT [PK_SocialContributionEmployer]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'SocialContributionEmployee'
+ALTER TABLE [dbo].[SocialContributionEmployee]
+ADD CONSTRAINT [PK_SocialContributionEmployee]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -197,25 +189,10 @@ ON [dbo].[TaxBracket]
     ([GovernmentId]);
 GO
 
--- Creating foreign key on [FiscalYear_Id] in table 'SocialContribution'
-ALTER TABLE [dbo].[SocialContribution]
-ADD CONSTRAINT [FK_SocialContributionFiscalYear]
-    FOREIGN KEY ([FiscalYear_Id])
-    REFERENCES [dbo].[FiscalYear]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_SocialContributionFiscalYear'
-CREATE INDEX [IX_FK_SocialContributionFiscalYear]
-ON [dbo].[SocialContribution]
-    ([FiscalYear_Id]);
-GO
-
--- Creating foreign key on [FiscalYear_Id] in table 'SocialContributionEmployer'
+-- Creating foreign key on [FiscalYearId] in table 'SocialContributionEmployer'
 ALTER TABLE [dbo].[SocialContributionEmployer]
 ADD CONSTRAINT [FK_SocialContributionEmployerFiscalYear]
-    FOREIGN KEY ([FiscalYear_Id])
+    FOREIGN KEY ([FiscalYearId])
     REFERENCES [dbo].[FiscalYear]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
@@ -224,7 +201,22 @@ GO
 -- Creating non-clustered index for FOREIGN KEY 'FK_SocialContributionEmployerFiscalYear'
 CREATE INDEX [IX_FK_SocialContributionEmployerFiscalYear]
 ON [dbo].[SocialContributionEmployer]
-    ([FiscalYear_Id]);
+    ([FiscalYearId]);
+GO
+
+-- Creating foreign key on [FiscalYearId] in table 'SocialContributionEmployee'
+ALTER TABLE [dbo].[SocialContributionEmployee]
+ADD CONSTRAINT [FK_SocialContributionEmployeeFiscalYear]
+    FOREIGN KEY ([FiscalYearId])
+    REFERENCES [dbo].[FiscalYear]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SocialContributionEmployeeFiscalYear'
+CREATE INDEX [IX_FK_SocialContributionEmployeeFiscalYear]
+ON [dbo].[SocialContributionEmployee]
+    ([FiscalYearId]);
 GO
 
 -- --------------------------------------------------

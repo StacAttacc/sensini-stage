@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { SocialContribution, SocialContributionService } from '../services/payroll-api-proxy';
+import { SocialContributionEmployee, SocialContributionService } from '../services/payroll-api-proxy';
 import { MatDialog } from '@angular/material/dialog';
 import { TaxAddEditComponent } from './tax-add-edit/tax-add-edit.component';
 import { EditBtnComponent } from '../commons/edit-btn/edit-btn.component';
@@ -19,7 +19,10 @@ export class TaxesComponent implements OnDestroy{
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   columnDefs=[
-    { field: 'year' },
+    {
+      headerName: 'Fiscal Year',
+      field: 'fiscalYearId'
+    },
     { field: 'rrqRate' },
     { field: 'rrqMga' },
     { field: 'employmentInsurance' },
@@ -43,7 +46,7 @@ export class TaxesComponent implements OnDestroy{
     }
   ];
 
-  rowData: SocialContribution[] = [];
+  rowData: SocialContributionEmployee[] = [];
 
   constructor(private socialContributionService: SocialContributionService,
               private dialog: MatDialog,
@@ -97,7 +100,7 @@ export class TaxesComponent implements OnDestroy{
   }
 
   loadTaxes(){
-    this.socialContributionService.socialContributions().subscribe(taxes => {
+    this.socialContributionService.socialContributionsEmployee().subscribe(taxes => {
       this.rowData = taxes;
     });
   }

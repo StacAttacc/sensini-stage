@@ -8,11 +8,13 @@ import { TaxesComponent } from './taxes/taxes.component';
 import { FiscalYearsComponent } from './fiscal-years/fiscal-years.component';
 import { GovernmentComponent } from './government/government.component';
 import { TaxBracketsComponent } from './tax-brackets/tax-brackets.component';
+import { TaxesEmployerComponent } from './taxes-employer/taxes-employer.component';
 
 const routes: Routes = [
   {path:'', pathMatch: 'full', redirectTo: 'home'},
   {path: 'employees', component: EmployeesComponent},
   {path: 'taxes', component: TaxesComponent},
+  {path: 'taxes-employer', component: TaxesEmployerComponent},
   {path: 'fiscal-years', component: FiscalYearsComponent},
   {path: 'governments', component: GovernmentComponent},
   {path: 'tax-brackets', component: TaxBracketsComponent},

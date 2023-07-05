@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SCSI.Payroll.Models.Entities
 {
-    [Table("SocialContributionEmployer")]
+    [Table("SocialContributionEmployer", Schema = "dbo")]
     public class SocialContributionEmployer
     {
         [Key(), Column("Id")]

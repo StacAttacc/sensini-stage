@@ -19,7 +19,7 @@ namespace SCSI.Payroll.DatabaseConception
         public decimal RRQ_MGA { get; set; }
         public decimal Employment_Insurance { get; set; }
         public decimal RQAP_RATE { get; set; }
-        public decimal MQAP_MGA { get; set; }
+        public decimal RQAP_MGA { get; set; }
         public decimal CNESST { get; set; }
         public decimal FSS { get; set; }
         public decimal FDRCMO { get; set; }

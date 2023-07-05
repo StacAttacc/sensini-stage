@@ -22,11 +22,11 @@ namespace SCSI.Payroll.Repository.Implementations
         {
             try
             {
-                var query = from e in _payrollDbContext.SocialContributionsEmployee where e.Id == id select e;
+                var query = from e in _payrollDbContext.SocialContributionEmployees where e.Id == id select e;
                 var result = await query.FirstOrDefaultAsync();
                 if(query.Count() > 0)
                 {
-                    _payrollDbContext.SocialContributionsEmployee.Remove(query.First());
+                    _payrollDbContext.SocialContributionEmployees.Remove(query.First());
                     await _payrollDbContext.SaveChangesAsync();
                 }
                 return result;
@@ -41,7 +41,7 @@ namespace SCSI.Payroll.Repository.Implementations
         {
             try
             {
-                var query = from e in _payrollDbContext.SocialContributionsEmployee where e.Id == id select e;
+                var query = from e in _payrollDbContext.SocialContributionEmployees where e.Id == id select e;
                 var result = await query.FirstOrDefaultAsync();
                 return result;
             }
@@ -55,7 +55,7 @@ namespace SCSI.Payroll.Repository.Implementations
         {
             try
             {
-                var result = await _payrollDbContext.SocialContributionsEmployee.ToListAsync();
+                var result = await _payrollDbContext.SocialContributionEmployees.ToListAsync();
                 return result;
             }
             catch(Exception ex)
@@ -70,11 +70,11 @@ namespace SCSI.Payroll.Repository.Implementations
             {
                 if(socialContribution.Id == 0)
                 {
-                    _payrollDbContext.SocialContributionsEmployee.Add(socialContribution);
+                    _payrollDbContext.SocialContributionEmployees.Add(socialContribution);
                 }
                 else
                 {
-                    _payrollDbContext.SocialContributionsEmployee.Update(socialContribution);
+                    _payrollDbContext.SocialContributionEmployees.Update(socialContribution);
                 }
                 await _payrollDbContext.SaveChangesAsync();
                 return socialContribution;

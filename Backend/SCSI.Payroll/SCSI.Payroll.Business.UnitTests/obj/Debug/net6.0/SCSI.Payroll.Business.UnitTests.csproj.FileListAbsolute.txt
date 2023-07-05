@@ -156,3 +156,5 @@ B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.Business.UnitTests\
 B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.Business.UnitTests\obj\Debug\net6.0\SCSI.Payroll.Business.UnitTests.pdb
 B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.Business.UnitTests\obj\Debug\net6.0\SCSI.Payroll.Business.UnitTests.genruntimeconfig.cache
 B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.Business.UnitTests\obj\Debug\net6.0\ref\SCSI.Payroll.Business.UnitTests.dll
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.Business.UnitTests\bin\Debug\net6.0\EntityFramework.SqlServer.dll
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.Business.UnitTests\bin\Debug\net6.0\EntityFramework.dll

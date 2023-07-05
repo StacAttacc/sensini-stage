@@ -49,6 +49,9 @@ import { NotificationServiceService } from './services/notification-service.serv
 import { CustomDateAdapter } from './employees/employee-add-edit/custom-date-adapter';
 import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
 import { HttpRequestInterceptorService } from './services/http-request-interceptor.service';
+import { TaxesEmployerComponent } from './taxes-employer/taxes-employer.component';
+import { TaxesEmployerAddEditComponent } from './taxes-employer/taxes-employer-add-edit/taxes-employer-add-edit.component';
+import { TaxesEmployerDeleteComponent } from './taxes-employer/taxes-employer-delete/taxes-employer-delete.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +75,10 @@ import { HttpRequestInterceptorService } from './services/http-request-intercept
     TaxBracketsComponent,
     TaxBracketsAddEditComponent,
     TaxBracketsDeleteComponent,
-    ErrorDialogComponent
+    ErrorDialogComponent,
+    TaxesEmployerComponent,
+    TaxesEmployerAddEditComponent,
+    TaxesEmployerDeleteComponent
   ],
   imports: [
     BrowserModule,
