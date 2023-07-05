@@ -20,6 +20,7 @@ namespace SCSI.Payroll.DatabaseConception
         public decimal Employment_Insurance { get; set; }
         public decimal RQAP_RATE { get; set; }
         public decimal RQAP_MGA { get; set; }
+        public int FiscalYearId { get; set; }
     
         public virtual FiscalYear FiscalYear { get; set; }
     }

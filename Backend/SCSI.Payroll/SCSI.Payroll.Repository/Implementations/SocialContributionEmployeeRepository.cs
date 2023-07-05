@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SCSI.Payroll.Repository.Implementations
 {
-    public class TaxRepository : ITaxRepository
+    public class TaxRepository : ISocialContributionEmployeeRepository
     {
         private PayrollDbContext _payrollDbContext;
 

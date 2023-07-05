@@ -9,13 +9,13 @@ namespace SCSI.Payroll.WebApi.Controllers
     [ApiController]
     public class TaxController : ControllerBase
     {
-        private ITaxBusiness _taxBusiness;
+        private ISocialContributionEmployerBusiness _taxBusiness;
 
         private ITaxBracketBusiness _taxBracketBusiness;
         private IGovernmentBusiness _governmentBusiness;
         private IFiscalYearBusiness _fiscalYearBusiness;
 
-        public TaxController(   ITaxBusiness taxBusiness,
+        public TaxController(   ISocialContributionEmployerBusiness taxBusiness,
                                 ITaxBracketBusiness taxBracketBusiness,
                                 IGovernmentBusiness governmentBusiness,
                                 IFiscalYearBusiness fiscalYearBusiness

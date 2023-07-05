@@ -23,6 +23,7 @@ namespace SCSI.Payroll.DatabaseConception
         public decimal CNESST { get; set; }
         public decimal FSS { get; set; }
         public decimal FDRCMO { get; set; }
+        public int FiscalYearId { get; set; }
     
         public virtual FiscalYear FiscalYear { get; set; }
     }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SCSI.Payroll.Repository.Contracts
 {
-    public interface ITaxRepository
+    public interface ISocialContributionEmployeeRepository
     {
         Task<SocialContributionEmployee> SaveSocialContributionsAsync(SocialContributionEmployee socialContribution);
         Task<List<SocialContributionEmployee>> GetSocialContributionsAsync();

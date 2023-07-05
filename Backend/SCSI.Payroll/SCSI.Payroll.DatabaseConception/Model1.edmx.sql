@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 07/05/2023 03:19:13
+-- Date Created: 07/05/2023 04:19:45
 -- Generated from EDMX file: B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.DatabaseConception\Model1.edmx
 -- --------------------------------------------------
 
@@ -23,6 +23,12 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_GovernmentTaxBracket]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[TaxBracket] DROP CONSTRAINT [FK_GovernmentTaxBracket];
 GO
+IF OBJECT_ID(N'[dbo].[FK_SocialContributionFiscalYear]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SocialContribution] DROP CONSTRAINT [FK_SocialContributionFiscalYear];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SocialContributionEmployerFiscalYear]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SocialContributionEmployer] DROP CONSTRAINT [FK_SocialContributionEmployerFiscalYear];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -42,6 +48,9 @@ IF OBJECT_ID(N'[dbo].[Government]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[TaxBracket]', 'U') IS NOT NULL
     DROP TABLE [dbo].[TaxBracket];
+GO
+IF OBJECT_ID(N'[dbo].[SocialContributionEmployer]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SocialContributionEmployer];
 GO
 
 -- --------------------------------------------------
@@ -66,6 +75,7 @@ CREATE TABLE [dbo].[SocialContribution] (
     [Employment_Insurance] decimal(18,2)  NOT NULL,
     [RQAP_RATE] decimal(18,2)  NOT NULL,
     [RQAP_MGA] decimal(18,2)  NOT NULL,
+    [FiscalYearId] int  NOT NULL,
     [FiscalYear_Id] int  NOT NULL
 );
 GO
@@ -108,6 +118,7 @@ CREATE TABLE [dbo].[SocialContributionEmployer] (
     [CNESST] decimal(18,2)  NOT NULL,
     [FSS] decimal(18,2)  NOT NULL,
     [FDRCMO] decimal(18,2)  NOT NULL,
+    [FiscalYearId] int  NOT NULL,
     [FiscalYear_Id] int  NOT NULL
 );
 GO

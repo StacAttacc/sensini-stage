@@ -34,8 +34,11 @@ namespace SCSI.Payroll.WebApi
             builder.Services.AddScoped<ITaxBracketRepository, TaxBracketRepository>();
             builder.Services.AddScoped<ITaxBracketBusiness, TaxBracketBusiness>();
 
-            builder.Services.AddScoped<ITaxRepository, TaxRepository>();
-            builder.Services.AddScoped<ITaxBusiness, TaxBusiness>();
+            builder.Services.AddScoped<ISocialContributionEmployeeRepository, SocialContributionEmployeeRepository>();
+            builder.Services.AddScoped<ISocialContributionEmployeeBusiness, SocialContributionEmployeeBusiness>();
+
+            builder.Services.AddScoped<ISocialContributionEmployerRepository, SocialContributionEmployerRepository>();
+            builder.Services.AddScoped<ISocialContributionEmployerBusiness, SocialContributionEmployerBusiness>();
 
             builder.Services.AddScoped<ExceptionMiddleware>();
 
