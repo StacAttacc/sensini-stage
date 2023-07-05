@@ -12,14 +12,15 @@ namespace SCSI.Payroll.DatabaseConception
     using System;
     using System.Collections.Generic;
     
-    public partial class SocialContribution
+    public partial class SocialContributionEmployee
     {
         public int Id { get; set; }
-        public int Year { get; set; }
         public decimal RRQ_RATE { get; set; }
         public decimal RRQ_MGA { get; set; }
         public decimal Employment_Insurance { get; set; }
         public decimal RQAP_RATE { get; set; }
         public decimal RQAP_MGA { get; set; }
+    
+        public virtual FiscalYear FiscalYear { get; set; }
     }
 }

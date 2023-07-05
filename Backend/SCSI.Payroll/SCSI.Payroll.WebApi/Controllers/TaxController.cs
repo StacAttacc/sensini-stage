@@ -29,7 +29,7 @@ namespace SCSI.Payroll.WebApi.Controllers
 
         #region getAlls
         [HttpGet("social-contributions")]
-        [ProducesResponseType(typeof(List<SocialContribution>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(List<SocialContributionEmployee>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetSocialContributionsAsync()
         {
             var socialContributions = await _taxBusiness.GetSocialContributionsAsync();
@@ -66,7 +66,7 @@ namespace SCSI.Payroll.WebApi.Controllers
 
         #region getById
         [HttpGet("social-contribution-by-id")]
-        [ProducesResponseType(typeof(SocialContribution), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(SocialContributionEmployee), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetSocialContributionByIdAsync(int id)
         {
             var socialContribution = await _taxBusiness.GetSocialContributionByIdAsync(id);
@@ -119,7 +119,7 @@ namespace SCSI.Payroll.WebApi.Controllers
 
         #region deleteById
         [HttpDelete("social-contribution-delete-by-id")]
-        [ProducesResponseType(typeof(SocialContribution), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(SocialContributionEmployee), StatusCodes.Status200OK)]
         public async Task<IActionResult> DeleteSoialContributionByIdAsync(int id)
         {
             var socialContribution = await _taxBusiness.DeleteSocialContributionByIdAsync(id);
@@ -155,8 +155,8 @@ namespace SCSI.Payroll.WebApi.Controllers
 
         #region Saves
         [HttpPost("social-contribution")]
-        [ProducesResponseType(typeof(SocialContribution),StatusCodes.Status200OK)]
-        public async Task<IActionResult> SaveSocialContributionAsync([FromBody] SocialContribution socialContribution)
+        [ProducesResponseType(typeof(SocialContributionEmployee),StatusCodes.Status200OK)]
+        public async Task<IActionResult> SaveSocialContributionAsync([FromBody] SocialContributionEmployee socialContribution)
         {
             await _taxBusiness.SaveSocialContributionsAsync(socialContribution);
             return Ok(socialContribution);

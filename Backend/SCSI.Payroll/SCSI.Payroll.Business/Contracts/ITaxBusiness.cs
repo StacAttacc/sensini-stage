@@ -9,9 +9,9 @@ namespace SCSI.Payroll.Business.Contracts
 {
     public interface ITaxBusiness
     {
-        Task<SocialContribution> SaveSocialContributionsAsync(SocialContribution socialContribution);
-        Task<List<SocialContribution>> GetSocialContributionsAsync();
-        Task<SocialContribution> GetSocialContributionByIdAsync(int id);
-        Task<SocialContribution> DeleteSocialContributionByIdAsync(int id);
+        Task<SocialContributionEmployee> SaveSocialContributionsAsync(SocialContributionEmployee socialContribution);
+        Task<List<SocialContributionEmployee>> GetSocialContributionsAsync();
+        Task<SocialContributionEmployee> GetSocialContributionByIdAsync(int id);
+        Task<SocialContributionEmployee> DeleteSocialContributionByIdAsync(int id);
     }
 }

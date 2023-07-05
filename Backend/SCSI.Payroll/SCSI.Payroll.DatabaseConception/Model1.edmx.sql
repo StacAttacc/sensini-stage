@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/22/2023 02:19:15
+-- Date Created: 07/05/2023 03:19:13
 -- Generated from EDMX file: B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.DatabaseConception\Model1.edmx
 -- --------------------------------------------------
 
@@ -61,12 +61,12 @@ GO
 -- Creating table 'SocialContribution'
 CREATE TABLE [dbo].[SocialContribution] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Year] int  NOT NULL,
     [RRQ_RATE] decimal(18,2)  NOT NULL,
     [RRQ_MGA] decimal(18,2)  NOT NULL,
     [Employment_Insurance] decimal(18,2)  NOT NULL,
     [RQAP_RATE] decimal(18,2)  NOT NULL,
-    [RQAP_MGA] decimal(18,2)  NOT NULL
+    [RQAP_MGA] decimal(18,2)  NOT NULL,
+    [FiscalYear_Id] int  NOT NULL
 );
 GO
 
@@ -94,6 +94,21 @@ CREATE TABLE [dbo].[TaxBracket] (
     [Rate] decimal(18,2)  NOT NULL,
     [FiscalYearId] int  NOT NULL,
     [GovernmentId] int  NOT NULL
+);
+GO
+
+-- Creating table 'SocialContributionEmployer'
+CREATE TABLE [dbo].[SocialContributionEmployer] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [RRQ_RATE] decimal(18,2)  NOT NULL,
+    [RRQ_MGA] decimal(18,2)  NOT NULL,
+    [Employment_Insurance] decimal(18,2)  NOT NULL,
+    [RQAP_RATE] decimal(18,2)  NOT NULL,
+    [MQAP_MGA] decimal(18,2)  NOT NULL,
+    [CNESST] decimal(18,2)  NOT NULL,
+    [FSS] decimal(18,2)  NOT NULL,
+    [FDRCMO] decimal(18,2)  NOT NULL,
+    [FiscalYear_Id] int  NOT NULL
 );
 GO
 
@@ -131,6 +146,12 @@ ADD CONSTRAINT [PK_TaxBracket]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
+-- Creating primary key on [Id] in table 'SocialContributionEmployer'
+ALTER TABLE [dbo].[SocialContributionEmployer]
+ADD CONSTRAINT [PK_SocialContributionEmployer]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
 -- --------------------------------------------------
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
@@ -165,16 +186,34 @@ ON [dbo].[TaxBracket]
     ([GovernmentId]);
 GO
 
--- -------------------------------------------------
--- Adding Unique Constraints
--- -------------------------------------------------
-
-ALTER TABLE [dbo].[Government]
-ADD CONSTRAINT [Unique_Code] UNIQUE ([Code]);
+-- Creating foreign key on [FiscalYear_Id] in table 'SocialContribution'
+ALTER TABLE [dbo].[SocialContribution]
+ADD CONSTRAINT [FK_SocialContributionFiscalYear]
+    FOREIGN KEY ([FiscalYear_Id])
+    REFERENCES [dbo].[FiscalYear]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
-ALTER TABLE [dbo].[FiscalYear]
-ADD CONSTRAINT [Unique_Year] UNIQUE ([Year]);
+-- Creating non-clustered index for FOREIGN KEY 'FK_SocialContributionFiscalYear'
+CREATE INDEX [IX_FK_SocialContributionFiscalYear]
+ON [dbo].[SocialContribution]
+    ([FiscalYear_Id]);
+GO
+
+-- Creating foreign key on [FiscalYear_Id] in table 'SocialContributionEmployer'
+ALTER TABLE [dbo].[SocialContributionEmployer]
+ADD CONSTRAINT [FK_SocialContributionEmployerFiscalYear]
+    FOREIGN KEY ([FiscalYear_Id])
+    REFERENCES [dbo].[FiscalYear]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SocialContributionEmployerFiscalYear'
+CREATE INDEX [IX_FK_SocialContributionEmployerFiscalYear]
+ON [dbo].[SocialContributionEmployer]
+    ([FiscalYear_Id]);
 GO
 
 -- --------------------------------------------------

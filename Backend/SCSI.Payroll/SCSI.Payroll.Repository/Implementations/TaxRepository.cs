@@ -18,7 +18,7 @@ namespace SCSI.Payroll.Repository.Implementations
             this._payrollDbContext = payrollDbContext;
         }
 
-        public async Task<SocialContribution> DeleteSocialContributionByIdAsync(int id)
+        public async Task<SocialContributionEmployee> DeleteSocialContributionByIdAsync(int id)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace SCSI.Payroll.Repository.Implementations
             }
         }
         
-        public async Task<SocialContribution> GetSocialContributionByIdAsync(int id)
+        public async Task<SocialContributionEmployee> GetSocialContributionByIdAsync(int id)
         {
             try
             {
@@ -51,7 +51,7 @@ namespace SCSI.Payroll.Repository.Implementations
             }
         }
 
-        public async Task<List<SocialContribution>> GetSocialContributionsAsync()
+        public async Task<List<SocialContributionEmployee>> GetSocialContributionsAsync()
         {
             try
             {
@@ -64,7 +64,7 @@ namespace SCSI.Payroll.Repository.Implementations
             }
         }
 
-        public async Task<SocialContribution> SaveSocialContributionsAsync(SocialContribution socialContribution)
+        public async Task<SocialContributionEmployee> SaveSocialContributionsAsync(SocialContributionEmployee socialContribution)
         {
             try
             {

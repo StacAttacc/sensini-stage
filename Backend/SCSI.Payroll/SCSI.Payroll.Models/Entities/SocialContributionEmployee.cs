@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace SCSI.Payroll.Models.Entities
 {
-    [Table("SocialContribution", Schema = "dbo")]
-    public class SocialContribution
+    [Table("SocialContributionEmployee", Schema = "dbo")]
+    public class SocialContributionEmployee
     {
         [Key(), Column("Id")]
         public int Id { get; set; }
 
-        [Column("Year")]
-        public int Year { get; set; }
+        [Column("FiscalYearId")]
+        public int FiscalYearId { get; set; }
 
         [Column("RRQ_RATE")]
         public decimal RrqRate { get; set; }
@@ -31,6 +31,9 @@ namespace SCSI.Payroll.Models.Entities
 
         [Column("RQAP_MGA")]
         public decimal RqapMga{ get; set; }
+
+        [ForeignKey("FiscalYearId")]
+        public virtual FiscalYear FiscalYear { get; set; }
 
     }
 }
