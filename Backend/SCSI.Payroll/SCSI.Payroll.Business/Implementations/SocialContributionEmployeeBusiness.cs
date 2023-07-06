@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace SCSI.Payroll.Business.Implementations
 {
-    public class TaxBusiness : ITaxBusiness
+    public class SocialContributionEmployeeBusiness : ISocialContributionEmployeeBusiness
     {
-        private ITaxRepository _taxRepository;
+        private ISocialContributionEmployeeRepository _taxRepository;
 
-        public TaxBusiness(ITaxRepository taxRepository)
+        public SocialContributionEmployeeBusiness(ISocialContributionEmployeeRepository taxRepository)
         {
             this._taxRepository = taxRepository;
         }

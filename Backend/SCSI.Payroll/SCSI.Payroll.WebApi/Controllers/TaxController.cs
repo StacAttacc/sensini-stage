@@ -9,30 +9,41 @@ namespace SCSI.Payroll.WebApi.Controllers
     [ApiController]
     public class TaxController : ControllerBase
     {
-        private ISocialContributionEmployerBusiness _taxBusiness;
+        private ISocialContributionEmployeeBusiness _taxBusiness;
+        private ISocialContributionEmployerBusiness _taxEmployerBusiness;
 
         private ITaxBracketBusiness _taxBracketBusiness;
         private IGovernmentBusiness _governmentBusiness;
         private IFiscalYearBusiness _fiscalYearBusiness;
 
-        public TaxController(   ISocialContributionEmployerBusiness taxBusiness,
+        public TaxController(   ISocialContributionEmployeeBusiness taxBusiness,
+                                ISocialContributionEmployerBusiness taxEmployerBusiness,
                                 ITaxBracketBusiness taxBracketBusiness,
                                 IGovernmentBusiness governmentBusiness,
                                 IFiscalYearBusiness fiscalYearBusiness
         )
         {
             this._taxBusiness = taxBusiness;
+            this._taxEmployerBusiness = taxEmployerBusiness;
             this._taxBracketBusiness =  taxBracketBusiness;
             this._governmentBusiness = governmentBusiness;
             this._fiscalYearBusiness = fiscalYearBusiness;
         }
 
         #region getAlls
-        [HttpGet("social-contributions")]
+        [HttpGet("social-contributions-employee")]
         [ProducesResponseType(typeof(List<SocialContributionEmployee>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetSocialContributionsAsync()
+        public async Task<IActionResult> GetSocialContributionsEmployeeAsync()
         {
             var socialContributions = await _taxBusiness.GetSocialContributionsAsync();
+            return Ok(socialContributions);
+        }
+
+        [HttpGet("social-contributions-employer")]
+        [ProducesResponseType(typeof(List<SocialContributionEmployer>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetSocialContributionsEmployerAsync()
+        {
+            var socialContributions = await _taxEmployerBusiness.GetSocialContributionsAsync();
             return Ok(socialContributions);
         }
 
@@ -65,11 +76,19 @@ namespace SCSI.Payroll.WebApi.Controllers
 
 
         #region getById
-        [HttpGet("social-contribution-by-id")]
+        [HttpGet("social-contribution-employee-by-id")]
         [ProducesResponseType(typeof(SocialContributionEmployee), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetSocialContributionByIdAsync(int id)
+        public async Task<IActionResult> GetSocialContributionEmployeeByIdAsync(int id)
         {
             var socialContribution = await _taxBusiness.GetSocialContributionByIdAsync(id);
+            return Ok(socialContribution);
+        }
+
+        [HttpGet("social-contribution-employer-by-id")]
+        [ProducesResponseType(typeof(SocialContributionEmployer), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetSocialContributionEmployerById(int id)
+        {
+            var socialContribution = await _taxEmployerBusiness.GetSocialContributionByIdAsync(id);
             return Ok(socialContribution);
         }
 
@@ -118,11 +137,19 @@ namespace SCSI.Payroll.WebApi.Controllers
 
 
         #region deleteById
-        [HttpDelete("social-contribution-delete-by-id")]
+        [HttpDelete("social-contribution-employee-delete-by-id")]
         [ProducesResponseType(typeof(SocialContributionEmployee), StatusCodes.Status200OK)]
-        public async Task<IActionResult> DeleteSoialContributionByIdAsync(int id)
+        public async Task<IActionResult> DeleteSoialContributionEmployeeByIdAsync(int id)
         {
             var socialContribution = await _taxBusiness.DeleteSocialContributionByIdAsync(id);
+            return Ok(socialContribution);
+        }
+
+        [HttpDelete("social-contribution-employer-delete-by-id")]
+        [ProducesResponseType(typeof(SocialContributionEmployer), StatusCodes.Status200OK)]
+        public async Task<IActionResult> DeleteSocialContributionEmployerByIdAsync(int id)
+        {
+            var socialContribution = await _taxEmployerBusiness.DeleteSocialContributionByIdAsync(id);
             return Ok(socialContribution);
         }
 
@@ -154,11 +181,19 @@ namespace SCSI.Payroll.WebApi.Controllers
 
 
         #region Saves
-        [HttpPost("social-contribution")]
+        [HttpPost("social-contribution-employee")]
         [ProducesResponseType(typeof(SocialContributionEmployee),StatusCodes.Status200OK)]
-        public async Task<IActionResult> SaveSocialContributionAsync([FromBody] SocialContributionEmployee socialContribution)
+        public async Task<IActionResult> SaveSocialContributionEmployeeAsync([FromBody] SocialContributionEmployee socialContribution)
         {
             await _taxBusiness.SaveSocialContributionsAsync(socialContribution);
+            return Ok(socialContribution);
+        }
+
+        [HttpPost("social-contribution-employer")]
+        [ProducesResponseType(typeof(SocialContributionEmployer), StatusCodes.Status200OK)]
+        public async Task<IActionResult> SaveSocialContributionEmployerAsync([FromBody] SocialContributionEmployer socialContribution)
+        {
+            await _taxEmployerBusiness.SaveSocialContributionsAsync(socialContribution);
             return Ok(socialContribution);
         }
 

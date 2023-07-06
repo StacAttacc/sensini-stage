@@ -62,9 +62,25 @@ namespace SCSI.Payroll.Repository.Implementations
             }
         }
 
-        public Task<SocialContributionEmployer> SaveSocialContributionsAsync(SocialContributionEmployer socialContribution)
+        public async Task<SocialContributionEmployer> SaveSocialContributionsAsync(SocialContributionEmployer socialContribution)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if(socialContribution.Id == 0)
+                {
+                    this._payrollDbContext.SocialContributionEmployer.Add(socialContribution);
+                }
+                else
+                {
+                    this._payrollDbContext.SocialContributionEmployer.Update(socialContribution);
+                }
+                await this._payrollDbContext.SaveChangesAsync();
+                return socialContribution;
+            }
+            catch
+            {
+                throw;
+            }
         }
     }
 }

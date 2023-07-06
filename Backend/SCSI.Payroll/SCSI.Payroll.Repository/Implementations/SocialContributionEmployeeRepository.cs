@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace SCSI.Payroll.Repository.Implementations
 {
-    public class TaxRepository : ISocialContributionEmployeeRepository
+    public class SocialContributionEmployeeRepository : ISocialContributionEmployeeRepository
     {
         private PayrollDbContext _payrollDbContext;
 
-        public TaxRepository (PayrollDbContext payrollDbContext)
+        public SocialContributionEmployeeRepository (PayrollDbContext payrollDbContext)
         {
             this._payrollDbContext = payrollDbContext;
         }
@@ -22,11 +22,11 @@ namespace SCSI.Payroll.Repository.Implementations
         {
             try
             {
-                var query = from e in _payrollDbContext.SocialContributions where e.Id == id select e;
+                var query = from e in _payrollDbContext.SocialContributionsEmployee where e.Id == id select e;
                 var result = await query.FirstOrDefaultAsync();
                 if(query.Count() > 0)
                 {
-                    _payrollDbContext.SocialContributions.Remove(query.First());
+                    _payrollDbContext.SocialContributionsEmployee.Remove(query.First());
                     await _payrollDbContext.SaveChangesAsync();
                 }
                 return result;
@@ -41,7 +41,7 @@ namespace SCSI.Payroll.Repository.Implementations
         {
             try
             {
-                var query = from e in _payrollDbContext.SocialContributions where e.Id == id select e;
+                var query = from e in _payrollDbContext.SocialContributionsEmployee where e.Id == id select e;
                 var result = await query.FirstOrDefaultAsync();
                 return result;
             }
@@ -55,7 +55,7 @@ namespace SCSI.Payroll.Repository.Implementations
         {
             try
             {
-                var result = await _payrollDbContext.SocialContributions.ToListAsync();
+                var result = await _payrollDbContext.SocialContributionsEmployee.ToListAsync();
                 return result;
             }
             catch(Exception ex)
@@ -70,11 +70,11 @@ namespace SCSI.Payroll.Repository.Implementations
             {
                 if(socialContribution.Id == 0)
                 {
-                    _payrollDbContext.SocialContributions.Add(socialContribution);
+                    _payrollDbContext.SocialContributionsEmployee.Add(socialContribution);
                 }
                 else
                 {
-                    _payrollDbContext.SocialContributions.Update(socialContribution);
+                    _payrollDbContext.SocialContributionsEmployee.Update(socialContribution);
                 }
                 await _payrollDbContext.SaveChangesAsync();
                 return socialContribution;
