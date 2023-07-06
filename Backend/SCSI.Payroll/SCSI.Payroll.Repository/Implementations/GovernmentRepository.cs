@@ -83,7 +83,7 @@ namespace SCSI.Payroll.Repository.Implementations
             {
                 if(government.Id == 0)
                 {
-                    _payrollDbContext.Governments.Add(government);
+                    await _payrollDbContext.Governments.AddAsync(government);
                 }
                 else
                 {

@@ -85,7 +85,7 @@ namespace SCSI.Payroll.Repository.Implementations
             {
                 if(fiscalYear.Id == 0)
                 {
-                    _payrollDbContext.FiscalYears.Add(fiscalYear);
+                    await _payrollDbContext.FiscalYears.AddAsync(fiscalYear);
                 }
                 else
                 {

@@ -75,7 +75,7 @@ namespace SCSI.Payroll.Repository.Implementations
             {
                 if(employee.Id == 0)
                 {
-                    _payrollDbContext.Employees.Add(employee);
+                    await _payrollDbContext.Employees.AddAsync(employee);
                 }
                 else
                 {

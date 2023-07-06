@@ -53,7 +53,10 @@ namespace SCSI.Payroll.Repository.Implementations
         {
             try
             {
-                var result = await this._payrollDbContext.SocialContributionEmployers.ToListAsync();
+                var result = await this._payrollDbContext.SocialContributionEmployers
+                    .Include(e => e.FiscalYear)
+                    .ToListAsync();
+                    
                 return result;
             }
             catch (Exception ex)
@@ -68,7 +71,7 @@ namespace SCSI.Payroll.Repository.Implementations
             {
                 if(socialContribution.Id == 0)
                 {
-                    this._payrollDbContext.SocialContributionEmployers.Add(socialContribution);
+                    await this._payrollDbContext.SocialContributionEmployers.AddAsync(socialContribution);
                 }
                 else
                 {

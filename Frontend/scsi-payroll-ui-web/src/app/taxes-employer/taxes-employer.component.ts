@@ -65,7 +65,7 @@ export class TaxesEmployerComponent {
 
   openAddTaxPage(e: any) {
     if(e == null){
-      this.matDialog.open(TaxesEmployerComponent,{
+      this.matDialog.open(TaxesEmployerAddEditComponent,{
         width: '500px',
       });
     }

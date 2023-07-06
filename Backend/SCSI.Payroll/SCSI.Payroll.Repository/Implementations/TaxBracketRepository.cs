@@ -71,7 +71,7 @@ namespace SCSI.Payroll.Repository.Implementations
             {
                 if(taxBracket.Id == 0)
                 {
-                    _payrollDbContext.TaxBrackets.Add(taxBracket);
+                    await _payrollDbContext.TaxBrackets.AddAsync(taxBracket);
                 }
                 else
                 {
