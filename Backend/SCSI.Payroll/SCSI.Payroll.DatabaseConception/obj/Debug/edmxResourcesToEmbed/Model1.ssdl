@@ -6,6 +6,7 @@
     <EntitySet Name="Government" EntityType="Model1.Store.Government" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="TaxBracket" EntityType="Model1.Store.TaxBracket" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SocialContributionEmployer" EntityType="Model1.Store.SocialContributionEmployer" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SocialContributionEmployee" EntityType="Model1.Store.SocialContributionEmployee" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="FiscalYearTaxBracket" Association="Model1.Store.FiscalYearTaxBracket">
       <End Role="FiscalYear" EntitySet="FiscalYear" />
       <End Role="TaxBracket" EntitySet="TaxBracket" />
@@ -16,6 +17,10 @@
     </AssociationSet>
     <AssociationSet Name="SocialContributionEmployerFiscalYear" Association="Model1.Store.SocialContributionEmployerFiscalYear">
       <End Role="SocialContributionEmployer" EntitySet="SocialContributionEmployer" />
+      <End Role="FiscalYear" EntitySet="FiscalYear" />
+    </AssociationSet>
+    <AssociationSet Name="SocialContributionEmployeeFiscalYear" Association="Model1.Store.SocialContributionEmployeeFiscalYear">
+      <End Role="SocialContributionEmployee" EntitySet="SocialContributionEmployee" />
       <End Role="FiscalYear" EntitySet="FiscalYear" />
     </AssociationSet>
   </EntityContainer>
@@ -70,7 +75,18 @@
     <Property Name="FSS" Type="decimal" Nullable="false" Precision="18" Scale="2" />
     <Property Name="FDRCMO" Type="decimal" Nullable="false" Precision="18" Scale="2" />
     <Property Name="FiscalYearId" Type="int" Nullable="false" />
-    <Property Name="FiscalYear_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SocialContributionEmployee">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RRQ_RATE" Type="decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="RRQ_MGA" Type="decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Employment_Insurance" Type="decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="RQAP_RATE" Type="decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="RQAP_MGA" Type="decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="FiscalYearId" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="FiscalYearTaxBracket">
     <End Role="FiscalYear" Type="Model1.Store.FiscalYear" Multiplicity="1" />
@@ -104,7 +120,19 @@
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="SocialContributionEmployer">
-        <PropertyRef Name="FiscalYear_Id" />
+        <PropertyRef Name="FiscalYearId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SocialContributionEmployeeFiscalYear">
+    <End Role="SocialContributionEmployee" Type="Model1.Store.SocialContributionEmployee" Multiplicity="*" />
+    <End Role="FiscalYear" Type="Model1.Store.FiscalYear" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="FiscalYear">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SocialContributionEmployee">
+        <PropertyRef Name="FiscalYearId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

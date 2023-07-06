@@ -54,6 +54,20 @@
           <ScalarProperty Name="CNESST" ColumnName="CNESST" />
           <ScalarProperty Name="FSS" ColumnName="FSS" />
           <ScalarProperty Name="FDRCMO" ColumnName="FDRCMO" />
+          <ScalarProperty Name="FiscalYearId" ColumnName="FiscalYearId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SocialContributionEmployee">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.SocialContributionEmployee)">
+        <MappingFragment StoreEntitySet="SocialContributionEmployee">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RRQ_RATE" ColumnName="RRQ_RATE" />
+          <ScalarProperty Name="RRQ_MGA" ColumnName="RRQ_MGA" />
+          <ScalarProperty Name="Employment_Insurance" ColumnName="Employment_Insurance" />
+          <ScalarProperty Name="RQAP_RATE" ColumnName="RQAP_RATE" />
+          <ScalarProperty Name="RQAP_MGA" ColumnName="RQAP_MGA" />
+          <ScalarProperty Name="FiscalYearId" ColumnName="FiscalYearId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

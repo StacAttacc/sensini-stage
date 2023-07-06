@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 07/05/2023 17:02:53
+-- Date Created: 07/06/2023 16:36:33
 -- Generated from EDMX file: B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.DatabaseConception\Model1.edmx
 -- --------------------------------------------------
 
@@ -26,6 +26,9 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_SocialContributionEmployerFiscalYear]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[SocialContributionEmployer] DROP CONSTRAINT [FK_SocialContributionEmployerFiscalYear];
 GO
+IF OBJECT_ID(N'[dbo].[FK_SocialContributionEmployeeFiscalYear]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SocialContributionEmployee] DROP CONSTRAINT [FK_SocialContributionEmployeeFiscalYear];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -45,6 +48,9 @@ IF OBJECT_ID(N'[dbo].[TaxBracket]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[SocialContributionEmployer]', 'U') IS NOT NULL
     DROP TABLE [dbo].[SocialContributionEmployer];
+GO
+IF OBJECT_ID(N'[dbo].[SocialContributionEmployee]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SocialContributionEmployee];
 GO
 
 -- --------------------------------------------------
@@ -217,6 +223,18 @@ GO
 CREATE INDEX [IX_FK_SocialContributionEmployeeFiscalYear]
 ON [dbo].[SocialContributionEmployee]
     ([FiscalYearId]);
+GO
+
+-- -------------------------------------------------
+-- Adding Unique Constraints
+-- -------------------------------------------------
+
+ALTER TABLE [dbo].[Government]
+ADD CONSTRAINT [Unique_Code] UNIQUE ([Code]);
+GO
+
+ALTER TABLE [dbo].[FiscalYear]
+ADD CONSTRAINT [Unique_Year] UNIQUE ([Year]);
 GO
 
 -- --------------------------------------------------

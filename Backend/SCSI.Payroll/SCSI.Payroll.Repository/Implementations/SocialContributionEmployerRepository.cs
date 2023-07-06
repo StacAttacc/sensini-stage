@@ -69,9 +69,9 @@ namespace SCSI.Payroll.Repository.Implementations
         {
             try
             {
-                if(socialContribution.Id == 0)
+                if (socialContribution.Id == 0)
                 {
-                    await this._payrollDbContext.SocialContributionEmployers.AddAsync(socialContribution);
+                    this._payrollDbContext.SocialContributionEmployers.Add(socialContribution);
                 }
                 else
                 {
