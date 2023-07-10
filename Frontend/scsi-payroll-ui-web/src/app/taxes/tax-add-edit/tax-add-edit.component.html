@@ -8,8 +8,12 @@
   <mat-dialog-content>
     <p>
       <mat-form-field>
-        <mat-label>Annee</mat-label>
-        <input matInput placeholder="YYYY" formControlName="year">
+        <mat-label>Fiscal Year Id</mat-label>
+        <mat-select formControlName="fiscalYearId">
+          <mat-option *ngFor="let fiscalYearOption of fiscalYearOptions" [value]="fiscalYearOption.id">
+            {{fiscalYearOption.year}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </p>
     <p>

@@ -103,13 +103,13 @@ namespace SCSI.Payroll.Business.Implementations
                 else
                 {
                     isValid = false;
-                    throw new Exception(ErrorMessageConst.CoverageNotRespected);
+                    //throw new Exception(ErrorMessageConst.CoverageNotRespected);
                 }
             }
             else
             {
                 isValid = false;
-                throw new Exception(ErrorMessageConst.OverlapRuleNotRespected);
+                //throw new Exception(ErrorMessageConst.OverlapRuleNotRespected);
             }
             return isValid;
         }
@@ -173,7 +173,7 @@ namespace SCSI.Payroll.Business.Implementations
         {
             var taxBrackets = await _taxBracketRepository.GetTaxBracketsAsync();
             List<TaxBracket> targetedTaxBrackets = new List<TaxBracket>();
-            List<TaxBracket> sortedTaxBrackets = null;
+            List<TaxBracket> sortedTaxBrackets = new List<TaxBracket>();
             foreach (TaxBracket taxBracket in taxBrackets)
             {
                 if(taxBracket.FiscalYearId == fiscalYear.Id)

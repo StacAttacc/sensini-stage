@@ -33,7 +33,7 @@ export class TaxBracketsAddEditComponent {
   onSubmit(){
     if(this.formGroup.valid){
       console.log(this.formGroup.value)
-      let taxBracket = new TaxBracket;
+      let taxBracket = new TaxBracket();
       taxBracket.id = this.formGroup.value.id?? 0;
       taxBracket.fiscalYearId = this.formGroup.value.fiscalYearId?? 0;
       taxBracket.governmentId = this.formGroup.value.governmentId?? 0;

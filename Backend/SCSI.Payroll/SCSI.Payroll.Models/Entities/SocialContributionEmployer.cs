@@ -42,6 +42,6 @@ namespace SCSI.Payroll.Models.Entities
         public decimal Fdrcmo { get; set; }
 
         [ForeignKey("FiscalYearId")]
-        public virtual FiscalYear FiscalYear { get; set; }
+        public virtual FiscalYear? FiscalYear { get; set; }
     }
 }

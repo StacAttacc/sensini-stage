@@ -3,9 +3,9 @@
 -- -------------------------------------------------
 
 ALTER TABLE [dbo].[Government]
-ADD CONSTRAINT [Unique_Code] UNIQUE ([Code]);
+ADD CONSTRAINT [UC_Government_Code] UNIQUE ([Code]);
 GO
 
 ALTER TABLE [dbo].[FiscalYear]
-ADD CONSTRAINT [Unique_Year] UNIQUE ([Year]);
+ADD CONSTRAINT [UC_FiscalYear_Year] UNIQUE ([Year]);
 GO

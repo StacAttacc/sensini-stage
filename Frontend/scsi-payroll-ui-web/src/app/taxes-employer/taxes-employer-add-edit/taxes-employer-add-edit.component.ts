@@ -51,7 +51,7 @@ export class TaxesEmployerAddEditComponent {
   onSubmit(){
     if (this.formGroup.valid){
       console.log(this.formGroup.value);
-      let tax = new SocialContributionEmployer;
+      let tax = new SocialContributionEmployer();
       tax.id = this.formGroup.value.id?? 0;
       tax.fiscalYearId = this.formGroup.value.fiscalYearId?? 0;
       tax.rrqRate = this.formGroup.value.rrqRate?? 0;
@@ -62,10 +62,13 @@ export class TaxesEmployerAddEditComponent {
       tax.cnesst = this.formGroup.value.cnesst?? 0;
       tax.fss = this.formGroup.value.fss?? 0;
       tax.fdrcmo = this.formGroup.value.fdrcmo?? 0;
-      this.socialContributionService.socialContributionEmployer(tax).subscribe(res => {
-        console.log(tax);
-        this.notificationService.notify(NotificationTypes.REFRESH_TAXES_EMPLOYER);
-        this.notificationService.openSnackBar("Tax Saved");
+      this.socialContributionService.fiscalYearById(tax.fiscalYearId).subscribe(res => {
+        tax.fiscalYear = res;
+        this.socialContributionService.socialContributionEmployer(tax).subscribe(res => {
+          console.log(tax);
+          this.notificationService.notify(NotificationTypes.REFRESH_TAXES_EMPLOYER);
+          this.notificationService.openSnackBar("Tax Saved");
+        });
       });
     }
   }

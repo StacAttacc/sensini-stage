@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 07/06/2023 16:36:33
+-- Date Created: 07/10/2023 11:21:24
 -- Generated from EDMX file: B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.DatabaseConception\Model1.edmx
 -- --------------------------------------------------
 
@@ -230,11 +230,11 @@ GO
 -- -------------------------------------------------
 
 ALTER TABLE [dbo].[Government]
-ADD CONSTRAINT [Unique_Code] UNIQUE ([Code]);
+ADD CONSTRAINT [UC_Government_Code] UNIQUE ([Code]);
 GO
 
 ALTER TABLE [dbo].[FiscalYear]
-ADD CONSTRAINT [Unique_Year] UNIQUE ([Year]);
+ADD CONSTRAINT [UC_FiscalYear_Year] UNIQUE ([Year]);
 GO
 
 -- --------------------------------------------------
