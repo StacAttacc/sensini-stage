@@ -34,26 +34,29 @@ VALUES ('QC', 'quebec');
 /*Tax Brackets*/
 /*feds 2023*/
 INSERT INTO TaxBracket (LowerLimit, UpperLimit, Rate, FiscalYearId, GovernmentId)
-VALUES (0.00, 15000.00, 5.00, 3, 1);
+VALUES (0.00, 50197.00, 15.00, 3, 1);
 
 INSERT INTO TaxBracket (LowerLimit, UpperLimit, Rate, FiscalYearId, GovernmentId)
-VALUES (15000.00, 30000.00, 5.00, 3, 1);
+VALUES (50197.00, 100392.00, 20.50, 3, 1);
 
 INSERT INTO TaxBracket (LowerLimit, UpperLimit, Rate, FiscalYearId, GovernmentId)
-VALUES (30000.00, 50000.00, 5.00, 3, 1);
+VALUES (100392.00, 155625.00, 26.00, 3, 1);
 
 INSERT INTO TaxBracket (LowerLimit, UpperLimit, Rate, FiscalYearId, GovernmentId)
-VALUES (50000.00, 10000000.00, 5.00, 3, 1);
+VALUES (155625.00, 221708.00, 29.00, 3, 1);
+
+INSERT INTO TaxBracket (LowerLimit, UpperLimit, Rate, FiscalYearId, GovernmentId)
+VALUES (221708.00, 100000000.00, 33.00, 3, 1);
 
 /*prov 2023*/
 INSERT INTO TaxBracket (LowerLimit, UpperLimit, Rate, FiscalYearId, GovernmentId)
-VALUES (0.00, 20000.00, 5.00, 3, 2);
+VALUES (0.00, 46295.00, 15.00, 3, 2);
 
 INSERT INTO TaxBracket (LowerLimit, UpperLimit, Rate, FiscalYearId, GovernmentId)
-VALUES (20000.00, 45000.00, 5.00, 3, 2);
+VALUES (46295.00, 92580.00, 20.00, 3, 2);
 
 INSERT INTO TaxBracket (LowerLimit, UpperLimit, Rate, FiscalYearId, GovernmentId)
-VALUES (45000.00, 60000.00, 5.00, 3, 2);
+VALUES (92580.00, 112655.00, 24.00, 3, 2);
 
 INSERT INTO TaxBracket (LowerLimit, UpperLimit, Rate, FiscalYearId, GovernmentId)
-VALUES (60000.00, 10000000.00, 5.00, 3, 2);
+VALUES (112655.00, 100000000.00, 25.75, 3, 2);
