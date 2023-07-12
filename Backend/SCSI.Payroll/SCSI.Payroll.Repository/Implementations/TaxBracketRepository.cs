@@ -85,5 +85,22 @@ namespace SCSI.Payroll.Repository.Implementations
                 throw;
             }
         }
+
+        public async Task<List<TaxBracket>> GetTaxBracketsByYearAndGov(int fiscalYearId, int govId)
+        {
+            try
+            {
+                var query = from e in _payrollDbContext.TaxBrackets
+                            where e.FiscalYearId == fiscalYearId
+                                && e.GovernmentId == govId
+                            select e;
+                var result = await query.ToListAsync();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }

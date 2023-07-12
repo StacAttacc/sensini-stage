@@ -1,5 +1,6 @@
 ﻿using SCSI.Payroll.Business.Contracts;
 using SCSI.Payroll.Models.Constants;
+using SCSI.Payroll.Models.Domains;
 using SCSI.Payroll.Models.Entities;
 using SCSI.Payroll.Repository.Contracts;
 using System;
@@ -109,7 +110,7 @@ namespace SCSI.Payroll.Business.Implementations
             else
             {
                 isValid = false;
-                //throw new Exception(ErrorMessageConst.OverlapRuleNotRespected);
+                // throw new Exception(ErrorMessageConst.OverlapRuleNotRespected);
             }
             return isValid;
         }
@@ -189,6 +190,16 @@ namespace SCSI.Payroll.Business.Implementations
             
         }
 
-        
+        public Task<WithheldSalary> ComputeWithheldSalary(decimal amount, FiscalYear fiscalYear, Government government)
+        {
+            try
+            {
+
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }

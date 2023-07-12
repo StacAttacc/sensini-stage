@@ -1,4 +1,5 @@
-﻿using SCSI.Payroll.Models.Entities;
+﻿using SCSI.Payroll.Models.Domains;
+using SCSI.Payroll.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,6 @@ namespace SCSI.Payroll.Business.Contracts
         Task<bool> ValidateCoverageAsync(TaxBracket taxBracket, FiscalYear fiscalYear, Government government);
         Task<List<TaxBracket>> SortTaxBracketWithFiscalYearAndGovernmentAsync(FiscalYear fiscalYear, Government government);
         Task<bool> ValidateOverlapAndCoverage(TaxBracket taxBracket);
+        Task<WithheldSalary> ComputeWithheldSalary(decimal amount, FiscalYear fiscalYear, Government government);
     }
 }
