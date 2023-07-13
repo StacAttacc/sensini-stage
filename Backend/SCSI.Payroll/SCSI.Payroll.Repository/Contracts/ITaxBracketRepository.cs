@@ -13,6 +13,6 @@ namespace SCSI.Payroll.Repository.Contracts
         Task<TaxBracket> GetTaxBracketByIdAsync(int id);
         Task<TaxBracket> DeleteTaxBracketByIdAsync(int id);
         Task<TaxBracket> SaveTaxBracketAsync(TaxBracket taxBracket);
-        Task<List<TaxBracket>> GetTaxBracketsByYearAndGov(int fiscalYearId, ASCIIEncoding govId);
+        Task<List<TaxBracket>> GetTaxBracketsByYearAndGov(int fiscalYearId, int govId);
     }
 }

@@ -190,11 +190,43 @@ namespace SCSI.Payroll.Business.Implementations
             
         }
 
-        public Task<WithheldSalary> ComputeWithheldSalary(decimal amount, FiscalYear fiscalYear, Government government)
+        public async Task<WithheldSalary> ComputeWithheldSalary(decimal amount, FiscalYear fiscalYear, Government government)
         {
+            decimal salToPay = 0;
+            decimal salLeft = amount;
+            WithheldSalary withheldSalary = new WithheldSalary();
             try
             {
+                List<TaxBracket> taxBrackets = await _taxBracketRepository.GetTaxBracketsByYearAndGov(fiscalYear.Id, government.Id);
+                List<TaxBracket> sortedTaxBrackets = taxBrackets.OrderBy(taxBracket => taxBracket.LowerLimit).ToList();
 
+                foreach(TaxBracket taxBracket in sortedTaxBrackets)
+                {
+                    if(salLeft > 0)
+                    {
+                        if (salLeft >= taxBracket.UpperLimit)
+                        {
+                            salToPay += taxBracket.UpperLimit / taxBracket.Rate;
+                            salLeft -= salToPay;
+                        }
+                        else
+                        {
+                            salToPay += salLeft / taxBracket.Rate;
+                            salLeft -= salToPay;
+                        }
+                    }
+                }
+
+                if(government.Id == 1)
+                {
+                    withheldSalary.FedTax = salToPay;
+                }
+                if(government.Id != 1)
+                {
+                    withheldSalary.ProvTax = salToPay;
+                }
+
+                return withheldSalary;
             }
             catch(Exception ex)
             {
