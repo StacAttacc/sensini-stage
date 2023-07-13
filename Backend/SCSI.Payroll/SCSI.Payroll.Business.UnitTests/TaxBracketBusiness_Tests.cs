@@ -3,12 +3,6 @@ using SCSI.Payroll.Business.Contracts;
 using SCSI.Payroll.Business.Implementations;
 using SCSI.Payroll.Models.Entities;
 using SCSI.Payroll.Repository.Contracts;
-using SCSI.Payroll.Repository.Implementations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace SCSI.Payroll.Business.UnitTests
@@ -16,7 +10,7 @@ namespace SCSI.Payroll.Business.UnitTests
     public class TaxBracketBusiness_Tests
     {
         [Theory]
-        [InlineData(0,15000, false)]
+        [InlineData(0, 15000, false)]
         [InlineData(30000, 45000, true)]
         [InlineData(29999, 45000, false)]
         [InlineData(20000, 30000, false)]
@@ -145,6 +139,64 @@ namespace SCSI.Payroll.Business.UnitTests
             Assert.Equal(expectedResult, result);
         }
 
+        [Fact]
+        public void TaxCalculations()
+        {
+            var (taxBracketBusiness, taxBracketRepository, fiscalYearBusiness, governmentBusiness)
+                = Given_TaxBracketBusiness();
+            List<TaxBracket> taxBracketList = new List<TaxBracket>()
+                {
+                    new TaxBracket()
+                    {
+                        Id = 1,
+                        FiscalYearId = 3,
+                        GovernmentId = 1,
+                        LowerLimit = 0,
+                        UpperLimit = 50197,
+                        Rate = 15
+                    },
+                    new TaxBracket()
+                    {
+                        Id = 2,
+                        FiscalYearId = 3,
+                        GovernmentId = 1,
+                        LowerLimit = 50197,
+                        UpperLimit = 100392,
+                        Rate = 20.5m
+                    },
+                    new TaxBracket()
+                    {
+                        Id = 3,
+                        FiscalYearId = 3,
+                        GovernmentId = 1,
+                        LowerLimit = 100392,
+                        UpperLimit = 155625,
+                        Rate = 26
+                    },
+                    new TaxBracket()
+                    {
+                        Id = 4,
+                        FiscalYearId = 3,
+                        GovernmentId = 1,
+                        LowerLimit = 155625,
+                        UpperLimit = 221708,
+                        Rate = 29
+                    },
+                    new TaxBracket()
+                    {
+                        Id = 5,
+                        FiscalYearId = 3,
+                        GovernmentId = 1,
+                        LowerLimit = 221708,
+                        UpperLimit = 1000000000,
+                        Rate = 33
+                    },
+                };
+
+            decimal result = taxBracketBusiness.CalculateTaxes(300000, taxBracketList);
+            Assert.Equal(77180.535m, result);
+        }
+
 
 
         private static (
@@ -229,6 +281,57 @@ namespace SCSI.Payroll.Business.UnitTests
                         Rate = 17
                     }
 
+                });
+
+            taxBracketRepository
+                .Setup(e => e.GetTaxBracketsByYearAndGov(3, 1))
+                .ReturnsAsync(new List<TaxBracket>()
+                {
+                    new TaxBracket()
+                    {
+                        Id = 1,
+                        FiscalYearId = 3,
+                        GovernmentId = 1,
+                        LowerLimit = 0,
+                        UpperLimit = 50197,
+                        Rate = 15
+                    },
+                    new TaxBracket()
+                    {
+                        Id = 2,
+                        FiscalYearId = 3,
+                        GovernmentId = 1,
+                        LowerLimit = 50197,
+                        UpperLimit = 100392,
+                        Rate = 20.5m
+                    },
+                    new TaxBracket()
+                    {
+                        Id = 3,
+                        FiscalYearId = 3,
+                        GovernmentId = 1,
+                        LowerLimit = 100392,
+                        UpperLimit = 155625,
+                        Rate = 26
+                    },
+                    new TaxBracket()
+                    {
+                        Id = 4,
+                        FiscalYearId = 3,
+                        GovernmentId = 1,
+                        LowerLimit = 155625,
+                        UpperLimit = 221708,
+                        Rate = 29
+                    },
+                    new TaxBracket()
+                    {
+                        Id = 5,
+                        FiscalYearId = 3,
+                        GovernmentId = 1,
+                        LowerLimit = 221708,
+                        UpperLimit = 1000000000,
+                        Rate = 33
+                    },
                 });
 
             var taxBracketBusiness = new TaxBracketBusiness(

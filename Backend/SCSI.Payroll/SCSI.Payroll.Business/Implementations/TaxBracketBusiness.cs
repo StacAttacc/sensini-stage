@@ -191,39 +191,20 @@ namespace SCSI.Payroll.Business.Implementations
         }
 
         public async Task<WithheldSalary> ComputeWithheldSalary(decimal amount, FiscalYear fiscalYear, Government government)
-        {
-            decimal salToPay = 0;
-            decimal salLeft = amount;
+        {            
             WithheldSalary withheldSalary = new WithheldSalary();
             try
             {
                 List<TaxBracket> taxBrackets = await _taxBracketRepository.GetTaxBracketsByYearAndGov(fiscalYear.Id, government.Id);
                 List<TaxBracket> sortedTaxBrackets = taxBrackets.OrderBy(taxBracket => taxBracket.LowerLimit).ToList();
 
-                foreach(TaxBracket taxBracket in sortedTaxBrackets)
-                {
-                    if(salLeft > 0)
-                    {
-                        if (salLeft >= taxBracket.UpperLimit)
-                        {
-                            salToPay += taxBracket.UpperLimit / taxBracket.Rate;
-                            salLeft -= salToPay;
-                        }
-                        else
-                        {
-                            salToPay += salLeft / taxBracket.Rate;
-                            salLeft -= salToPay;
-                        }
-                    }
-                }
-
                 if(government.Id == 1)
                 {
-                    withheldSalary.FedTax = salToPay;
+                    withheldSalary.FedTax = CalculateTaxes(amount, sortedTaxBrackets);
                 }
                 if(government.Id != 1)
                 {
-                    withheldSalary.ProvTax = salToPay;
+                    withheldSalary.ProvTax = CalculateTaxes(amount, sortedTaxBrackets);
                 }
 
                 return withheldSalary;
@@ -232,6 +213,47 @@ namespace SCSI.Payroll.Business.Implementations
             {
                 throw;
             }
+        }
+
+        public decimal CalculateTaxes(decimal amount, List<TaxBracket> sortedTaxBrackets)
+        {
+            decimal amountToPay = 0;
+            decimal salLeft = amount;
+            decimal taxesToPay = 0;
+            bool bracketsLeft = true;
+
+            int i = 1;
+            int nbTaxBrackets = sortedTaxBrackets.Count();
+
+            foreach (TaxBracket taxBracket in sortedTaxBrackets)
+            {
+                if (amount <= taxBracket.UpperLimit)
+                {
+                    amountToPay = salLeft * (taxBracket.Rate/100);
+                    taxesToPay += amountToPay;
+
+                    return taxesToPay;
+                }
+                else
+                {
+                    amountToPay = (taxBracket.UpperLimit - taxBracket.LowerLimit) * (taxBracket.Rate / 100);
+                    taxesToPay += amountToPay;
+                    if(salLeft - (taxBracket.UpperLimit - taxBracket.LowerLimit) <= 0)
+                    {
+                        salLeft = 0;
+                        return taxesToPay;
+                    }
+                    else
+                    {
+                        salLeft = salLeft - (taxBracket.UpperLimit - taxBracket.LowerLimit);
+                    }
+
+                    Console.WriteLine(amount);
+                    Console.WriteLine();
+                }
+                i++;
+            }
+            return amountToPay;
         }
     }
 }
