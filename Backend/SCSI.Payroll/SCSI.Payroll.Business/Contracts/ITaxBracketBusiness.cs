@@ -20,5 +20,7 @@ namespace SCSI.Payroll.Business.Contracts
         Task<bool> ValidateOverlapAndCoverage(TaxBracket taxBracket);
         Task<WithheldSalary> ComputeWithheldSalary(decimal amount, FiscalYear fiscalYear, Government government);
         decimal CalculateTaxes(decimal amount, List<TaxBracket> sortedTaxBrackets);
+        Task<decimal> SetFederalTaxes(decimal amount, FiscalYear fiscalYear);
+        Task<decimal> SetProvincialTaxes(decimal amount, FiscalYear fiscalYear);
     }
 }

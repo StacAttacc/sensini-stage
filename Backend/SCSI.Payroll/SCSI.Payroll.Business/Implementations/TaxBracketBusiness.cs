@@ -195,18 +195,8 @@ namespace SCSI.Payroll.Business.Implementations
             WithheldSalary withheldSalary = new WithheldSalary();
             try
             {
-                List<TaxBracket> taxBrackets = await _taxBracketRepository.GetTaxBracketsByYearAndGov(fiscalYear.Id, government.Id);
-                List<TaxBracket> sortedTaxBrackets = taxBrackets.OrderBy(taxBracket => taxBracket.LowerLimit).ToList();
-
-                if(government.Id == 1)
-                {
-                    withheldSalary.FedTax = CalculateTaxes(amount, sortedTaxBrackets);
-                }
-                if(government.Id != 1)
-                {
-                    withheldSalary.ProvTax = CalculateTaxes(amount, sortedTaxBrackets);
-                }
-
+                withheldSalary.FedTax = await SetFederalTaxes(amount, fiscalYear);
+                withheldSalary.ProvTax = await SetProvincialTaxes(amount, fiscalYear);
                 return withheldSalary;
             }
             catch(Exception ex)
@@ -215,15 +205,29 @@ namespace SCSI.Payroll.Business.Implementations
             }
         }
 
+        public async Task<decimal> SetFederalTaxes(decimal amount, FiscalYear fiscalYear)
+        {
+            List<TaxBracket> taxBrackets = await _taxBracketRepository.GetTaxBracketsByYearAndGov(fiscalYear.Id, 1);
+            List<TaxBracket> sortedTaxBrackets = taxBrackets.OrderBy(taxBracket => taxBracket.LowerLimit).ToList();
+            decimal taxToPay = CalculateTaxes(amount, sortedTaxBrackets);
+            return taxToPay;
+        }
+
+        public async Task<decimal> SetProvincialTaxes(decimal amount, FiscalYear fiscalYear)
+        {
+            List<TaxBracket> taxBrackets = await _taxBracketRepository.GetTaxBracketsByYearAndGov(fiscalYear.Id, 2);
+            List<TaxBracket> sortedTaxBrackets = taxBrackets.OrderBy(taxBracket => taxBracket.LowerLimit).ToList();
+            decimal taxToPay = CalculateTaxes(amount, sortedTaxBrackets);
+            return taxToPay;
+        }
+
         public decimal CalculateTaxes(decimal amount, List<TaxBracket> sortedTaxBrackets)
         {
             decimal amountToPay = 0;
             decimal salLeft = amount;
             decimal taxesToPay = 0;
-            bool bracketsLeft = true;
 
             int i = 1;
-            int nbTaxBrackets = sortedTaxBrackets.Count();
 
             foreach (TaxBracket taxBracket in sortedTaxBrackets)
             {
