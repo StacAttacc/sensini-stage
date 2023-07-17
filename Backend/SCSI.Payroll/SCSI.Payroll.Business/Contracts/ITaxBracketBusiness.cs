@@ -22,5 +22,6 @@ namespace SCSI.Payroll.Business.Contracts
         decimal CalculateTaxes(decimal amount, List<TaxBracket> sortedTaxBrackets);
         Task<decimal> SetFederalTaxes(decimal amount, FiscalYear fiscalYear);
         Task<decimal> SetProvincialTaxes(decimal amount, FiscalYear fiscalYear);
+        Task<decimal> SetRrq(decimal amount, FiscalYear fiscalYear);
     }
 }

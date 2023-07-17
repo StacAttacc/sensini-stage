@@ -13,5 +13,6 @@ namespace SCSI.Payroll.Business.Contracts
         Task<List<SocialContributionEmployee>> GetSocialContributionsAsync();
         Task<SocialContributionEmployee> GetSocialContributionByIdAsync(int id);
         Task<SocialContributionEmployee> DeleteSocialContributionByIdAsync(int id);
+        Task<SocialContributionEmployee> GetSocialContributionByFiscalYearIdAsync(int id);
     }
 }

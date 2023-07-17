@@ -51,6 +51,22 @@ namespace SCSI.Payroll.Repository.Implementations
             }
         }
 
+        public async Task<SocialContributionEmployee> GetSocialContributionByFiscalYearId(int fiscalYearId)
+        {
+            try
+            {
+                var query = from e in _payrollDbContext.SocialContributionEmployees
+                            where e.FiscalYear.Id == fiscalYearId
+                            select e;
+                var result = await query.FirstOrDefaultAsync();
+                return result;
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }
+        }
+
         public async Task<List<SocialContributionEmployee>> GetSocialContributionsAsync()
         {
             try

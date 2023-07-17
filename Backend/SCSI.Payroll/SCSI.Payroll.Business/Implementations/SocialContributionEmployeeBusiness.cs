@@ -43,6 +43,19 @@ namespace SCSI.Payroll.Business.Implementations
             }
         }
 
+        public async Task<SocialContributionEmployee> GetSocialContributionByFiscalYearIdAsync(int id)
+        {
+            try
+            {
+                var result = await _taxRepository.GetSocialContributionByFiscalYearIdAsync(id);
+                return result;
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }
+        }
+
         public async Task<List<SocialContributionEmployee>> GetSocialContributionsAsync()
         {
             try

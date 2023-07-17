@@ -16,14 +16,17 @@ namespace SCSI.Payroll.Business.Implementations
         private ITaxBracketRepository _taxBracketRepository;
         private IFiscalYearBusiness _fiscalYearBusiness;
         private IGovernmentBusiness _governmentBusiness;
+        private ISocialContributionEmployeeBusiness _socialContributionEmployeeBusiness;
 
         public TaxBracketBusiness(ITaxBracketRepository taxBracketRepository,
                                   IFiscalYearBusiness fiscalYearBusiness,
-                                  IGovernmentBusiness governmentBusiness)
+                                  IGovernmentBusiness governmentBusiness,
+                                  ISocialContributionEmployeeBusiness socialContributionEmployeeBusiness)
         {
             this._taxBracketRepository = taxBracketRepository;
             this._fiscalYearBusiness = fiscalYearBusiness;
             this._governmentBusiness = governmentBusiness;
+            this._socialContributionEmployeeBusiness = socialContributionEmployeeBusiness;
         }
         public async Task<TaxBracket> DeleteTaxBracketByIdAsync(int id)
         {
@@ -197,6 +200,8 @@ namespace SCSI.Payroll.Business.Implementations
             {
                 withheldSalary.FedTax = await SetFederalTaxes(amount, fiscalYear);
                 withheldSalary.ProvTax = await SetProvincialTaxes(amount, fiscalYear);
+                withheldSalary.Rrq = await SetRrq(amount, fiscalYear);
+                withheldSalary.Rqap = await SetRqap(amount, fiscalYear);
                 return withheldSalary;
             }
             catch(Exception ex)
@@ -219,6 +224,36 @@ namespace SCSI.Payroll.Business.Implementations
             List<TaxBracket> sortedTaxBrackets = taxBrackets.OrderBy(taxBracket => taxBracket.LowerLimit).ToList();
             decimal taxToPay = CalculateTaxes(amount, sortedTaxBrackets);
             return taxToPay;
+        }
+
+        public async Task<decimal> SetRrq(decimal amount, FiscalYear fiscalYear)
+        {
+            decimal rrqToPay = 0;
+            SocialContributionEmployee socialContribution = await _socialContributionEmployeeBusiness.GetSocialContributionByFiscalYearIdAsync(fiscalYear.Id);
+            if(amount >= socialContribution.RrqMga)
+            {
+                rrqToPay = socialContribution.RrqMga * (socialContribution.RrqRate / 100);
+            }
+            else
+            {
+                rrqToPay = amount * (socialContribution.RrqRate / 100);
+            }
+            return rrqToPay;
+        }
+
+        public async Task<decimal> SetRqap(decimal amount, FiscalYear fiscalYear)
+        {
+            decimal rqapToPay = 0;
+            SocialContributionEmployee socialContribution = await _socialContributionEmployeeBusiness.GetSocialContributionByFiscalYearIdAsync(fiscalYear.Id);
+            if(amount >= socialContribution.RqapMga)
+            {
+                rqapToPay = socialContribution.RqapMga * (socialContribution.RqapRate / 100);
+            }
+            else
+            {
+                rqapToPay = amount * (socialContribution.RqapRate / 100);
+            }
+            return rqapToPay;
         }
 
         public decimal CalculateTaxes(decimal amount, List<TaxBracket> sortedTaxBrackets)
