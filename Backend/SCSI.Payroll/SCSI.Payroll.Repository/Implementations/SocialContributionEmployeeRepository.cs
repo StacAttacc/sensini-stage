@@ -51,7 +51,7 @@ namespace SCSI.Payroll.Repository.Implementations
             }
         }
 
-        public async Task<SocialContributionEmployee> GetSocialContributionByFiscalYearId(int fiscalYearId)
+        public async Task<SocialContributionEmployee> GetSocialContributionByFiscalYearIdAsync(int fiscalYearId)
         {
             try
             {
