@@ -193,7 +193,7 @@ namespace SCSI.Payroll.Business.Implementations
             
         }
 
-        public async Task<WithheldSalary> ComputeWithheldSalary(decimal amount, FiscalYear fiscalYear, Government government)
+        public async Task<WithheldSalary> ComputeWithheldSalary(decimal amount, FiscalYear fiscalYear)
         {            
             WithheldSalary withheldSalary = new WithheldSalary();
             try
@@ -202,6 +202,7 @@ namespace SCSI.Payroll.Business.Implementations
                 withheldSalary.ProvTax = await SetProvincialTaxes(amount, fiscalYear);
                 withheldSalary.Rrq = await SetRrq(amount, fiscalYear);
                 withheldSalary.Rqap = await SetRqap(amount, fiscalYear);
+                withheldSalary.EmploymentInsurance = await SetEmploymentInsurance(amount, fiscalYear);
                 return withheldSalary;
             }
             catch(Exception ex)
@@ -254,6 +255,14 @@ namespace SCSI.Payroll.Business.Implementations
                 rqapToPay = amount * (socialContribution.RqapRate / 100);
             }
             return rqapToPay;
+        }
+
+        public async Task<decimal> SetEmploymentInsurance(decimal amount, FiscalYear fiscalYear)
+        {
+            decimal insuranceToPay = 0;
+            SocialContributionEmployee socialContribution = await _socialContributionEmployeeBusiness.GetSocialContributionByFiscalYearIdAsync(fiscalYear.Id);
+            insuranceToPay = amount * (socialContribution.EmploymentInsurance / 100);
+            return insuranceToPay;
         }
 
         public decimal CalculateTaxes(decimal amount, List<TaxBracket> sortedTaxBrackets)

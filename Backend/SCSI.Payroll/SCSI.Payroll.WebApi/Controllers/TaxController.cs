@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SCSI.Payroll.Business.Contracts;
+using SCSI.Payroll.Models.Domains;
 using SCSI.Payroll.Models.Entities;
 
 namespace SCSI.Payroll.WebApi.Controllers
@@ -72,9 +73,6 @@ namespace SCSI.Payroll.WebApi.Controllers
         }
         #endregion
 
-
-
-
         #region getById
         [HttpGet("social-contribution-employee-by-id")]
         [ProducesResponseType(typeof(SocialContributionEmployee), StatusCodes.Status200OK)]
@@ -133,9 +131,6 @@ namespace SCSI.Payroll.WebApi.Controllers
         }
         #endregion
 
-
-
-
         #region deleteById
         [HttpDelete("social-contribution-employee-delete-by-id")]
         [ProducesResponseType(typeof(SocialContributionEmployee), StatusCodes.Status200OK)]
@@ -178,9 +173,16 @@ namespace SCSI.Payroll.WebApi.Controllers
         }
         #endregion
 
+        #region posts
 
+        [HttpPost("social-contribubtion-employee-calculate-tax")]
+        [ProducesResponseType(typeof(WithheldSalary), StatusCodes.Status200OK)]
+        public async Task<IActionResult> ComputeWithheldSalary([FromBody] TaxCalculationsParameters taxCalculationsParameters)
+        {
+            await _taxBracketBusiness.ComputeWithheldSalary(taxCalculationsParameters.amount, taxCalculationsParameters.fiscalYear);
+            return Ok(taxCalculationsParameters);
+        }
 
-        #region Saves
         [HttpPost("social-contribution-employee")]
         [ProducesResponseType(typeof(SocialContributionEmployee),StatusCodes.Status200OK)]
         public async Task<IActionResult> SaveSocialContributionEmployeeAsync([FromBody] SocialContributionEmployee socialContribution)

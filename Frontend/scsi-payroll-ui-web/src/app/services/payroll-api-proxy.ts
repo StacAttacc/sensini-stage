@@ -1251,6 +1251,63 @@ export class SocialContributionService {
      * @param body (optional) 
      * @return Success
      */
+    socialContribubtionEmployeeCalculateTax(body: TaxCalculationsParameters | undefined): Observable<WithheldSalary> {
+        let url_ = this.baseUrl + "/api/tax/v1/social-contribution/social-contribubtion-employee-calculate-tax";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processSocialContribubtionEmployeeCalculateTax(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processSocialContribubtionEmployeeCalculateTax(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<WithheldSalary>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<WithheldSalary>;
+        }));
+    }
+
+    protected processSocialContribubtionEmployeeCalculateTax(response: HttpResponseBase): Observable<WithheldSalary> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        let _mappings: { source: any, target: any }[] = [];
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : jsonParse(_responseText, this.jsonParseReviver);
+            result200 = WithheldSalary.fromJS(resultData200, _mappings);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
     socialContributionEmployee(body: SocialContributionEmployee | undefined): Observable<SocialContributionEmployee> {
         let url_ = this.baseUrl + "/api/tax/v1/social-contribution/social-contribution-employee";
         url_ = url_.replace(/[?&]$/, "");
@@ -1863,6 +1920,94 @@ export interface ITaxBracket {
     rate?: number;
     fiscalYear?: FiscalYear;
     government?: Government;
+}
+
+export class TaxCalculationsParameters implements ITaxCalculationsParameters {
+    amount?: number;
+    fiscalYear?: FiscalYear;
+
+    constructor(data?: ITaxCalculationsParameters) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.amount = _data["amount"];
+            this.fiscalYear = _data["fiscalYear"] ? FiscalYear.fromJS(_data["fiscalYear"], _mappings) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): TaxCalculationsParameters | null {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<TaxCalculationsParameters>(data, _mappings, TaxCalculationsParameters);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["amount"] = this.amount;
+        data["fiscalYear"] = this.fiscalYear ? this.fiscalYear.toJSON() : <any>undefined;
+        return data;
+    }
+}
+
+export interface ITaxCalculationsParameters {
+    amount?: number;
+    fiscalYear?: FiscalYear;
+}
+
+export class WithheldSalary implements IWithheldSalary {
+    fedTax?: number;
+    provTax?: number;
+    rrq?: number;
+    rqap?: number;
+    employmentInsurance?: number;
+
+    constructor(data?: IWithheldSalary) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any, _mappings?: any) {
+        if (_data) {
+            this.fedTax = _data["fedTax"];
+            this.provTax = _data["provTax"];
+            this.rrq = _data["rrq"];
+            this.rqap = _data["rqap"];
+            this.employmentInsurance = _data["employmentInsurance"];
+        }
+    }
+
+    static fromJS(data: any, _mappings?: any): WithheldSalary | null {
+        data = typeof data === 'object' ? data : {};
+        return createInstance<WithheldSalary>(data, _mappings, WithheldSalary);
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["fedTax"] = this.fedTax;
+        data["provTax"] = this.provTax;
+        data["rrq"] = this.rrq;
+        data["rqap"] = this.rqap;
+        data["employmentInsurance"] = this.employmentInsurance;
+        return data;
+    }
+}
+
+export interface IWithheldSalary {
+    fedTax?: number;
+    provTax?: number;
+    rrq?: number;
+    rqap?: number;
+    employmentInsurance?: number;
 }
 
 function jsonParse(json: any, reviver?: any) {
