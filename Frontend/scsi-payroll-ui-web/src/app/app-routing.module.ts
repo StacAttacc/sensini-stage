@@ -9,6 +9,7 @@ import { FiscalYearsComponent } from './fiscal-years/fiscal-years.component';
 import { GovernmentComponent } from './government/government.component';
 import { TaxBracketsComponent } from './tax-brackets/tax-brackets.component';
 import { TaxesEmployerComponent } from './taxes-employer/taxes-employer.component';
+import { WithheldSalaryComponent } from './withheld-salary/withheld-salary.component';
 
 const routes: Routes = [
   {path:'', pathMatch: 'full', redirectTo: 'home'},
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path: 'fiscal-years', component: FiscalYearsComponent},
   {path: 'governments', component: GovernmentComponent},
   {path: 'tax-brackets', component: TaxBracketsComponent},
+  {path: 'withheld-salary', component: WithheldSalaryComponent},
   {path: '**', component: NotFoundComponentComponent}
 ];
 

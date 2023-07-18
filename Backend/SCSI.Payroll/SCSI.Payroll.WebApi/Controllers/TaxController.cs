@@ -179,8 +179,8 @@ namespace SCSI.Payroll.WebApi.Controllers
         [ProducesResponseType(typeof(WithheldSalary), StatusCodes.Status200OK)]
         public async Task<IActionResult> ComputeWithheldSalary([FromBody] TaxCalculationsParameters taxCalculationsParameters)
         {
-            await _taxBracketBusiness.ComputeWithheldSalary(taxCalculationsParameters.amount, taxCalculationsParameters.fiscalYear);
-            return Ok(taxCalculationsParameters);
+            var result = await _taxBracketBusiness.ComputeWithheldSalary(taxCalculationsParameters.Amount, taxCalculationsParameters.FiscalYearId);
+            return Ok(result);
         }
 
         [HttpPost("social-contribution-employee")]

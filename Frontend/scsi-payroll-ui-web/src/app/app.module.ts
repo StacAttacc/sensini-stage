@@ -52,6 +52,7 @@ import { HttpRequestInterceptorService } from './services/http-request-intercept
 import { TaxesEmployerComponent } from './taxes-employer/taxes-employer.component';
 import { TaxesEmployerAddEditComponent } from './taxes-employer/taxes-employer-add-edit/taxes-employer-add-edit.component';
 import { TaxesEmployerDeleteComponent } from './taxes-employer/taxes-employer-delete/taxes-employer-delete.component';
+import { WithheldSalaryComponent } from './withheld-salary/withheld-salary.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { TaxesEmployerDeleteComponent } from './taxes-employer/taxes-employer-de
     ErrorDialogComponent,
     TaxesEmployerComponent,
     TaxesEmployerAddEditComponent,
-    TaxesEmployerDeleteComponent
+    TaxesEmployerDeleteComponent,
+    WithheldSalaryComponent
   ],
   imports: [
     BrowserModule,

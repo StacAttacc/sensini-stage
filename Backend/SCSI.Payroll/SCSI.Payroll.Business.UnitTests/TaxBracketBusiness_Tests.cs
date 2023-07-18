@@ -39,7 +39,7 @@ namespace SCSI.Payroll.Business.UnitTests
                     Rate = 25
                 }
             };
-            var (taxBracketBusiness, taxBracketRepository, fiscalYearBusiness, governmentBusiness) = Given_TaxBracketBusiness();
+            var (taxBracketBusiness, taxBracketRepository, fiscalYearBusiness, governmentBusiness, socialContributionEmployeeBusiness) = Given_TaxBracketBusiness();
             var newTaxBracket = new TaxBracket()
             {
                 Id = 3,
@@ -81,7 +81,7 @@ namespace SCSI.Payroll.Business.UnitTests
                     Rate = 25
                 }
             };
-            var (taxBracketBusiness, taxBracketRepository, fiscalYearBusiness, governmentBusiness) = Given_TaxBracketBusiness();
+            var (taxBracketBusiness, taxBracketRepository, fiscalYearBusiness, governmentBusiness, socialContributionEmployeeBusiness) = Given_TaxBracketBusiness();
             var newTaxBracket = new TaxBracket()
             {
                 Id = 3,
@@ -125,7 +125,7 @@ namespace SCSI.Payroll.Business.UnitTests
                     Rate = 25
                 }
             };
-            var (taxBracketBusiness, taxBracketRepository, fiscalYearBusiness, governmentBusiness) = Given_TaxBracketBusiness();
+            var (taxBracketBusiness, taxBracketRepository, fiscalYearBusiness, governmentBusiness, socialContributionEmployeeBusiness) = Given_TaxBracketBusiness();
             var newTaxBracket = new TaxBracket()
             {
                 Id = 3,
@@ -142,7 +142,7 @@ namespace SCSI.Payroll.Business.UnitTests
         [Fact]
         public void TaxCalculations()
         {
-            var (taxBracketBusiness, taxBracketRepository, fiscalYearBusiness, governmentBusiness)
+            var (taxBracketBusiness, taxBracketRepository, fiscalYearBusiness, governmentBusiness, socialContributionEmployeeBusiness)
                 = Given_TaxBracketBusiness();
             List<TaxBracket> taxBracketList = new List<TaxBracket>()
                 {
@@ -203,12 +203,14 @@ namespace SCSI.Payroll.Business.UnitTests
             TaxBracketBusiness taxBracketBusiness,
             Mock<ITaxBracketRepository> mockTaxBracketRepository,
             Mock<IFiscalYearBusiness> mockFiscalYearBusiness,
-            Mock<IGovernmentBusiness> mockGovernmentBusiness
+            Mock<IGovernmentBusiness> mockGovernmentBusiness,
+            Mock<ISocialContributionEmployeeBusiness> socialContributionEmployeeBusiness
         ) Given_TaxBracketBusiness()
         {
             var taxBracketRepository = new Mock<ITaxBracketRepository>();
             var fiscalYearBusiness = new Mock<IFiscalYearBusiness>();
             var governmentBusiness = new Mock<IGovernmentBusiness>();
+            var socialContributionEmployeeBusiness = new Mock<ISocialContributionEmployeeBusiness>();
 
             fiscalYearBusiness
                 .Setup(e => e.GetAllFiscalYearsAsync())
@@ -337,10 +339,11 @@ namespace SCSI.Payroll.Business.UnitTests
             var taxBracketBusiness = new TaxBracketBusiness(
                  taxBracketRepository.Object,
                  fiscalYearBusiness.Object,
-                 governmentBusiness.Object
+                 governmentBusiness.Object,
+                 socialContributionEmployeeBusiness.Object
             );
 
-            return (taxBracketBusiness, taxBracketRepository, fiscalYearBusiness, governmentBusiness);
+            return (taxBracketBusiness, taxBracketRepository, fiscalYearBusiness, governmentBusiness, socialContributionEmployeeBusiness);
         }
     }
 }

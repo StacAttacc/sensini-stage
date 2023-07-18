@@ -53,6 +53,7 @@ export class TaxAddEditComponent {
 
   ngOnInit(){
     this.socialContributionService.fiscalYears().subscribe(res => {
+      console.log('here');
       this.fiscalYearOptions = res;
     });
     if(this.data != null){

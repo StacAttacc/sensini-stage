@@ -15,7 +15,6 @@ import { Subject, takeUntil } from 'rxjs';
   styleUrls: ['./taxes.component.scss']
 })
 export class TaxesComponent implements OnDestroy{
-
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   columnDefs=[

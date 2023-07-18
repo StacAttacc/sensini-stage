@@ -1,0 +1,61 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <p>
+      <mat-form-field>
+        <mat-label>Amount</mat-label>
+        <input matInput placeholder="xxxx.xx" formControlName="amount">
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field>
+        <mat-label>Fiscal Year</mat-label>
+        <mat-select formControlName="fiscalYearId">
+          <mat-option *ngFor="let fiscalYearOption of fiscalYearOptions" [value]="fiscalYearOption.id">
+            {{fiscalYearOption.year}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </p>
+
+    <button mat-raised-button type="submit" [disabled]="!formGroup.valid">Sauvegarder</button>
+    <button mat-raised-button>Cancel</button>
+
+</form>
+
+<form [formGroup]="formOutput">
+  <p>
+    <mat-form-field class="mat-readonly-wrapper">
+      <mat-label>Rrq</mat-label>
+      <input class="mat-readonly-block" matInput placeholder="xxxx.xx" formControlName="rrq">
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field class="mat-readonly-wrapper">
+      <mat-label>Rqaq</mat-label>
+      <input class="mat-readonly-block" matInput placeholder="xxxx.xx" formControlName="rqap">
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field class="mat-readonly-wrapper">
+      <mat-label>Federal Tax</mat-label>
+      <input class="mat-readonly-block" matInput placeholder="xxxx.xx" formControlName="fedTax">
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field class="mat-readonly-wrapper">
+      <mat-label>Prov Tax</mat-label>
+      <input class="mat-readonly-block" matInput placeholder="xxxx.xx" formControlName="provTax">
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field class="mat-readonly-wrapper">
+      <mat-label>Employment Insurance</mat-label>
+      <input class="mat-readonly-block" matInput placeholder="xxxx.xx" formControlName="employmentInsurance">
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field class="mat-readonly-wrapper">
+      <mat-label>Total Amount to Pay</mat-label>
+      <input class="mat-readonly-block" matInput placeholder="xxxx.xx" formControlName="totalAmountToPay">
+    </mat-form-field>
+  </p>
+</form>

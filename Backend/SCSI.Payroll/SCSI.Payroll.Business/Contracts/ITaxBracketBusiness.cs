@@ -18,12 +18,12 @@ namespace SCSI.Payroll.Business.Contracts
         Task<bool> ValidateCoverageAsync(TaxBracket taxBracket, FiscalYear fiscalYear, Government government);
         Task<List<TaxBracket>> SortTaxBracketWithFiscalYearAndGovernmentAsync(FiscalYear fiscalYear, Government government);
         Task<bool> ValidateOverlapAndCoverage(TaxBracket taxBracket);
-        Task<WithheldSalary> ComputeWithheldSalary(decimal amount, FiscalYear fiscalYear);
+        Task<WithheldSalary> ComputeWithheldSalary(decimal amount, int fiscalYearId);
         decimal CalculateTaxes(decimal amount, List<TaxBracket> sortedTaxBrackets);
-        Task<decimal> SetFederalTaxes(decimal amount, FiscalYear fiscalYear); 
-        Task<decimal> SetProvincialTaxes(decimal amount, FiscalYear fiscalYear);
-        Task<decimal> SetRrq(decimal amount, FiscalYear fiscalYear);
-        Task<decimal> SetRqap(decimal amount, FiscalYear fiscalYear);
-        Task<decimal> SetEmploymentInsurance(decimal amount, FiscalYear fiscalYear);
+        Task<decimal> SetFederalTaxes(decimal amount, int fiscalYearId); 
+        Task<decimal> SetProvincialTaxes(decimal amount, int fiscalYearId);
+        Task<decimal> SetRrq(decimal amount, int fiscalYearId);
+        Task<decimal> SetRqap(decimal amount, int fiscalYearId);
+        Task<decimal> SetEmploymentInsurance(decimal amount, int fiscalYearId);
     }
 }

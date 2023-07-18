@@ -9,7 +9,8 @@ namespace SCSI.Payroll.Models.Domains
 {
     public class TaxCalculationsParameters
     {
-        public decimal amount { get; set; }
-        public FiscalYear fiscalYear { get; set; }
+        public decimal Amount { get; set; }
+        public int FiscalYearId { get; set; }
+        //public FiscalYear? FiscalYear { get; set; }
     }
 }

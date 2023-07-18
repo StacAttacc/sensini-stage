@@ -1924,7 +1924,7 @@ export interface ITaxBracket {
 
 export class TaxCalculationsParameters implements ITaxCalculationsParameters {
     amount?: number;
-    fiscalYear?: FiscalYear;
+    fiscalYearId?: number;
 
     constructor(data?: ITaxCalculationsParameters) {
         if (data) {
@@ -1938,7 +1938,7 @@ export class TaxCalculationsParameters implements ITaxCalculationsParameters {
     init(_data?: any, _mappings?: any) {
         if (_data) {
             this.amount = _data["amount"];
-            this.fiscalYear = _data["fiscalYear"] ? FiscalYear.fromJS(_data["fiscalYear"], _mappings) : <any>undefined;
+            this.fiscalYearId = _data["fiscalYearId"];
         }
     }
 
@@ -1950,14 +1950,14 @@ export class TaxCalculationsParameters implements ITaxCalculationsParameters {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["amount"] = this.amount;
-        data["fiscalYear"] = this.fiscalYear ? this.fiscalYear.toJSON() : <any>undefined;
+        data["fiscalYearId"] = this.fiscalYearId;
         return data;
     }
 }
 
 export interface ITaxCalculationsParameters {
     amount?: number;
-    fiscalYear?: FiscalYear;
+    fiscalYearId?: number;
 }
 
 export class WithheldSalary implements IWithheldSalary {
