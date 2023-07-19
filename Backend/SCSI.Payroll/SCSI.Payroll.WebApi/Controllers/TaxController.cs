@@ -183,6 +183,14 @@ namespace SCSI.Payroll.WebApi.Controllers
             return Ok(result);
         }
 
+        [HttpPost("social-contribution-employer-calculate-tax")]
+        [ProducesResponseType(typeof(EmployerTaxes), StatusCodes.Status200OK)]
+        public async Task<IActionResult> ComputeEmployerTaxes([FromBody] TaxCalculationsParameters taxCalculationsParameters)
+        {
+            var result = await _taxEmployerBusiness.CalculateTaxes(taxCalculationsParameters.Amount, taxCalculationsParameters.FiscalYearId);
+            return Ok(result);
+        }
+
         [HttpPost("social-contribution-employee")]
         [ProducesResponseType(typeof(SocialContributionEmployee),StatusCodes.Status200OK)]
         public async Task<IActionResult> SaveSocialContributionEmployeeAsync([FromBody] SocialContributionEmployee socialContribution)

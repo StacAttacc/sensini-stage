@@ -19,6 +19,8 @@ import { MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_NATIVE_DATE_FORMATS, MatNativeDa
 import { DateAdapter } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCardModule } from '@angular/material/card';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -97,6 +99,8 @@ import { WithheldSalaryComponent } from './withheld-salary/withheld-salary.compo
     MatSelectModule,
     MatSnackBarModule,
     FormsModule,
+    MatGridListModule,
+    MatCardModule,
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,

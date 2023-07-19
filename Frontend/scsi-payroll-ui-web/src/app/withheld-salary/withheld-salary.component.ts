@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { FiscalYear, SocialContributionService, TaxCalculationsParameters, WithheldSalary } from '../services/payroll-api-proxy';
+import { EmployerTaxes, FiscalYear, SocialContributionService, TaxCalculationsParameters, WithheldSalary } from '../services/payroll-api-proxy';
 
 @Component({
   selector: 'app-withheld-salary',
@@ -16,17 +16,29 @@ export class WithheldSalaryComponent {
   constructor(private formBuilder: FormBuilder,
               private taxCalculationService: SocialContributionService){}
 
-  withhelpSalary:WithheldSalary = new WithheldSalary();
-  amountToPay:number = 0;
+  withhelpSalary: WithheldSalary = new WithheldSalary();
+  amountToPayEmployee: number = 0;
+
+  employerTaxes: EmployerTaxes = new EmployerTaxes();
+  amountToPayEmployer: number = 0;
 
   fiscalYearOptions: FiscalYear[] = [];
 
-  formOutput = this.formBuilder.group({
+  formOutputEmployee = this.formBuilder.group({
     rrq: [0],
     rqap: [0],
     fedTax: [0],
     provTax: [0],
     employmentInsurance: [0],
+    totalAmountToPay: [0]
+  });
+  formOutputEmployer = this.formBuilder.group({
+    rrq: [0],
+    rqap: [0],
+    employmentInsurance: [0],
+    cnesst: [0],
+    fss: [0],
+    fdrcmo: [0],
     totalAmountToPay: [0]
   });
 
@@ -36,21 +48,39 @@ export class WithheldSalaryComponent {
     tax.fiscalYearId = this.formGroup.value.fiscalYearId?? 0;
     this.taxCalculationService.socialContribubtionEmployeeCalculateTax(tax).subscribe(e => {
       this.withhelpSalary = e;
-      this.amountToPay = this.calculateAmountToPay(e.fedTax?? 0,
-                                                    e.provTax?? 0,
-                                                    e.rrq?? 0,
-                                                    e.rqap?? 0,
-                                                    e.employmentInsurance?? 0);
-      this.formOutput.patchValue(e);
-      this.formOutput.patchValue({
-        totalAmountToPay: this.amountToPay
+      this.amountToPayEmployee = this.calculateAmountToPayEmployee(e.fedTax?? 0,
+                                                            e.provTax?? 0,
+                                                            e.rrq?? 0,
+                                                            e.rqap?? 0,
+                                                            e.employmentInsurance?? 0);
+      this.formOutputEmployee.patchValue(e);
+      this.formOutputEmployee.patchValue({
+        totalAmountToPay: this.amountToPayEmployee
       });
     });
-
+    this.taxCalculationService.socialContributionEmployerCalculateTax(tax).subscribe(p => {
+      this.employerTaxes = p;
+      console.log(p);
+      this.amountToPayEmployer = this.calculateAmountToPayEmployer(p.rrq?? 0,
+                                                                    p.rqap?? 0,
+                                                                    p.employmentInsurance?? 0,
+                                                                    p.cnesst?? 0,
+                                                                    p.fss?? 0,
+                                                                    p.fdrcmo?? 0);
+      this.formOutputEmployer.patchValue(p);
+      this.formOutputEmployer.patchValue({
+        totalAmountToPay: this.amountToPayEmployer
+      });
+    });
   }
 
-  calculateAmountToPay(fed:number,prov:number, rrq:number, rqap:number, ins:number): number{
+  calculateAmountToPayEmployee(fed:number,prov:number, rrq:number, rqap:number, ins:number): number{
     let taxes = fed+prov+rrq+rqap+ins;
+    return taxes;
+  }
+
+  calculateAmountToPayEmployer(rrq:number, rqap:number, ins:number, cnesst:number, fss:number, fdrcmo:number){
+    let taxes = rrq+rqap+ins+cnesst+fss+fdrcmo;
     return taxes;
   }
 

@@ -21,41 +21,109 @@
 
 </form>
 
-<form [formGroup]="formOutput">
-  <p>
-    <mat-form-field class="mat-readonly-wrapper">
-      <mat-label>Rrq</mat-label>
-      <input class="mat-readonly-block" matInput placeholder="xxxx.xx" formControlName="rrq">
-    </mat-form-field>
-  </p>
-  <p>
-    <mat-form-field class="mat-readonly-wrapper">
-      <mat-label>Rqaq</mat-label>
-      <input class="mat-readonly-block" matInput placeholder="xxxx.xx" formControlName="rqap">
-    </mat-form-field>
-  </p>
-  <p>
-    <mat-form-field class="mat-readonly-wrapper">
-      <mat-label>Federal Tax</mat-label>
-      <input class="mat-readonly-block" matInput placeholder="xxxx.xx" formControlName="fedTax">
-    </mat-form-field>
-  </p>
-  <p>
-    <mat-form-field class="mat-readonly-wrapper">
-      <mat-label>Prov Tax</mat-label>
-      <input class="mat-readonly-block" matInput placeholder="xxxx.xx" formControlName="provTax">
-    </mat-form-field>
-  </p>
-  <p>
-    <mat-form-field class="mat-readonly-wrapper">
-      <mat-label>Employment Insurance</mat-label>
-      <input class="mat-readonly-block" matInput placeholder="xxxx.xx" formControlName="employmentInsurance">
-    </mat-form-field>
-  </p>
-  <p>
-    <mat-form-field class="mat-readonly-wrapper">
-      <mat-label>Total Amount to Pay</mat-label>
-      <input class="mat-readonly-block" matInput placeholder="xxxx.xx" formControlName="totalAmountToPay">
-    </mat-form-field>
-  </p>
-</form>
+
+<mat-grid-list cols="2" rowHeight="2:1">
+  <mat-grid-tile>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Employee</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="formOutputEmployee">
+          <p>
+            <mat-form-field class="mat-readonly-wrapper">
+              <mat-label>Rrq</mat-label>
+              <input class="mat-readonly-block" matInput placeholder="xxxx.xx" formControlName="rrq">
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field class="mat-readonly-wrapper">
+              <mat-label>Rqaq</mat-label>
+              <input class="mat-readonly-block" matInput placeholder="xxxx.xx" formControlName="rqap">
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field class="mat-readonly-wrapper">
+              <mat-label>Federal Tax</mat-label>
+              <input class="mat-readonly-block" matInput placeholder="xxxx.xx" formControlName="fedTax">
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field class="mat-readonly-wrapper">
+              <mat-label>Prov Tax</mat-label>
+              <input class="mat-readonly-block" matInput placeholder="xxxx.xx" formControlName="provTax">
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field class="mat-readonly-wrapper">
+              <mat-label>Employment Insurance</mat-label>
+              <input class="mat-readonly-block" matInput placeholder="xxxx.xx" formControlName="employmentInsurance">
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field class="mat-readonly-wrapper">
+              <mat-label>Total Amount to Pay</mat-label>
+              <input class="mat-readonly-block" matInput placeholder="xxxx.xx" formControlName="totalAmountToPay">
+            </mat-form-field>
+          </p>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Employer</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="formOutputEmployer">
+          <p>
+            <mat-form-field class="mat-readonly-wrapper">
+              <mat-label>Rrq</mat-label>
+              <input class="mat-readonly-block" matInput placeholder="xxxx.xx" formControlName="rrq">
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field class="mat-readonly-wrapper">
+              <mat-label>Rqaq</mat-label>
+              <input class="mat-readonly-block" matInput placeholder="xxxx.xx" formControlName="rqap">
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field class="mat-readonly-wrapper">
+              <mat-label>Employment Insurance</mat-label>
+              <input class="mat-readonly-block" matInput placeholder="xxxx.xx" formControlName="employmentInsurance">
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field class="mat-readonly-wrapper">
+              <mat-label>Cnesst</mat-label>
+              <input class="mat-readonly-block" matInput placeholder="xxxx.xx" formControlName="cnesst">
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field class="mat-readonly-wrapper">
+              <mat-label>Fss</mat-label>
+              <input class="mat-readonly-block" matInput placeholder="xxxx.xx" formControlName="fss">
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field class="mat-readonly-wrapper">
+              <mat-label>Fdrcmo</mat-label>
+              <input class="mat-readonly-block" matInput placeholder="xxxx.xx" formControlName="fdrcmo">
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field class="mat-readonly-wrapper">
+              <mat-label>Total Amount to Pay</mat-label>
+              <input class="mat-readonly-block" matInput placeholder="xxxx.xx" formControlName="totalAmountToPay">
+            </mat-form-field>
+          </p>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
+
+

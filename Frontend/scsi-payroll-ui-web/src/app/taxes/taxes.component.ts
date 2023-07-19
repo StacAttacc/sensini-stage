@@ -20,7 +20,7 @@ export class TaxesComponent implements OnDestroy{
   columnDefs=[
     {
       headerName: 'Fiscal Year',
-      field: 'fiscalYearId'
+      field: 'fiscalYear.year'
     },
     { field: 'rrqRate' },
     { field: 'rrqMga' },

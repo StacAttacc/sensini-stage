@@ -62,14 +62,14 @@ export class TaxesEmployerAddEditComponent {
       tax.cnesst = this.formGroup.value.cnesst?? 0;
       tax.fss = this.formGroup.value.fss?? 0;
       tax.fdrcmo = this.formGroup.value.fdrcmo?? 0;
-      this.socialContributionService.fiscalYearById(tax.fiscalYearId).subscribe(res => {
-        tax.fiscalYear = res;
+      //this.socialContributionService.fiscalYearById(tax.fiscalYearId).subscribe(res => {
+      //  tax.fiscalYear = res;
         this.socialContributionService.socialContributionEmployer(tax).subscribe(res => {
           console.log(tax);
           this.notificationService.notify(NotificationTypes.REFRESH_TAXES_EMPLOYER);
           this.notificationService.openSnackBar("Tax Saved");
         });
-      });
+      //});
     }
   }
 }
