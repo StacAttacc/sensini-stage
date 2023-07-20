@@ -106,7 +106,7 @@ namespace SCSI.Payroll.Business.Implementations
         {
             decimal amountToPay = 0;
             SocialContributionEmployer scer = await _SCERepository.GetSocialContributionEmployerByFiscalYearIdAsync(fiscalYearId);
-            if(amountToPay >= scer.RqapMga)
+            if(amount >= scer.RqapMga)
             {
                 amountToPay = scer.RqapMga * (scer.RqapRate / 100);
             }
