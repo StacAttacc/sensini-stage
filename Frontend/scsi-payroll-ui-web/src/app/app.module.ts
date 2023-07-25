@@ -55,6 +55,11 @@ import { TaxesEmployerComponent } from './taxes-employer/taxes-employer.componen
 import { TaxesEmployerAddEditComponent } from './taxes-employer/taxes-employer-add-edit/taxes-employer-add-edit.component';
 import { TaxesEmployerDeleteComponent } from './taxes-employer/taxes-employer-delete/taxes-employer-delete.component';
 import { WithheldSalaryComponent } from './withheld-salary/withheld-salary.component';
+import { LoginComponent } from './users/login/login.component';
+
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -82,7 +87,8 @@ import { WithheldSalaryComponent } from './withheld-salary/withheld-salary.compo
     TaxesEmployerComponent,
     TaxesEmployerAddEditComponent,
     TaxesEmployerDeleteComponent,
-    WithheldSalaryComponent
+    WithheldSalaryComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -104,6 +110,8 @@ import { WithheldSalaryComponent } from './withheld-salary/withheld-salary.compo
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
     AgGridModule,//.withComponents([])
     HttpClientModule
   ],

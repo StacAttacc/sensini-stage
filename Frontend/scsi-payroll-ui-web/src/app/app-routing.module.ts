@@ -10,9 +10,11 @@ import { GovernmentComponent } from './government/government.component';
 import { TaxBracketsComponent } from './tax-brackets/tax-brackets.component';
 import { TaxesEmployerComponent } from './taxes-employer/taxes-employer.component';
 import { WithheldSalaryComponent } from './withheld-salary/withheld-salary.component';
+import { LoginComponent } from './users/login/login.component';
 
 const routes: Routes = [
   {path:'', pathMatch: 'full', redirectTo: 'home'},
+  {path: 'login', component: LoginComponent},
   {path: 'employees', component: EmployeesComponent},
   {path: 'taxes', component: TaxesComponent},
   {path: 'taxes-employer', component: TaxesEmployerComponent},

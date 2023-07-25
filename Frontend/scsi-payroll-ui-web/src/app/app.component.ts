@@ -3,6 +3,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotificationServiceService } from './services/notification-service.service';
+import { initializeApp } from 'firebase/app';
 
 @Component({
   selector: 'app-root',
@@ -32,5 +33,5 @@ export class AppComponent {
     });
   }
 
-  
+
 }
