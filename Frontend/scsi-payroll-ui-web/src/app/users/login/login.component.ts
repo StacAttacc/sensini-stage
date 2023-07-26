@@ -23,13 +23,19 @@ export class LoginComponent {
 
       this.auth.signInWithEmailAndPassword(email, password)
         .then(userCredential => {
-          console.log(userCredential);
+          console.log("success ", userCredential);
+          let theUser = userCredential.user;
+          theUser?.getIdToken(/*Force refresh*/ true)
+            .then(function(idToken){
+              console.log("theToken ", idToken);
+            })
+            .catch(function(userError){
+              console.log("userError", userError);
+            });
         })
         .catch(error => {
-          console.log(error);
+          console.log("error ", error);
         });
     }
   }
-
-
 }

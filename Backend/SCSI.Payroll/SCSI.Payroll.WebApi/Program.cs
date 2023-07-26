@@ -1,3 +1,5 @@
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
 using Microsoft.EntityFrameworkCore;
 using SCSI.Payroll.Business.Contracts;
 using SCSI.Payroll.Business.Implementations;
@@ -21,7 +23,12 @@ namespace SCSI.Payroll.WebApi
             var configuration = configurationBuilder.Build();
 
             builder.Services.AddSingleton<IConfiguration>(configuration);
-            
+
+            builder.Services.AddSingleton(x => FirebaseApp.Create(new AppOptions()
+            {
+                Credential = GoogleCredential.FromFile("./scsincpr-firebase-adminsdk-dj3do-66ca6f83fd.json"),
+            }));
+
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             builder.Services.AddScoped<IEmployeeBusiness, EmployeeBusiness>();
 
@@ -78,6 +85,8 @@ namespace SCSI.Payroll.WebApi
             app.UseCors();
 
             app.UseAuthorization();
+
+            app.UseMiddleware<AuthMiddleware>();
 
             app.UseMiddleware<ExceptionMiddleware>();
 
