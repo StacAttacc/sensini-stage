@@ -14,5 +14,6 @@ namespace SCSI.Payroll.Models.Constants
         public const string YearTaken = "Year Already Taken";
         public const string CodeTaken = "Code Already Taken";
         public const string OverlapOrCoverageNotRespected = "Overlap Or Coverage Not Respected";
+        public const string UnauthorizedAccess = "Unauthorized Access";
     }
 }

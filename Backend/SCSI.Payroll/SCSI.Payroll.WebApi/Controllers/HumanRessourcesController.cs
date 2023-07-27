@@ -25,7 +25,6 @@ namespace SCSI.Payroll.WebApi.Controllers
             return Ok(employees);
         }
 
-        [Authorize]
         [HttpGet("employee-by-id")]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetEmployeeById(int id)

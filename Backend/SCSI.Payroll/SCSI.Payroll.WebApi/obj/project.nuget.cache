@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "RVFIq99b0DYo0qUtuq1ebNP/pWUy1efOwd5VVLNho+NIntJiq/PrDetAcFKPwaBUrCEFE9xRzUNNgt8VOuyT6Q==",
+  "dgSpecHash": "YrOLU+ERl1OVgF9D1x4SWmHUhXFyiJlmuEL5SnnRBbCW9wuUhzz9KGHRUx95j7+y8yQpQhUiG+gnyPswCe48mg==",
   "success": true,
   "projectFilePath": "B:\\Workspace\\sensini-stage\\Backend\\SCSI.Payroll\\SCSI.Payroll.WebApi\\SCSI.Payroll.WebApi.csproj",
   "expectedPackageFiles": [
@@ -13,6 +13,8 @@
     "C:\\Users\\14388\\.nuget\\packages\\google.apis\\1.61.0\\google.apis.1.61.0.nupkg.sha512",
     "C:\\Users\\14388\\.nuget\\packages\\google.apis.auth\\1.61.0\\google.apis.auth.1.61.0.nupkg.sha512",
     "C:\\Users\\14388\\.nuget\\packages\\google.apis.core\\1.61.0\\google.apis.core.1.61.0.nupkg.sha512",
+    "C:\\Users\\14388\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
+    "C:\\Users\\14388\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.2.0\\microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
     "C:\\Users\\14388\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\14388\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\14388\\.nuget\\packages\\microsoft.data.sqlclient\\5.0.1\\microsoft.data.sqlclient.5.0.1.nupkg.sha512",
