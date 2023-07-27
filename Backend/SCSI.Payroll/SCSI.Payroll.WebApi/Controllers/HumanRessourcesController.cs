@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SCSI.Payroll.Business.Contracts;
 using SCSI.Payroll.Models.Entities;
@@ -24,6 +25,7 @@ namespace SCSI.Payroll.WebApi.Controllers
             return Ok(employees);
         }
 
+        [Authorize]
         [HttpGet("employee-by-id")]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetEmployeeById(int id)
@@ -32,6 +34,7 @@ namespace SCSI.Payroll.WebApi.Controllers
             return Ok(employee);
         }
 
+        [Authorize]
         [HttpDelete("employee-delete-by-id")]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status200OK)]
         public async Task<IActionResult> DeleteEmployeeById(int id)
@@ -40,6 +43,7 @@ namespace SCSI.Payroll.WebApi.Controllers
             return Ok(employee);
         }
 
+        [Authorize]
         [HttpPost("employees")]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status200OK)]
         public async Task<IActionResult> SaveEmployee([FromBody] Employee employee)

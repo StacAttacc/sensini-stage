@@ -19,28 +19,31 @@ namespace SCSI.Payroll.WebApi.MiddleWares
             _firebaseApp = firebaseApp;
         }
 
-        public async Task<Task> Invoke(HttpContext httpContext)
+        public async Task Invoke(HttpContext httpContext)
         {
-            if (httpContext.Request.Headers.ContainsKey("Authorization")){
-                var authHeader  = httpContext.Request.Headers["Authorixation"].ToString();
-                var token = authHeader.Replace("Bearer ", "");
-                try
+            try
+            {
+                if (httpContext.Request.Headers.ContainsKey("Authorization"))
                 {
+                    var authHeader = httpContext.Request.Headers["Authorization"].ToString();
+                    var token = authHeader.Replace("Bearer ", "");
                     var auth = FirebaseAdmin.Auth.FirebaseAuth.GetAuth(_firebaseApp);
                     var tokenDecoded = await auth.VerifyIdTokenAsync(token);
                     var uid = tokenDecoded.Uid;
-                    //TODO: create a ClaimsIdentity and assign to httpContext
-                    //put Authorize on the endpoints
                     var claimsIdentity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, uid) });
                     httpContext.User = new ClaimsPrincipal(claimsIdentity);
                 }
-                catch (FirebaseAuthException)
-                {
-                    throw; //Write Error Message
-                }
             }
-
-            return _next(httpContext);
+            catch (FirebaseAuthException)
+            {
+                httpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                await httpContext.Response.WriteAsync("Invalid firebase token");
+                return;
+            }
+            finally
+            {
+                await _next(httpContext);
+            }
         }
     }
 

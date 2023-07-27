@@ -80,3 +80,12 @@ B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.WebApi\bin\Debug\ne
 B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.WebApi\bin\Debug\net6.0\SCSI.Payroll.Repository.pdb
 B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.WebApi\bin\Debug\net6.0\EntityFramework.SqlServer.dll
 B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.WebApi\bin\Debug\net6.0\EntityFramework.dll
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.WebApi\bin\Debug\net6.0\scsincpr-firebase-adminsdk-dj3do-66ca6f83fd.json
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.WebApi\bin\Debug\net6.0\FirebaseAdmin.dll
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.WebApi\bin\Debug\net6.0\Google.Api.Gax.dll
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.WebApi\bin\Debug\net6.0\Google.Api.Gax.Rest.dll
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.WebApi\bin\Debug\net6.0\Google.Apis.dll
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.WebApi\bin\Debug\net6.0\Google.Apis.Auth.PlatformServices.dll
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.WebApi\bin\Debug\net6.0\Google.Apis.Auth.dll
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.WebApi\bin\Debug\net6.0\Google.Apis.Core.dll
+B:\Workspace\sensini-stage\Backend\SCSI.Payroll\SCSI.Payroll.WebApi\bin\Debug\net6.0\Newtonsoft.Json.dll

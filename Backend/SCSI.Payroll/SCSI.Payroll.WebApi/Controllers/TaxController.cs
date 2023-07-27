@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SCSI.Payroll.Business.Contracts;
 using SCSI.Payroll.Models.Domains;
@@ -132,6 +133,7 @@ namespace SCSI.Payroll.WebApi.Controllers
         #endregion
 
         #region deleteById
+        [Authorize]
         [HttpDelete("social-contribution-employee-delete-by-id")]
         [ProducesResponseType(typeof(SocialContributionEmployee), StatusCodes.Status200OK)]
         public async Task<IActionResult> DeleteSoialContributionEmployeeByIdAsync(int id)
@@ -140,6 +142,7 @@ namespace SCSI.Payroll.WebApi.Controllers
             return Ok(socialContribution);
         }
 
+        [Authorize]
         [HttpDelete("social-contribution-employer-delete-by-id")]
         [ProducesResponseType(typeof(SocialContributionEmployer), StatusCodes.Status200OK)]
         public async Task<IActionResult> DeleteSocialContributionEmployerByIdAsync(int id)
@@ -148,6 +151,7 @@ namespace SCSI.Payroll.WebApi.Controllers
             return Ok(socialContribution);
         }
 
+        [Authorize]
         [HttpDelete("tax-bracket-delete-by-id")]
         [ProducesResponseType(typeof(TaxBracket), StatusCodes.Status200OK)]
         public async Task<IActionResult> DeleteTaxBracketByIdAsync(int id)
@@ -156,6 +160,7 @@ namespace SCSI.Payroll.WebApi.Controllers
             return Ok(taxBracket);
         }
 
+        [Authorize]
         [HttpDelete("fiscal-year-delete-by-id")]
         [ProducesResponseType(typeof(FiscalYear), StatusCodes.Status200OK)]
         public async Task<IActionResult> DeleteFiscalYearByIdAsync(int id)
@@ -164,6 +169,7 @@ namespace SCSI.Payroll.WebApi.Controllers
             return Ok(fiscalYear);
         }
 
+        [Authorize]
         [HttpDelete("government-delete-by-id")]
         [ProducesResponseType(typeof(Government), StatusCodes.Status200OK)]
         public async Task<IActionResult> DeleteGovernmentByIdAsync(int id)
@@ -191,6 +197,7 @@ namespace SCSI.Payroll.WebApi.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpPost("social-contribution-employee")]
         [ProducesResponseType(typeof(SocialContributionEmployee),StatusCodes.Status200OK)]
         public async Task<IActionResult> SaveSocialContributionEmployeeAsync([FromBody] SocialContributionEmployee socialContribution)
@@ -199,6 +206,7 @@ namespace SCSI.Payroll.WebApi.Controllers
             return Ok(socialContribution);
         }
 
+        [Authorize]
         [HttpPost("social-contribution-employer")]
         [ProducesResponseType(typeof(SocialContributionEmployer), StatusCodes.Status200OK)]
         public async Task<IActionResult> SaveSocialContributionEmployerAsync([FromBody] SocialContributionEmployer socialContribution)
@@ -207,6 +215,7 @@ namespace SCSI.Payroll.WebApi.Controllers
             return Ok(socialContribution);
         }
 
+        [Authorize]
         [HttpPost("tax-bracket")]
         [ProducesResponseType(typeof(TaxBracket), StatusCodes.Status200OK)]
         public async Task<IActionResult> SaveTaxBracketAsync([FromBody] TaxBracket taxBracket)
@@ -215,6 +224,7 @@ namespace SCSI.Payroll.WebApi.Controllers
             return Ok(taxBracket);
         }
 
+        [Authorize]
         [HttpPost("fiscal-year")]
         [ProducesResponseType(typeof(FiscalYear), StatusCodes.Status200OK)]
         public async Task<IActionResult> SaveFiscalYearAsync([FromBody] FiscalYear fiscalYear)
@@ -223,6 +233,7 @@ namespace SCSI.Payroll.WebApi.Controllers
             return Ok(fiscalYear);
         }
 
+        [Authorize]
         [HttpPost("government")]
         [ProducesResponseType(typeof(Government), StatusCodes.Status200OK)]
         public async Task<IActionResult> SaveGovernmentAsync([FromBody] Government government)
