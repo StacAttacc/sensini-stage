@@ -7,25 +7,22 @@ import {
   HttpResponse
 } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-import { LoginService } from './payroll-api-proxy';
 import { CookieService } from 'ngx-cookie-service';
 
 @Injectable()
 export class SecurityTokenInterceptor implements HttpInterceptor {
 
-  constructor(private authService: LoginService,
-              private cookieService: CookieService) {}
+  constructor(private cookieService: CookieService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if(request.url.includes('/api/users/login')){
-      return next.handle(request).pipe(
-        tap(event => {
-          if(event instanceof HttpResponse){
-            const decodedToken = event.body;
-            this.cookieService.set('token', decodedToken);
-          }
-        })
-      )
+    let token = this.cookieService.get("Authorization");
+
+    if (token) {
+      request = request.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`
+        }
+      });
     }
 
     return next.handle(request);
