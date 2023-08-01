@@ -137,7 +137,7 @@ import { SecurityTokenInterceptor } from './services/security-token.interceptor'
       provide: HTTP_INTERCEPTORS,
       useClass: HttpRequestInterceptorService,
       multi: true
-    }
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: SecurityTokenInterceptor,

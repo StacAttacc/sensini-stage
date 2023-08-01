@@ -36,8 +36,9 @@ export class LoginComponent {
           console.log("success ", userCredential);
           let theUser = userCredential.user;
           theUser?.getIdToken(/*Force refresh*/ true)
-            .then(function(idToken){
+            .then((idToken) =>{
               console.log("theToken ", idToken);
+              this.setToken(idToken);
             })
             .catch(function(userError){
               console.log("userError", userError);
