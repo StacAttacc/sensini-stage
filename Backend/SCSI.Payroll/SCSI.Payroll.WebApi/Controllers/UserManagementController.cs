@@ -2,31 +2,40 @@
 using FirebaseAdmin.Auth;
 using Google.Apis.Auth.OAuth2;
 using Microsoft.AspNetCore.Mvc;
+using SCSI.Payroll.Models.Domains;
 
 namespace SCSI.Payroll.WebApi.Controllers
 {
     [Route("api/users/login")]
     [ApiController]
-    public class UserManagementController : ControllerBase
+    public class UserManagementController : Controller
     {
-        private FirebaseAuth _auth;
+        private readonly IConfiguration _configuration;
 
-        public UserManagementController(FirebaseAuth auth)
+        public UserManagementController(IConfiguration configuration)
         {
-            _auth = auth;
+            _configuration = configuration;
         }
 
-        [HttpPost("makeAdmin")]
-        public async Task<IActionResult> MakeAdmin(string uid)
+        [HttpPost("login")]
+        [ProducesResponseType(typeof(FirebaseToken), StatusCodes.Status200OK)]
+        public async Task<IActionResult> Login([FromBody] string token)
         {
-            var claims = new Dictionary<string, object>()
+            FirebaseToken decodedToken;
+            try
             {
-                { "admin", true }
-            };
-
-            await _auth.SetCustomUserClaimsAsync(uid, claims);
-
-            return Ok();
+                decodedToken = await FirebaseAdmin.Auth.FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(token);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            Response.Cookies.Append("token", token, new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true
+            });
+            return Ok(decodedToken);
         }
 
     }

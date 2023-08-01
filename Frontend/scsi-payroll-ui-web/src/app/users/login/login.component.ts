@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FormBuilder, Validators } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,16 @@ export class LoginComponent {
   });
 
   constructor(public auth: AngularFireAuth,
-              private formBuilder: FormBuilder){}
+              private formBuilder: FormBuilder,
+              private cookieSerice: CookieService){}
+
+  setToken(token: string): void{
+    this.cookieSerice.set("Authorization", token);
+  }
+
+  getToken(): string{
+    return this.cookieSerice.get("Authorization");
+  }
 
   onSubmit(){
     if (this.loginForm.valid){

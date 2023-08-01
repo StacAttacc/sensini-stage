@@ -60,6 +60,7 @@ import { LoginComponent } from './users/login/login.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from '../environments/environment';
+import { SecurityTokenInterceptor } from './services/security-token.interceptor';
 
 @NgModule({
   declarations: [
@@ -135,6 +136,11 @@ import { environment } from '../environments/environment';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpRequestInterceptorService,
+      multi: true
+    }
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: SecurityTokenInterceptor,
       multi: true
     }
   ],
