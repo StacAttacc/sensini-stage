@@ -94,7 +94,7 @@ namespace SCSI.Payroll.WebApi
 
             app.UseMiddleware<AuthMiddleware>();
 
-            app.UseAuthMiddleware();
+            //app.UseAuthMiddleware();
 
             app.UseMiddleware<ExceptionMiddleware>();
 
@@ -102,7 +102,7 @@ namespace SCSI.Payroll.WebApi
 
             app.UseAuthorization();
 
-            AddAdminClaim(defaultApp).GetAwaiter().GetResult();
+            //AddAdminClaim(defaultApp).GetAwaiter().GetResult();
 
             app.MapControllers();
 

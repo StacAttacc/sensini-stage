@@ -30,8 +30,17 @@ namespace SCSI.Payroll.WebApi.MiddleWares
                     var auth = FirebaseAdmin.Auth.FirebaseAuth.GetAuth(_firebaseApp);
                     var tokenDecoded = await auth.VerifyIdTokenAsync(token);
                     var uid = tokenDecoded.Uid;
-                    var claimsIdentity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, uid) });
-                    httpContext.User = new ClaimsPrincipal(claimsIdentity);
+                    //var claimsIdentity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, uid) });
+
+                    var claims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Name, tokenDecoded.Uid),
+                        // You can add more claims based on the decoded token information.
+                    };
+
+                    var identity = new ClaimsIdentity(claims, "Firebase");
+
+                    httpContext.User = new ClaimsPrincipal(identity);
                 }
             }
             catch (FirebaseAuthException)
