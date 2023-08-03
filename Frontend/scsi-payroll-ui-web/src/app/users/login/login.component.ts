@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FormBuilder, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from 'src/app/services/core/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -16,9 +17,18 @@ export class LoginComponent {
 
   constructor(public auth: AngularFireAuth,
               private formBuilder: FormBuilder,
-              private cookieSerice: CookieService){}
+              private cookieSerice: CookieService,
+              public authService: AuthService){}
 
-  setToken(token: string): void{
+  login(){
+    return this.authService.GoogleAuth();
+  }
+
+  logout(){
+    return this.authService.SignOut();
+  }
+
+  /*setToken(token: string): void{
     this.cookieSerice.set("Authorization", token);
   }
 
@@ -35,7 +45,7 @@ export class LoginComponent {
         .then(userCredential => {
           console.log("success ", userCredential);
           let theUser = userCredential.user;
-          theUser?.getIdToken(/*Force refresh*/ true)
+          theUser?.getIdToken(/*Force refresh*//* true)
             .then((idToken) =>{
               console.log("theToken ", idToken);
               this.setToken(idToken);
@@ -48,5 +58,5 @@ export class LoginComponent {
           console.log("error ", error);
         });
     }
-  }
+  }*/
 }

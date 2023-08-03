@@ -2,43 +2,54 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { CookieService } from 'ngx-cookie-service';
-import { LoginService } from '../payroll-api-proxy';
+import { getAuth, GoogleAuthProvider, signInWithPopup, getIdToken, signOut } from "firebase/auth";
+import { initializeApp } from 'firebase/app';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private auth;
 
-  constructor(private httpClient: HttpClient,
-              private cookieService: CookieService,
-              public auth: AngularFireAuth,
-              public loginService: LoginService) { }
-
-  login(email: string, password: string){
-    let userToken: string;
-    this.auth.signInWithEmailAndPassword(email, password)
-      .then(userCredential => {
-        console.log("success ", userCredential);
-        let theUser = userCredential.user;
-        theUser?.getIdToken(/*Force refresh*/ true)
-          .then(function(idToken){
-            console.log("theToken ", idToken);
-            userToken = idToken;
-          })
-          .catch(function(userError){
-            console.log("userError", userError);
-          })
-          .finally(() => {
-            if(userToken != ''){
-              this.backendLogin(userToken);
-            }
-          });
-      })
-      .catch(error => {
-        console.log("error ", error);
-      });
+  constructor(private cookieService: CookieService) {
+    const app = initializeApp({
+      apiKey: "AIzaSyBWZyARd11xBPDkWYLyrKMvT0Xhnj-kxu4",
+      authDomain: "scsincpr.firebaseapp.com",
+      projectId: "scsincpr",
+      storageBucket: "scsincpr.appspot.com",
+      messagingSenderId: "366822093486",
+      appId: "1:366822093486:web:25a7ff2874f79b9498733f",
+      measurementId: "G-Q3VM4EX1LE"
+    });
+    this.auth = getAuth(app);
   }
-  backendLogin(token: string){
-    this.loginService.login(token).subscribe();
+
+  GoogleAuth() {
+    const provider = new GoogleAuthProvider();
+    return this.AuthLogin(provider);
+  }
+
+  AuthLogin(provider:any) {
+    return signInWithPopup(this.auth, provider)
+      .then((result) => {
+        console.log('You have been successfully logged in!')
+
+        const user = result.user;
+        console.log('Display Name: ' + user.displayName);
+
+        getIdToken(user).then((idToken) => {
+          console.log('ID Token: ' + idToken);
+          this.cookieService.set("Autorization", idToken);
+        });
+
+      }).catch((error) => {
+        console.log(error)
+      })
+  }
+
+  SignOut() {
+    return signOut(this.auth).then(() => {
+      console.log('Sign out successful')
+    })
   }
 }
