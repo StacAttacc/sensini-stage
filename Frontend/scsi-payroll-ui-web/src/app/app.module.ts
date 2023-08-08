@@ -61,6 +61,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from '../environments/environment';
 import { SecurityTokenInterceptor } from './services/security-token.interceptor';
+import { authguardGuard } from './services/authguard.guard';
 
 @NgModule({
   declarations: [

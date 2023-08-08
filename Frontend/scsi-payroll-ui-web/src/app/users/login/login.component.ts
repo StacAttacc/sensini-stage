@@ -28,35 +28,4 @@ export class LoginComponent {
     return this.authService.SignOut();
   }
 
-  /*setToken(token: string): void{
-    this.cookieSerice.set("Authorization", token);
-  }
-
-  getToken(): string{
-    return this.cookieSerice.get("Authorization");
-  }
-
-  onSubmit(){
-    if (this.loginForm.valid){
-      let email = this.loginForm.value.email?? '';
-      let password = this.loginForm.value.password?? '';
-
-      this.auth.signInWithEmailAndPassword(email, password)
-        .then(userCredential => {
-          console.log("success ", userCredential);
-          let theUser = userCredential.user;
-          theUser?.getIdToken(/*Force refresh*//* true)
-            .then((idToken) =>{
-              console.log("theToken ", idToken);
-              this.setToken(idToken);
-            })
-            .catch(function(userError){
-              console.log("userError", userError);
-            });
-        })
-        .catch(error => {
-          console.log("error ", error);
-        });
-    }
-  }*/
 }

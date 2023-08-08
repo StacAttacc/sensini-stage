@@ -49,7 +49,12 @@ export class AuthService {
 
   SignOut() {
     return signOut(this.auth).then(() => {
+      this.cookieService.delete("Autorization");
       console.log('Sign out successful')
     })
+  }
+
+  getToken(){
+    return this.cookieService.get("Autorization");
   }
 }
