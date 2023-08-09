@@ -4,6 +4,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotificationServiceService } from './services/notification-service.service';
 import { initializeApp } from 'firebase/app';
+import { AuthService } from './services/core/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,8 @@ export class AppComponent {
   constructor(private observer: BreakpointObserver,
               private changeDetectorRef: ChangeDetectorRef,
               private snackBar: MatSnackBar,
-              private notificationService: NotificationServiceService){
+              private notificationService: NotificationServiceService,
+              public authService: AuthService){
               }
 
 
@@ -33,5 +35,7 @@ export class AppComponent {
     });
   }
 
-
+  logout(){
+    this.authService.SignOut();
+  }
 }

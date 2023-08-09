@@ -62,6 +62,8 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from '../environments/environment';
 import { SecurityTokenInterceptor } from './services/security-token.interceptor';
 import { authguardGuard } from './services/authguard.guard';
+import { HelpComponentComponent } from './help-component/help-component.component';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +92,9 @@ import { authguardGuard } from './services/authguard.guard';
     TaxesEmployerAddEditComponent,
     TaxesEmployerDeleteComponent,
     WithheldSalaryComponent,
-    LoginComponent
+    LoginComponent,
+    HelpComponentComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,

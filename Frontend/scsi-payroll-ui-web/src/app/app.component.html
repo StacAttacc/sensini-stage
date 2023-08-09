@@ -9,10 +9,10 @@
 <mat-sidenav-container>
 
   <mat-sidenav #sidenav="matSidenav">
-    <button mat-button class="menu-button" routerLink="/login" routerLinkActive="active">
+    <!--button mat-button class="menu-button" routerLink="/login" routerLinkActive="active">
       <mat-icon>home</mat-icon>
       <span>Login</span>
-    </button>
+    </button-->
 
     <button mat-button class="menu-button" routerLink="/employees" routerLinkActive="active">
       <mat-icon>person</mat-icon>
@@ -51,9 +51,14 @@
 
     <mat-divider></mat-divider>
 
-    <button mat-button class="menu-button" routerLinkActive="active">
+    <button mat-button class="menu-button" routerLink="/help" routerLinkActive="active">
       <mat-icon>help</mat-icon>
       <span>Help</span>
+    </button>
+
+    <button mat-button class="menu-button" routerLink="/logout" (click)="logout()" routerLinkActive="active">
+      <mat-icon>exit_to_app</mat-icon>
+      <span>Logout</span>
     </button>
   </mat-sidenav>
 

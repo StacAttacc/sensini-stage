@@ -14,61 +14,61 @@ import { LoginComponent } from './users/login/login.component';
 import { authguardGuard } from './services/authguard.guard';
 import { AuthService } from './services/core/auth.service';
 import { AuthGuard } from './services/guard-service.guard';
+import { HelpComponentComponent } from './help-component/help-component.component';
+import { LogoutComponent } from './logout/logout.component';
 
 const routes: Routes = [
   {
     path:'',
     pathMatch: 'full',
-    redirectTo: 'login',
+    redirectTo: 'employees',
   },
-  {
+  /*{
     path: 'login',
     component: LoginComponent
-  },
+  },*/
   {
     path: 'employees',
     component: EmployeesComponent,
     canActivate: [(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => inject(AuthGuard).canActivate(route, state)],
-    //data: { injector: Injector.create({ providers: [{ provide: AuthService, useClass: AuthService }] }) }
-  },
+   },
   {
     path: 'taxes',
     component: TaxesComponent,
     canActivate: [(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => inject(AuthGuard).canActivate(route, state)],
-    //canActivate: [authguardGuard],
-    //data: { injector: Injector.create({ providers: [{ provide: AuthService, useClass: AuthService }] }) }
   },
   {
     path: 'taxes-employer',
     component: TaxesEmployerComponent,
     canActivate: [(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => inject(AuthGuard).canActivate(route, state)],
-    //canActivate: [authguardGuard],
-    //data: { injector: Injector.create({ providers: [{ provide: AuthService, useClass: AuthService }] }) }
   },
   {
     path: 'fiscal-years',
     component: FiscalYearsComponent,
     canActivate: [(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => inject(AuthGuard).canActivate(route, state)],
-    //canActivate: [authguardGuard],
-    //data: { injector: Injector.create({ providers: [{ provide: AuthService, useClass: AuthService }] }) }
   },
   {
     path: 'governments',
     component: GovernmentComponent,
     canActivate: [(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => inject(AuthGuard).canActivate(route, state)],
-    //canActivate: [authguardGuard],
-    //data: { injector: Injector.create({ providers: [{ provide: AuthService, useClass: AuthService }] }) }
   },
   {
     path: 'tax-brackets',
     component: TaxBracketsComponent,
     canActivate: [(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => inject(AuthGuard).canActivate(route, state)],
-    //canActivate: [authguardGuard],
-    //data: { injector: Injector.create({ providers: [{ provide: AuthService, useClass: AuthService }] }) }
   },
   {
     path: 'withheld-salary',
-    component: WithheldSalaryComponent
+    component: WithheldSalaryComponent,
+    canActivate: [(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => inject(AuthGuard).canActivate(route, state)],
+  },
+  {
+    path: 'help',
+    component: HelpComponentComponent
+  },
+  {
+    path: 'logout',
+    component: LogoutComponent
   },
   {
     path: '**',

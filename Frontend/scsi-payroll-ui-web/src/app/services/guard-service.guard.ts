@@ -6,13 +6,14 @@ import { AuthService } from './core/auth.service'; // Adjust the path to your Au
   providedIn: 'root',
 })
 export class AuthGuard {
-  constructor(private injector: Injector) {}
+  constructor(private injector: Injector/*, public authService: AuthService*/) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const authService = this.injector.get(AuthService);
     if (authService && authService.getToken()) {
       return true;
     }
+    authService.GoogleAuth();
     return false;
   }
 }
